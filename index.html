@@ -9,18 +9,11 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Merriweather&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
 
-  <!-- three.js (r134) 여러 빌드 -->
-  <!-- 실제로는 이 중 하나만 쓰면 됩니다. -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.module.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.module.min.js"></script>
-
-  <!-- vanta.net (CDN) -->
-  <script src="https://cdn.jsdelivr.net/npm/vanta@0.5.24/dist/vanta.net.min.js"></script>
+  <!-- 최신 three.js 및 Vanta.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
 
   <style>
-    /* 기본 리셋 */
     * {
       margin: 0;
       padding: 0;
@@ -30,18 +23,18 @@
       width: 100%;
       height: 100%;
       font-family: 'Merriweather', serif;
-      background: #000; /* 검정 배경 */
+      background: #000;
       overflow: hidden;
-      color: #fff;      /* 흰색 텍스트 */
+      color: #fff;
     }
-
+    
     /* Vanta.js 배경 */
-    #vanta-bg {
+    .vanta-bg {
       position: absolute;
       width: 100%;
       height: 100%;
       top: 0; left: 0;
-      z-index: -1; /* 뒤로 */
+      z-index: -1;
     }
 
     /* 학교 로고 */
@@ -54,7 +47,6 @@
     .emblem-container img {
       width: 80px;
       height: auto;
-      filter: none; /* 흰색 로고라면 invert 제거 */
     }
 
     /* 메인 콘텐츠 */
@@ -72,28 +64,22 @@
       align-items: flex-start;
     }
 
-    /* 큰 제목 */
     h1 {
       font-family: 'Playfair Display', serif;
       font-size: 3.5rem;
       margin-bottom: 20px;
-      color: #fff;
     }
-    /* 소제목 */
     h2 {
       font-family: 'Playfair Display', serif;
       font-size: 1.8rem;
       margin-bottom: 20px;
-      color: #fff;
     }
     p {
       font-size: 1rem;
       line-height: 1.6;
       margin-bottom: 1em;
-      color: #fff;
     }
 
-    /* 메뉴 */
     nav ul {
       list-style: none;
       display: flex;
@@ -111,17 +97,14 @@
   </style>
 </head>
 <body>
-  <!-- Vanta.js 배경용 -->
-  <div id="vanta-bg"></div>
+  <div class="vanta-bg"></div>
 
-  <!-- 학교 로고 -->
   <div class="emblem-container">
     <img 
       src="https://raw.githubusercontent.com/dislab5504/dislab5504.github.io/main/src/img/cnu_logo.png" 
       alt="CNU Emblem">
   </div>
 
-  <!-- 메인 콘텐츠 -->
   <div class="content">
     <h1>Distributed Intelligence &amp; System Laboratory</h1>
     <h2>ChungNam National University</h2>
@@ -138,24 +121,24 @@
     </nav>
   </div>
 
-  <!-- VANTA.NET 설정 -->
   <script>
-    VANTA.NET({
-      el: "#vanta-bg",
-      mouseControls: true,
-      touchControls: true,
-      gyroControls: false,
-      minHeight: 200.00,
-      minWidth: 200.00,
-      scale: 1.00,
-      scaleMobile: 1.00,
-      color: 0xe89595,   // 분홍빛
-      backgroundColor: 0x0, // 검정
-      points: 10,
-      maxDistance: 20,
-      spacing: 15,
-      showDots: false
-    });
+    var setVanta = () => {
+      if (window.VANTA) {
+        window.VANTA.NET({
+          el: ".vanta-bg",
+          mouseControls: true,
+          touchControls: true,
+          gyroControls: false,
+          minHeight: 200.00,
+          minWidth: 200.00,
+          scale: 1.00,
+          scaleMobile: 1.00,
+          color: 0xffffff,
+          backgroundColor: 0x41
+        });
+      }
+    };
+    setVanta();
   </script>
 </body>
 </html>
