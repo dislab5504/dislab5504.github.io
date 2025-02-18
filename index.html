@@ -2,142 +2,206 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <title>3D Network Background Example</title>
+  <title>Distributed Intelligence & System Laboratory</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- 구글 폰트 예시(선택) -->
+  <!-- 구글 폰트: Playfair Display (제목), Merriweather (본문) -->
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Merriweather&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+
+  <!-- particles.js (CDN) -->
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 
   <style>
+    /* 기본 리셋 */
+    * {
+      margin: 0; 
+      padding: 0; 
+      box-sizing: border-box;
+    }
     html, body {
-      margin: 0; padding: 0;
-      width: 100%; height: 100%;
-      background: #000; /* 검정색 배경 */
-      overflow: hidden; /* 스크롤바 숨김 */
+      width: 100%; 
+      height: 100%;
       font-family: 'Merriweather', serif;
-      color: #fff;
+      background: #fff;
+      overflow: hidden; /* 필요시 auto 로 변경하여 스크롤 허용 */
     }
 
-    /* 메인 콘텐츠(원한다면 추가) */
+    /* 파티클 표시 영역 */
+    #particles-js {
+      position: absolute;
+      width: 100%; 
+      height: 100%;
+      top: 0; 
+      left: 0;
+      z-index: -1; /* 배경 뒤로 */
+    }
+
+    /* 학교 앰블럼(로고) 배치 */
+    .emblem-container {
+      position: absolute;
+      top: 20px; 
+      left: 20px;
+      z-index: 9999; /* 콘텐츠보다 위 */
+    }
+    .emblem-container img {
+      width: 80px; /* 로고 크기 */
+      height: auto;
+      /* 흰색을 검정색으로 보이게 하기 위해 invert 필터 사용 */
+      filter: invert(1);
+    }
+
+    /* 실제 콘텐츠를 감싸는 컨테이너 */
     .content {
       position: relative;
-      z-index: 10; /* 배경 캔버스보다 위로 */
-      width: 100%;
-      height: 100%;
+      z-index: 10;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      align-items: center;
-      text-align: center;
+      align-items: flex-start; /* 가운데 정렬시 center */
+      width: 80%;
+      max-width: 1200px;
+      margin: 0 auto;
+      height: 100%;
+      padding: 40px;
     }
+
+    /* 큰 제목 스타일 */
     h1 {
-      font-size: 2rem;
-      margin-bottom: 1rem;
+      font-family: 'Playfair Display', serif;
+      font-size: 3.5rem;
+      line-height: 1.2;
+      margin-bottom: 20px;
+    }
+
+    /* 소제목 스타일 */
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+    }
+
+    p {
+      font-size: 1rem;
+      line-height: 1.6;
+      margin-bottom: 1em;
+    }
+
+    /* 메뉴 스타일 */
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+    }
+    nav ul li a {
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+    nav ul li a:hover {
+      color: #666;
     }
   </style>
 </head>
 <body>
-  <!-- 실제 내용 영역 (원한다면) -->
-  <div class="content">
-    <h1>Distributed Intelligence &amp; System Laboratory</h1>
-    <p>Three.js 애니메이션 배경 예시</p>
+  <!-- 파티클 표시용 -->
+  <div id="particles-js"></div>
+
+  <!-- 학교 앰블럼(로고) -->
+  <div class="emblem-container">
+    <img 
+      src="https://raw.githubusercontent.com/dislab5504/dislab5504.github.io/main/src/img/cnu_logo.png" 
+      alt="CNU Emblem">
   </div>
 
-  <!-- three.js (CDN) -->
-  <script src="https://cdn.jsdelivr.net/npm/three@0.150.1/build/three.min.js"></script>
+  <!-- 메인 콘텐츠 -->
+  <div class="content">
+    <h1>Distributed Intelligence &amp; System Laboratory</h1>
+    <h2>ChungNam National University</h2>
+    <p>Welcome to our laboratory website.</p>
 
+    <nav>
+      <ul>
+        <li><a href="#">Research</a></li>
+        <li><a href="#">People</a></li>
+        <li><a href="#">Publications</a></li>
+        <li><a href="#">Multimedia</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <!-- particles.js 설정 -->
   <script>
-    let scene, camera, renderer;
-    let mesh, geometry;
-    let clock = new THREE.Clock();
-
-    function init() {
-      // 1) 장면(씬) 만들기
-      scene = new THREE.Scene();
-
-      // 2) 카메라
-      camera = new THREE.PerspectiveCamera(
-        75, // 시야각
-        window.innerWidth / window.innerHeight, // 종횡비
-        0.1, // near
-        1000 // far
-      );
-      camera.position.z = 45; // 카메라를 뒤로 배치
-
-      // 3) 렌더러
-      renderer = new THREE.WebGLRenderer({ antialias: true });
-      renderer.setSize(window.innerWidth, window.innerHeight);
-      document.body.appendChild(renderer.domElement);
-
-      // 4) 지오메트리(평면) + 머티리얼(와이어프레임)
-      //    세분화가 많을수록 그물망이 촘촘
-      geometry = new THREE.PlaneGeometry(60, 30, 60, 30);
-
-      // 여러 색상(초록/빨강)을 혼합하는 방법 (vertexColors) 예시
-      // 각 버텍스마다 색을 할당해보자.
-      const colorGreen = new THREE.Color(0x00ff00);
-      const colorRed   = new THREE.Color(0xff0000);
-      const verticesCount = geometry.attributes.position.count;
-
-      // geometry에 Color attribute 추가
-      const colors = [];
-      for (let i = 0; i < verticesCount; i++) {
-        // 절반은 초록, 절반은 빨강 or 무작위
-        // 여기서는 x 좌표에 따라 색을 섞어봄
-        const x = geometry.attributes.position.getX(i);
-        // -30 ~ 30 범위 가정 -> 0~1로 매핑
-        const ratio = (x + 30) / 60; 
-        // color.lerpColors( color1, color2, alpha )로 중간색
-        const c = new THREE.Color();
-        c.lerpColors(colorGreen, colorRed, ratio);
-        colors.push(c.r, c.g, c.b);
-      }
-      geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
-
-      // 머티리얼에 vertexColors: true 설정
-      const material = new THREE.MeshBasicMaterial({
-        wireframe: true,
-        vertexColors: true // 버텍스 색상 사용
-      });
-
-      mesh = new THREE.Mesh(geometry, material);
-      mesh.rotation.x = -Math.PI / 2; // 평면을 위로 세움
-      scene.add(mesh);
-
-      // 5) 애니메이션 루프 시작
-      animate();
-
-      // 리사이즈 이벤트
-      window.addEventListener('resize', onWindowResize);
-    }
-
-    function animate() {
-      requestAnimationFrame(animate);
-
-      const time = clock.getElapsedTime();
-      // geometry 속성 업데이트
-      // vertex를 살짝 흔들어 네트처럼 움직이는 느낌
-      const positions = geometry.attributes.position;
-      for (let i = 0; i < positions.count; i++) {
-        const x = positions.getX(i);
-        const y = positions.getY(i);
-        // 예시: x, y, time을 이용해 물결 모양
-        const wave = Math.sin(x * 0.5 + time * 2) + Math.cos(y * 0.3 + time * 1.5);
-        positions.setZ(i, wave * 0.8);
-      }
-      positions.needsUpdate = true;
-
-      renderer.render(scene, camera);
-    }
-
-    function onWindowResize() {
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
-    }
-
-    init();
+    particlesJS("particles-js", {
+      "particles": {
+        "number": {
+          "value": 90,
+          "density": {
+            "enable": true,
+            "value_area": 800
+          }
+        },
+        "color": {
+          "value": "#000000"
+        },
+        "shape": {
+          "type": "circle",
+          "stroke": {
+            "width": 0,
+            "color": "#000000"
+          }
+        },
+        "opacity": {
+          "value": 0.5,
+          "random": false
+        },
+        "size": {
+          "value": 2,
+          "random": true
+        },
+        "line_linked": {
+          "enable": true,
+          "distance": 150,
+          "color": "#999999",
+          "opacity": 0.6,
+          "width": 1
+        },
+        "move": {
+          "enable": true,
+          "speed": 2,
+          "direction": "none",
+          "random": false,
+          "straight": false,
+          "out_mode": "out"
+        }
+      },
+      "interactivity": {
+        "detect_on": "canvas",
+        "events": {
+          "onhover": {
+            "enable": true,
+            "mode": "repulse"
+          },
+          "onclick": {
+            "enable": true,
+            "mode": "push"
+          },
+          "resize": true
+        },
+        "modes": {
+          "repulse": {
+            "distance": 100,
+            "duration": 0.4
+          },
+          "push": {
+            "particles_nb": 4
+          }
+        }
+      },
+      "retina_detect": true
+    });
   </script>
 </body>
 </html>
