@@ -9,27 +9,27 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Merriweather&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
 
-  <!-- three.js + vanta.net (CDN) -->
+  <!-- three.js + vanta.net (jsDelivr CDN) -->
   <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/build/three.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vanta@0.5.24/dist/vanta.net.min.js"></script>
 
   <style>
     /* 기본 리셋 */
     * {
-      margin: 0;
-      padding: 0;
+      margin: 0; 
+      padding: 0; 
       box-sizing: border-box;
     }
     html, body {
-      width: 100%;
+      width: 100%; 
       height: 100%;
       font-family: 'Merriweather', serif;
-      background: #000;  /* 배경 검정 */
-      overflow: hidden;  /* 필요 시 auto로 변경 */
+      background: #000;  /* 검정색 배경 */
+      overflow: hidden;  /* 필요시 auto로 변경 */
       color: #fff;       /* 텍스트 흰색 */
     }
 
-    /* Vanta.js 배경 컨테이너 */
+    /* Vanta.js 배경 */
     #vanta-bg {
       position: absolute;
       width: 100%;
@@ -49,7 +49,7 @@
     .emblem-container img {
       width: 80px;
       height: auto;
-      filter: none; /* 로고가 흰색이라면 invert 제거 */
+      filter: none; /* 로고가 흰색이면 invert 제거 */
     }
 
     /* 메인 콘텐츠 */
@@ -63,8 +63,8 @@
       padding: 40px;
       display: flex;
       flex-direction: column;
-      justify-content: center;   /* 세로 정렬 */
-      align-items: flex-start;   /* 가로 정렬(가운데 정렬은 center) */
+      justify-content: center;
+      align-items: flex-start; 
     }
 
     /* 큰 제목 */
@@ -89,7 +89,7 @@
       color: #fff;
     }
 
-    /* 메뉴 스타일 */
+    /* 메뉴 */
     nav ul {
       list-style: none;
       display: flex;
@@ -107,7 +107,7 @@
   </style>
 </head>
 <body>
-  <!-- Vanta.js 배경용 -->
+  <!-- Vanta.js 배경 -->
   <div id="vanta-bg"></div>
 
   <!-- 학교 로고 -->
@@ -134,7 +134,7 @@
     </nav>
   </div>
 
-  <!-- VANTA.NET 설정 스크립트 -->
+  <!-- VANTA.NET 설정 -->
   <script>
     VANTA.NET({
       el: "#vanta-bg",
@@ -145,12 +145,12 @@
       minWidth: 200.00,
       scale: 1.00,
       scaleMobile: 1.00,
-      color: 0xe89595,        // 분홍빛
-      backgroundColor: 0x0,   // 검정색
-      points: 10,
-      maxDistance: 20,
-      spacing: 15,
-      showDots: false
+      color: 0xff3f81,        // 분홍빛 (원하시는 색상)
+      backgroundColor: 0x0,   // 검정(#000)
+      points: 12,             // 점 개수
+      maxDistance: 25,        // 연결 거리
+      spacing: 18,            // 그물 간격
+      showDots: true          // 점 표시
     });
   </script>
 </body>
