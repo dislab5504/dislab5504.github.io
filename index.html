@@ -15,20 +15,25 @@
   <style>
     /* 기본 리셋 */
     * {
-      margin: 0; padding: 0; box-sizing: border-box;
+      margin: 0; 
+      padding: 0; 
+      box-sizing: border-box;
     }
     html, body {
-      width: 100%; height: 100%;
+      width: 100%; 
+      height: 100%;
       font-family: 'Merriweather', serif;
       background: #fff;
-      overflow: hidden; /* 필요시 스크롤 허용으로 변경 */
+      overflow: hidden; /* 필요시 auto 로 변경하여 스크롤 허용 */
     }
 
     /* 파티클 표시 영역 */
     #particles-js {
       position: absolute;
-      width: 100%; height: 100%;
-      top: 0; left: 0;
+      width: 100%; 
+      height: 100%;
+      top: 0; 
+      left: 0;
       z-index: -1; /* 배경 뒤로 */
     }
 
@@ -40,8 +45,10 @@
       z-index: 9999; /* 콘텐츠보다 위 */
     }
     .emblem-container img {
-      width: 80px; /* 로고 크기 조절 */
+      width: 80px; /* 로고 크기 */
       height: auto;
+      /* 흰색을 검정색으로 보이게 하기 위해 invert 필터 사용 */
+      filter: invert(1);
     }
 
     /* 실제 콘텐츠를 감싸는 컨테이너 */
@@ -51,8 +58,7 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      /* 가운데 정렬을 원하면 align-items: center; 로 변경 */
-      align-items: flex-start;
+      align-items: flex-start; /* 가운데 정렬시 center */
       width: 80%;
       max-width: 1200px;
       margin: 0 auto;
