@@ -2,89 +2,93 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <title>Distributed Intelligence & System Laboratory</title>
+  <title>Distributed Intelligence &amp; System Laboratory</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!-- 구글 폰트: Playfair Display (제목), Merriweather (본문) -->
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Merriweather&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
 
-  <!-- particles.js (CDN) -->
-  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <!-- three.js + vanta.net -->
+  <script src="three.r134.min.js"></script>
+  <script src="vanta.net.min.js"></script>
 
   <style>
     /* 기본 리셋 */
     * {
-      margin: 0; 
-      padding: 0; 
+      margin: 0;
+      padding: 0;
       box-sizing: border-box;
     }
     html, body {
-      width: 100%; 
+      width: 100%;
       height: 100%;
       font-family: 'Merriweather', serif;
-      background: #fff;
-      overflow: hidden; /* 필요시 auto 로 변경하여 스크롤 허용 */
+      background: #000; /* 검정색 배경 */
+      overflow: hidden; /* 필요시 auto로 변경 */
+      color: #fff;      /* 텍스트 흰색 */
     }
 
-    /* 파티클 표시 영역 */
-    #particles-js {
+    /* Vanta.js 배경 컨테이너 */
+    #vanta-bg {
       position: absolute;
-      width: 100%; 
+      width: 100%;
       height: 100%;
-      top: 0; 
+      top: 0;
       left: 0;
       z-index: -1; /* 배경 뒤로 */
     }
 
-    /* 학교 앰블럼(로고) 배치 */
+    /* 학교 앰블럼(로고) */
     .emblem-container {
       position: absolute;
-      top: 20px; 
+      top: 20px;
       left: 20px;
       z-index: 9999; /* 콘텐츠보다 위 */
     }
     .emblem-container img {
-      width: 80px; /* 로고 크기 */
+      width: 80px;
       height: auto;
-      /* 흰색을 검정색으로 보이게 하기 위해 invert 필터 사용 */
-      filter: invert(1);
+      filter: none; /* invert 제거하여 원본 흰색 로고 유지 */
     }
 
-    /* 실제 콘텐츠를 감싸는 컨테이너 */
+    /* 메인 콘텐츠 컨테이너 */
     .content {
       position: relative;
       z-index: 10;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: flex-start; /* 가운데 정렬시 center */
       width: 80%;
       max-width: 1200px;
       margin: 0 auto;
       height: 100%;
       padding: 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;   /* 수직 가운데 정렬 */
+      align-items: flex-start;   /* 수평 왼쪽 정렬 (가운데 정렬시 center) */
     }
 
-    /* 큰 제목 스타일 */
+    /* 큰 제목 */
     h1 {
       font-family: 'Playfair Display', serif;
       font-size: 3.5rem;
       line-height: 1.2;
       margin-bottom: 20px;
+      color: #fff;
     }
 
-    /* 소제목 스타일 */
+    /* 소제목 */
     h2 {
       font-family: 'Playfair Display', serif;
       font-size: 1.8rem;
       margin-bottom: 20px;
+      color: #fff;
     }
 
     p {
       font-size: 1rem;
       line-height: 1.6;
       margin-bottom: 1em;
+      color: #fff;
     }
 
     /* 메뉴 스타일 */
@@ -95,18 +99,18 @@
     }
     nav ul li a {
       text-decoration: none;
-      color: #333;
+      color: #fff;
       font-weight: bold;
       transition: color 0.3s;
     }
     nav ul li a:hover {
-      color: #666;
+      color: #ccc;
     }
   </style>
 </head>
 <body>
-  <!-- 파티클 표시용 -->
-  <div id="particles-js"></div>
+  <!-- Vanta.js 배경용 -->
+  <div id="vanta-bg"></div>
 
   <!-- 학교 앰블럼(로고) -->
   <div class="emblem-container">
@@ -132,75 +136,23 @@
     </nav>
   </div>
 
-  <!-- particles.js 설정 -->
+  <!-- VANTA.NET 설정 -->
   <script>
-    particlesJS("particles-js", {
-      "particles": {
-        "number": {
-          "value": 90,
-          "density": {
-            "enable": true,
-            "value_area": 800
-          }
-        },
-        "color": {
-          "value": "#000000"
-        },
-        "shape": {
-          "type": "circle",
-          "stroke": {
-            "width": 0,
-            "color": "#000000"
-          }
-        },
-        "opacity": {
-          "value": 0.5,
-          "random": false
-        },
-        "size": {
-          "value": 2,
-          "random": true
-        },
-        "line_linked": {
-          "enable": true,
-          "distance": 150,
-          "color": "#999999",
-          "opacity": 0.6,
-          "width": 1
-        },
-        "move": {
-          "enable": true,
-          "speed": 2,
-          "direction": "none",
-          "random": false,
-          "straight": false,
-          "out_mode": "out"
-        }
-      },
-      "interactivity": {
-        "detect_on": "canvas",
-        "events": {
-          "onhover": {
-            "enable": true,
-            "mode": "repulse"
-          },
-          "onclick": {
-            "enable": true,
-            "mode": "push"
-          },
-          "resize": true
-        },
-        "modes": {
-          "repulse": {
-            "distance": 100,
-            "duration": 0.4
-          },
-          "push": {
-            "particles_nb": 4
-          }
-        }
-      },
-      "retina_detect": true
+    VANTA.NET({
+      el: "#vanta-bg",
+      mouseControls: true,
+      touchControls: true,
+      gyroControls: false,
+      minHeight: 200.00,
+      minWidth: 200.00,
+      scale: 1.00,
+      scaleMobile: 1.00,
+      color: 0xe89595,       // 분홍/붉은 계열
+      backgroundColor: 0x0,  // 검정색
+      points: 10,
+      maxDistance: 20,
+      spacing: 15,
+      showDots: false
     });
   </script>
 </body>
