@@ -2,158 +2,87 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <title>Distributed Intelligence &amp; System Laboratory</title>
+  <title>Vanta NET Background Example</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- 구글 폰트: Playfair Display (제목), Merriweather (본문) -->
+  <!-- 구글 폰트 예시 (선택) -->
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Merriweather&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
-
-  <!-- three.js + Vanta.net -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather&display=swap" rel="stylesheet">
 
   <style>
     /* 기본 리셋 */
     * {
-      margin: 0; 
-      padding: 0; 
+      margin: 0;
+      padding: 0;
       box-sizing: border-box;
     }
     html, body {
-      width: 100%; 
-      height: 100%;
-      font-family: 'Merriweather', serif;
-      background: #000; /* 배경색을 검정으로 */
-      overflow: hidden; /* 필요시 auto 로 변경하여 스크롤 허용 */
-      color: #fff;      /* 텍스트를 흰색으로 */
-    }
-
-    /* Vanta.js 배경을 넣을 컨테이너 */
-    #vanta-bg {
-      position: absolute;
       width: 100%;
       height: 100%;
-      top: 0;
-      left: 0;
-      z-index: -1; /* 배경 뒤로 */
+      overflow: hidden;  /* 필요시 auto로 변경 */
+      background: #000;  /* 기본 배경색 (검정) */
+      font-family: 'Merriweather', serif;
+      color: #fff;
     }
-
-    /* 학교 앰블럼(로고) 배치 */
-    .emblem-container {
+    /* Vanta.js 배경을 적용할 컨테이너 */
+    #vanta-bg {
       position: absolute;
-      top: 20px; 
-      left: 20px;
-      z-index: 9999; /* 콘텐츠보다 위 */
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1; /* 뒤로 */
     }
-    .emblem-container img {
-      width: 80px; /* 로고 크기 */
-      height: auto;
-      filter: none; /* 로고를 흰색으로 유지 (invert 제거) */
-    }
-
-    /* 메인 콘텐츠를 감싸는 컨테이너 */
+    /* 임시 메인 콘텐츠 */
     .content {
       position: relative;
-      z-index: 10;
+      z-index: 1;
       display: flex;
-      flex-direction: column;
       justify-content: center;
-      align-items: flex-start; /* 가운데 정렬시 center */
-      width: 80%;
-      max-width: 1200px;
-      margin: 0 auto;
+      align-items: center;
+      width: 100%;
       height: 100%;
-      padding: 40px;
+      text-align: center;
     }
-
-    /* 큰 제목 스타일 */
     h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: 3.5rem;
-      line-height: 1.2;
-      margin-bottom: 20px;
-      color: #fff; /* 흰색 */
-    }
-
-    /* 소제목 스타일 */
-    h2 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.8rem;
-      margin-bottom: 20px;
-      color: #fff; /* 흰색 */
-    }
-
-    p {
-      font-size: 1rem;
-      line-height: 1.6;
-      margin-bottom: 1em;
-      color: #fff; /* 흰색 */
-    }
-
-    /* 메뉴 스타일 */
-    nav ul {
-      list-style: none;
-      display: flex;
-      gap: 20px;
-    }
-    nav ul li a {
-      text-decoration: none;
-      color: #fff; /* 흰색 */
-      font-weight: bold;
-      transition: color 0.3s;
-    }
-    nav ul li a:hover {
-      color: #ccc;
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: #fff;
     }
   </style>
 </head>
 <body>
-  <!-- Vanta.js 배경용 -->
+  <!-- Vanta.js 배경 컨테이너 -->
   <div id="vanta-bg"></div>
 
-  <!-- 학교 앰블럼(로고) -->
-  <div class="emblem-container">
-    <img 
-      src="https://raw.githubusercontent.com/dislab5504/dislab5504.github.io/main/src/img/cnu_logo.png" 
-      alt="CNU Emblem">
-  </div>
-
-  <!-- 메인 콘텐츠 -->
+  <!-- 메인 콘텐츠 예시 -->
   <div class="content">
-    <h1>Distributed Intelligence &amp; System Laboratory</h1>
-    <h2>ChungNam National University</h2>
-    <p>Welcome to our laboratory website.</p>
-
-    <nav>
-      <ul>
-        <li><a href="#">Research</a></li>
-        <li><a href="#">People</a></li>
-        <li><a href="#">Publications</a></li>
-        <li><a href="#">Multimedia</a></li>
-        <li><a href="#">Contact</a></li>
-      </ul>
-    </nav>
+    <div>
+      <h1>Vanta.js NET Effect</h1>
+      <p>배경에 빨간색 계열 네트워크가 움직입니다.</p>
+    </div>
   </div>
 
+  <!-- three.js (r134) -->
+  <script src="three.r134.min.js"></script>
+  <!-- vanta.net.min.js -->
+  <script src="vanta.net.min.js"></script>
+
+  <!-- VANTA.NET 설정 스크립트 -->
   <script>
-    // VANTA.NET 설정
-    VANTA.NET({
-      el: "#vanta-bg",
-      backgroundAlpha: 1,
-      backgroundColor: 0x000000, // 검정색 배경
-      color: 0xe85015,          // (decimal 15242645) #E85015
-      gyroControls: false,
-      maxDistance: 20,
-      minHeight: 200.00,
-      minWidth: 200.00,
-      mouseControls: false,     // 마우스 제어 끄기
-      points: 10.00,
-      scale: 1.00,
-      scaleMobile: 1.00,
-      showDots: false,
-      spacing: 15.00,
-      touchControls: false
+    // DOM 요소가 준비된 후 실행
+    document.addEventListener('DOMContentLoaded', () => {
+      VANTA.NET({
+        el: "#vanta-bg",      // 여기서 ID를 정확히 "#vanta-bg"로 맞춰야 함
+        mouseControls: true,
+        touchControls: true,
+        gyroControls: false,
+        minHeight: 200.00,
+        minWidth: 200.00,
+        scale: 1.00,
+        scaleMobile: 1.00,
+        color: 0xe89595,       // 빨간색 계열
+        backgroundColor: 0x0   // 검정색 배경
+      });
     });
   </script>
 </body>
