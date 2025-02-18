@@ -9,9 +9,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Merriweather&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
 
-  <!-- three.js + vanta.net -->
-  <script src="three.r134.min.js"></script>
-  <script src="vanta.net.min.js"></script>
+  <!-- three.js + vanta.net (CDN) -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/build/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vanta@0.5.24/dist/vanta.net.min.js"></script>
 
   <style>
     /* 기본 리셋 */
@@ -24,9 +24,9 @@
       width: 100%;
       height: 100%;
       font-family: 'Merriweather', serif;
-      background: #000; /* 검정색 배경 */
-      overflow: hidden; /* 필요시 auto로 변경 */
-      color: #fff;      /* 텍스트 흰색 */
+      background: #000;  /* 배경 검정 */
+      overflow: hidden;  /* 필요 시 auto로 변경 */
+      color: #fff;       /* 텍스트 흰색 */
     }
 
     /* Vanta.js 배경 컨테이너 */
@@ -36,10 +36,10 @@
       height: 100%;
       top: 0;
       left: 0;
-      z-index: -1; /* 배경 뒤로 */
+      z-index: -1; /* 뒤로 */
     }
 
-    /* 학교 앰블럼(로고) */
+    /* 학교 로고 */
     .emblem-container {
       position: absolute;
       top: 20px;
@@ -49,10 +49,10 @@
     .emblem-container img {
       width: 80px;
       height: auto;
-      filter: none; /* invert 제거하여 원본 흰색 로고 유지 */
+      filter: none; /* 로고가 흰색이라면 invert 제거 */
     }
 
-    /* 메인 콘텐츠 컨테이너 */
+    /* 메인 콘텐츠 */
     .content {
       position: relative;
       z-index: 10;
@@ -63,8 +63,8 @@
       padding: 40px;
       display: flex;
       flex-direction: column;
-      justify-content: center;   /* 수직 가운데 정렬 */
-      align-items: flex-start;   /* 수평 왼쪽 정렬 (가운데 정렬시 center) */
+      justify-content: center;   /* 세로 정렬 */
+      align-items: flex-start;   /* 가로 정렬(가운데 정렬은 center) */
     }
 
     /* 큰 제목 */
@@ -75,7 +75,6 @@
       margin-bottom: 20px;
       color: #fff;
     }
-
     /* 소제목 */
     h2 {
       font-family: 'Playfair Display', serif;
@@ -83,7 +82,6 @@
       margin-bottom: 20px;
       color: #fff;
     }
-
     p {
       font-size: 1rem;
       line-height: 1.6;
@@ -112,7 +110,7 @@
   <!-- Vanta.js 배경용 -->
   <div id="vanta-bg"></div>
 
-  <!-- 학교 앰블럼(로고) -->
+  <!-- 학교 로고 -->
   <div class="emblem-container">
     <img 
       src="https://raw.githubusercontent.com/dislab5504/dislab5504.github.io/main/src/img/cnu_logo.png" 
@@ -136,7 +134,7 @@
     </nav>
   </div>
 
-  <!-- VANTA.NET 설정 -->
+  <!-- VANTA.NET 설정 스크립트 -->
   <script>
     VANTA.NET({
       el: "#vanta-bg",
@@ -147,8 +145,8 @@
       minWidth: 200.00,
       scale: 1.00,
       scaleMobile: 1.00,
-      color: 0xe89595,       // 분홍/붉은 계열
-      backgroundColor: 0x0,  // 검정색
+      color: 0xe89595,        // 분홍빛
+      backgroundColor: 0x0,   // 검정색
       points: 10,
       maxDistance: 20,
       spacing: 15,
