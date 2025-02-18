@@ -1,10 +1,80 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <title>Hello World</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DNCL @ CNU</title>
+  <!-- 외부 스타일시트 연결 (유지보수를 위해 별도 파일로 분리) -->
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <h1>hello world</h1>
+  <!-- 헤더: 배경 이미지와 연구실 제목 -->
+  <header>
+    <div class="hero" style="background-image: url('images/header-bg.jpg');">
+      <h1>Distributed Networks &amp; Computing Lab.</h1>
+      <p>@ Chungnam National University</p>
+    </div>
+  </header>
+
+  <!-- 메인 콘텐츠 -->
+  <main>
+    <!-- About Us 섹션 -->
+    <section id="about">
+      <h2>About Us</h2>
+      <p>
+        우리 연구실에서는 분산 네트워크 및 분산 컴퓨팅 시스템, 또는 무선 통신 시스템에 대한 전반적인 연구를 수행하고 있습니다. 특히 사물 인터넷(IoT) 환경의 방대한 데이터 처리 수요에 발맞춰 분산형 데이터 네트워크에서의 데이터 통신, 저장, 계산을 위한 새로운 분산형 네트워크 및 시스템 설계에 관한 원천 기술을 연구하고 있습니다.
+      </p>
+      <p>주요 연구분야:</p>
+      <ul>
+        <li>분산 컴퓨팅 시스템의 성능 향상을 위한 데이터 인코딩 기법 및 업무 할당 알고리즘</li>
+        <li>수많은 센서와 노드로 이루어진 IoT 네트워크에서의 무선 통신을 위한 간섭 처리 및 다중 접속 기술</li>
+        <li>데이터 분산 저장 시스템에서의 데이터 보안 및 사용자 프라이버시를 보장하는 데이터 인코딩 기법</li>
+      </ul>
+      <p>
+        We are conducting an overall study of distributed networks, distributed computing systems, and wireless communication systems. In particular, in response to the vast demands of data processing in the Internet of Things (IoT) environment, we are researching fundamental technologies for designing wireless networks and systems for data communication, storage, and computation in distributed networks.
+      </p>
+      <p>Main research field:</p>
+      <ul>
+        <li>Data encoding techniques and task allocation algorithms to improve the performance of distributed computing systems</li>
+        <li>Interference management and multiple access technologies for wireless communication in IoT networks consisting of numerous sensors and nodes</li>
+        <li>Data encoding techniques to ensure data security and user privacy in distributed data storage</li>
+      </ul>
+    </section>
+
+    <!-- Latest News 섹션 -->
+    <section id="latest-news">
+      <h2>Latest News</h2>
+      <ul>
+        <li>
+          The paper entitled "<strong>Group-wise Verifiable Coded Computing under Byzantine Attacks and Stragglers</strong>" has been accepted to <em>IEEE Transactions on Information Forensics and Security</em> in Mar. 2024.
+        </li>
+        <li>
+          The paper entitled "<strong>HeteroSplitFed: Distributed Learning Techniques for Heterogeneous Client Settings on Computational Capability and Communication Bandwidth</strong>" has been awarded KICS Winter Conference Undergraduate Student Paper Awards in Feb. 2024.
+        </li>
+        <li>
+          The paper entitled "<strong>ConvLSTM-based Particulate Matter Concentration Prediction Model with Location of Weather Station by Meteorological Data Imagification</strong>" has been awarded Korea Software Congress (KSC) Undergraduate Student Paper Awards in Dec. 2023.
+        </li>
+        <!-- 추가 뉴스 항목들을 여기에 추가 -->
+      </ul>
+    </section>
+
+    <!-- Contact 섹션 -->
+    <section id="contact">
+      <h2>Contact Us</h2>
+      <ul>
+        <li>Tel.: +82-42-821-6656</li>
+        <li>Email: <a href="mailto:hcyang@cnu.ac.kr">hcyang@cnu.ac.kr</a></li>
+        <li>Address: Rm. 522, Engineering Unit 5 (W2), Chungnam National University, 99 Daehak-ro, Yuseong-gu, Daejeon, Korea [34134]</li>
+      </ul>
+    </section>
+  </main>
+
+  <!-- 푸터 -->
+  <footer>
+    <p>&copy; 2023 Distributed Networks &amp; Computing Lab. All rights reserved.</p>
+  </footer>
+
+  <!-- 외부 스크립트 연결 (필요시 별도 파일로 분리) -->
+  <script src="script.js"></script>
 </body>
 </html>
