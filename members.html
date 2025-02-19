@@ -43,11 +43,18 @@
       max-width: 1200px; /* 필요 시 조정 */
     }
 
-    /* 큰 제목 (페이지 대표) */
+    /* 교수님 사진 스타일 */
+    .prof-photo {
+      width: clamp(150px, 20vw, 300px); /* 화면 크기에 따라 유연 조절 */
+      margin-bottom: 1rem;
+      border-radius: 4px;
+    }
+
+    /* 상단 큰 제목 (이 페이지의 대표) */
     h1 {
       margin: 0 0 1rem 0;
       font-size: clamp(28px, 5vw, 60px); /* 화면 크기에 따라 유연 조절 */
-      font-weight: 700;                  /* Bold */
+      font-weight: 700;                  /* 굵게 (Bold) */
       color: #002554;                    /* 강조 색상 */
       line-height: 1.2;
     }
@@ -56,11 +63,11 @@
     .subtitle {
       margin: 0 0 1rem 0;
       font-size: clamp(20px, 3vw, 36px);
-      font-weight: 600;  /* Semi-Bold */
-      color: #333;
+      font-weight: 600;  /* 조금 굵게 (Semi-Bold) */
+      color: #333;       /* 본문보다는 진하지만 메인컬러보다는 덜 강조 */
     }
 
-    /* 기본 텍스트 라인 */
+    /* 일반 텍스트 라인 */
     .info-line {
       margin: 0.3rem 0;
       font-size: clamp(16px, 2vw, 24px);
@@ -68,7 +75,7 @@
       line-height: 1.4;
     }
 
-    /* 섹션 제목 */
+    /* 구분선/섹션 제목 */
     .section-title {
       margin-top: 2rem;
       margin-bottom: 1rem;
@@ -77,7 +84,7 @@
       color: #002554; /* 강조 색상 */
     }
 
-    /* 테이블 스타일 */
+    /* 테이블 스타일 (4열×2행 유지) */
     table {
       width: 100%;
       border-collapse: separate;
@@ -91,13 +98,13 @@
       width: 25%;             /* 4열이므로 25%씩 */
     }
 
-    /* 사진 스타일 */
+    /* 석사/학부생 사진 스타일 */
     .photo {
       display: block;
       width: 100%;
-      max-width: 200px;       /* 사진 최대 폭 */
+      max-width: 200px;
       margin-bottom: 0.5rem;
-      border-radius: 4px;     /* 모서리 살짝 둥글게 */
+      border-radius: 4px;
     }
 
     /* 오른쪽 메뉴 */
@@ -109,13 +116,18 @@
     }
     .menu a {
       text-decoration: none;
-      color: #002554;  /* 파랑 톤 */
+      color: #002554;           /* 어두운 파랑 톤 (혹은 #333 등) */
       font-size: clamp(16px, 2vw, 24px);
       font-weight: 400;
       transition: color 0.3s;
     }
     .menu a:hover {
       color: #666;
+    }
+
+    /* 숨기고 싶은 부분 (석사과정에 2명만 표시하기 위해) */
+    .hidden {
+      display: none !important;
     }
   </style>
 </head>
@@ -124,150 +136,70 @@
   <div class="wrapper">
     <!-- 왼쪽 콘텐츠 -->
     <div class="content">
-      <!-- 교수님 섹션 -->
+      <!-- 교수님 정보 -->
+      <!-- 교수님 사진 추가 -->
+      <img
+        src="assets/professor.png"
+        alt="Professor Heecheol Yang"
+        class="prof-photo"
+      >
       <h1>Heecheol Yang</h1>
       <div class="subtitle">Assistant Professor, Ph. D.</div>
+
+      <!-- 기본 정보 -->
       <div class="info-line">Division of Computer Convergence, Chungnam National University</div>
       <div class="info-line">E-mail: hcyang@cnu.ac.kr</div>
       <div class="info-line">Tel.: 042-821-6656</div>
       <div class="info-line">
         Address: Rm. 522, Engineering Unit 5 (W2),<br>
-        Chungnam National University, 99 Daehak-ro, Yuseong-gu,<br>
-        Deajeon, Korea [34134]
+        Chungnam National University,<br>
+        99 Daehak-ro, Yuseong-gu, Deajeon, Korea [34134]
       </div>
 
       <!-- 섹션: Master Graduate Students -->
       <div class="section-title">Master Graduate Students</div>
       <table>
+        <!-- 첫 번째 행 (4열) -->
         <tr>
+          <!-- 1번 칸 -->
           <td>
-            <!-- 예시 1 -->
-            <img src="assets/mg1.jpg" alt="MG Student 1" class="photo">
-            <div class="info-line"><strong>홍길동</strong></div>
-            <div class="info-line">E-mail: mg1@example.com</div>
+            <img src="assets/mg_seongyoon.jpg" alt="Seongyoon Kim" class="photo">
+            <div class="info-line"><strong>Seongyoon Kim</strong></div>
+            <div class="info-line">E-mail: seongyoon@example.com</div>
             <div class="info-line">Tel.: 010-1234-5678</div>
           </td>
+
+          <!-- 2번 칸 -->
           <td>
-            <!-- 예시 2 -->
-            <img src="assets/mg2.jpg" alt="MG Student 2" class="photo">
-            <div class="info-line"><strong>김철수</strong></div>
-            <div class="info-line">E-mail: mg2@example.com</div>
+            <img src="assets/mg_jihyun.jpg" alt="Jihyun Ryu" class="photo">
+            <div class="info-line"><strong>Jihyun Ryu</strong></div>
+            <div class="info-line">E-mail: jihyun@example.com</div>
             <div class="info-line">Tel.: 010-1111-2222</div>
           </td>
-          <td>
-            <!-- 예시 3 -->
-            <img src="assets/mg3.jpg" alt="MG Student 3" class="photo">
-            <div class="info-line"><strong>박영희</strong></div>
-            <div class="info-line">E-mail: mg3@example.com</div>
-            <div class="info-line">Tel.: 010-3333-4444</div>
+
+          <!-- 나머지 2칸은 일단 숨김 -->
+          <td class="hidden">
+            <!-- 빈 내용 (표시 안 됨) -->
           </td>
-          <td>
-            <!-- 예시 4 -->
-            <img src="assets/mg4.jpg" alt="MG Student 4" class="photo">
-            <div class="info-line"><strong>이몽룡</strong></div>
-            <div class="info-line">E-mail: mg4@example.com</div>
-            <div class="info-line">Tel.: 010-5555-6666</div>
+          <td class="hidden">
+            <!-- 빈 내용 (표시 안 됨) -->
           </td>
         </tr>
-        <tr>
-          <td>
-            <!-- 예시 5 -->
-            <img src="assets/mg5.jpg" alt="MG Student 5" class="photo">
-            <div class="info-line"><strong>최자두</strong></div>
-            <div class="info-line">E-mail: mg5@example.com</div>
-            <div class="info-line">Tel.: 010-7777-8888</div>
-          </td>
-          <td>
-            <!-- 예시 6 -->
-            <img src="assets/mg6.jpg" alt="MG Student 6" class="photo">
-            <div class="info-line"><strong>장보고</strong></div>
-            <div class="info-line">E-mail: mg6@example.com</div>
-            <div class="info-line">Tel.: 010-9999-0000</div>
-          </td>
-          <td>
-            <!-- 예시 7 -->
-            <img src="assets/mg7.jpg" alt="MG Student 7" class="photo">
-            <div class="info-line"><strong>고길동</strong></div>
-            <div class="info-line">E-mail: mg7@example.com</div>
-            <div class="info-line">Tel.: 010-1234-9999</div>
-          </td>
-          <td>
-            <!-- 예시 8 -->
-            <img src="assets/mg8.jpg" alt="MG Student 8" class="photo">
-            <div class="info-line"><strong>나순정</strong></div>
-            <div class="info-line">E-mail: mg8@example.com</div>
-            <div class="info-line">Tel.: 010-2222-3333</div>
-          </td>
+
+        <!-- 두 번째 행 (4열)은 통째로 숨김 -->
+        <tr class="hidden">
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
         </tr>
       </table>
 
-      <!-- 섹션: Undergraduate Researchers -->
-      <div class="section-title">Undergraduate Researchers</div>
-      <table>
-        <tr>
-          <td>
-            <!-- 예시 1 -->
-            <img src="assets/ug1.jpg" alt="UG Student 1" class="photo">
-            <div class="info-line"><strong>홍길동</strong></div>
-            <div class="info-line">E-mail: ug1@example.com</div>
-            <div class="info-line">Tel.: 010-0000-1111</div>
-          </td>
-          <td>
-            <!-- 예시 2 -->
-            <img src="assets/ug2.jpg" alt="UG Student 2" class="photo">
-            <div class="info-line"><strong>김철수</strong></div>
-            <div class="info-line">E-mail: ug2@example.com</div>
-            <div class="info-line">Tel.: 010-2222-3333</div>
-          </td>
-          <td>
-            <!-- 예시 3 -->
-            <img src="assets/ug3.jpg" alt="UG Student 3" class="photo">
-            <div class="info-line"><strong>박영희</strong></div>
-            <div class="info-line">E-mail: ug3@example.com</div>
-            <div class="info-line">Tel.: 010-4444-5555</div>
-          </td>
-          <td>
-            <!-- 예시 4 -->
-            <img src="assets/ug4.jpg" alt="UG Student 4" class="photo">
-            <div class="info-line"><strong>이몽룡</strong></div>
-            <div class="info-line">E-mail: ug4@example.com</div>
-            <div class="info-line">Tel.: 010-6666-7777</div>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <!-- 예시 5 -->
-            <img src="assets/ug5.jpg" alt="UG Student 5" class="photo">
-            <div class="info-line"><strong>최자두</strong></div>
-            <div class="info-line">E-mail: ug5@example.com</div>
-            <div class="info-line">Tel.: 010-8888-9999</div>
-          </td>
-          <td>
-            <!-- 예시 6 -->
-            <img src="assets/ug6.jpg" alt="UG Student 6" class="photo">
-            <div class="info-line"><strong>장보고</strong></div>
-            <div class="info-line">E-mail: ug6@example.com</div>
-            <div class="info-line">Tel.: 010-1111-2222</div>
-          </td>
-          <td>
-            <!-- 예시 7 -->
-            <img src="assets/ug7.jpg" alt="UG Student 7" class="photo">
-            <div class="info-line"><strong>고길동</strong></div>
-            <div class="info-line">E-mail: ug7@example.com</div>
-            <div class="info-line">Tel.: 010-3333-4444</div>
-          </td>
-          <td>
-            <!-- 예시 8 -->
-            <img src="assets/ug8.jpg" alt="UG Student 8" class="photo">
-            <div class="info-line"><strong>나순정</strong></div>
-            <div class="info-line">E-mail: ug8@example.com</div>
-            <div class="info-line">Tel.: 010-5555-6666</div>
-          </td>
-        </tr>
-      </table>
+      <!-- 아래는 필요하다면 Undergraduate Researchers 등 다른 섹션 -->
+
     </div>
 
-    <!-- 오른쪽 메뉴 -->
+    <!-- 오른쪽 메뉴 (index.html과 동일 구조) -->
     <nav class="menu">
       <a href="index.html">Home</a>
       <a href="members.html">Members</a>
