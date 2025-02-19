@@ -5,9 +5,9 @@
   <title>Distributed Intelligence & Systems Laboratory</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- three.js, Vanta.js (버전은 필요 시 조정) -->
+  <!-- three.js, Vanta.js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
-  <!-- 실제 환경에 맞춰 경로 수정 -->
+  <!-- Vanta.js (경로는 실제 환경에 맞춰 조정) -->
   <script src="./dist/vanta.net.min.js"></script>
 
   <style>
@@ -19,7 +19,7 @@
       height: 100%;
       /* 폰트: "Circular"가 없다면 "Segoe UI" → sans-serif로 폴백 */
       font-family: "Circular", "Segoe UI", sans-serif;
-      background-color: #2f365c; /* Vanta.js와 동일 배경색 */
+      background-color: #13294B; /* Pantone 655C 근사값 */
       color: #ffffff;
     }
 
@@ -39,59 +39,72 @@
       z-index: -1; /* 내용 뒤에 위치 */
     }
 
-    /* 메인 컨테이너 (내용) */
-    .content {
+    /* 메인 컨테이너: 중앙 고정 + 최대 폭 제한 */
+    .wrapper {
+      /* 화면이 지나치게 넓어졌을 때도 가운데 정렬 & 최대 폭 유지 */
       position: relative;
-      z-index: 1; /* Vanta 배경 위로 */
       width: 100%;
       height: 100%;
+      max-width: 1400px;        /* 원하는 최대 폭 (예: 1400px) */
+      margin: 0 auto;           /* 가운데 정렬 */
+      padding: 0 2rem;          /* 좌우 기본 여백 */
+      box-sizing: border-box;
       display: flex;
       flex-direction: column;
-      justify-content: center;   /* 수직 가운데 정렬 */
-      padding-left: 5%;
-      padding-right: 5%;
-    }
-    .title-section {
-      /* 너무 넓은 화면에서 본문이 지나치게 퍼지지 않도록 */
-      max-width: clamp(600px, 60vw, 1400px);
+      justify-content: center;  /* 세로 중앙 정렬용 (content와 함께 사용) */
     }
 
-    /* 로고 크기도 세로 비율에 맞춤 */
+    /* 콘텐츠 부분 (제목/설명) */
+    .content {
+      /* wrapper 내부에서 세로 가운데 정렬을 함께 처리 */
+      flex: 1;                  /* 상하로 공간을 채우도록 */
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    /* 텍스트 영역이 너무 퍼지지 않도록 추가 제한 */
+    .title-section {
+      max-width: 800px;         /* 필요 시 조정 (타이틀+설명 영역) */
+    }
+
+    /* 로고 크기: 세로 뷰포트 비율 */
     .logo {
       width: 10vh;
       margin-bottom: 2vh;
     }
 
-    /* 큰 타이틀: 세로 뷰포트 비율 & 폰트 두께 낮춤 */
+    /* 큰 타이틀: 세로 뷰포트 비율 & 가벼운 폰트 */
     h1 {
       margin: 0;
       font-size: 6vh;   /* 세로 뷰포트 높이의 6% */
-      font-weight: 400; /* 너무 두껍지 않게 400 정도 */
+      font-weight: 400;
       line-height: 1.2;
     }
 
     /* 부가 텍스트 */
     h3 {
       margin-top: 1rem;
-      font-size: 3vh;   /* 세로 뷰포트 높이의 3% */
-      font-weight: 300; /* 좀 더 가볍게 300 */
+      font-size: 3vh;
+      font-weight: 300;
       line-height: 1.4;
     }
 
-    /* 우측 (세로) 중앙 메뉴 */
+    /* 우측 (세로) 중앙 메뉴 
+       (wrapper 안에서 absolute로 배치, right: 2rem) */
     .menu {
       position: absolute;
-      top: 50%;                  /* 세로 중앙 */
-      right: 2vw;               /* 오른쪽 여백 */
-      transform: translateY(-50%); /* 세로축 -50% 이동 → 정확히 가운데 정렬 */
+      top: 50%;
+      right: 2rem;               /* wrapper의 내부 여백과 동일하게 맞춤 */
+      transform: translateY(-50%);
       display: flex;
       flex-direction: column;
       align-items: flex-end;
-      gap: 2vh; /* 메뉴 항목 간 간격 */
-      z-index: 2; /* 배경보다 위 */
+      gap: 2vh;                  /* 메뉴 항목 간 간격 */
+      z-index: 2;               /* 배경보다 위 */
     }
 
-    /* 메뉴 폰트 크기도 세로 뷰포트 비율로 설정 */
+    /* 메뉴 폰트 크기 (세로 뷰포트 비율) */
     .menu a {
       color: #ffffff;
       text-decoration: none;
@@ -109,34 +122,37 @@
     <!-- Vanta.js 배경 영역 -->
     <div class="vanta-bg"></div>
 
-    <!-- 우측 (세로) 중앙 메뉴 -->
-    <nav class="menu">
-      <a href="#">Home</a>
-      <a href="#">Members</a>
-      <a href="#">Publications</a>
-      <a href="#">Research</a>
-      <a href="#">Projects</a>
-      <a href="#">Lecture</a>
-      <a href="#">News</a>
-    </nav>
+    <!-- 가운데 정렬 & 최대 폭 제한 래퍼 -->
+    <div class="wrapper">
+      <!-- 우측 (세로) 중앙 메뉴 -->
+      <nav class="menu">
+        <a href="#">Home</a>
+        <a href="#">Members</a>
+        <a href="#">Publications</a>
+        <a href="#">Research</a>
+        <a href="#">Projects</a>
+        <a href="#">Lecture</a>
+        <a href="#">News</a>
+      </nav>
 
-    <!-- 실제 컨텐츠 -->
-    <div class="content">
-      <div class="title-section">
-        <!-- CNU 로고 -->
-        <img
-          src="https://raw.githubusercontent.com/dislab5504/dislab5504.github.io/main/src/img/cnu_logo.png"
-          alt="CNU Logo"
-          class="logo"
-        >
-        <!-- 연구실 이름 (크게 왼쪽 배치) -->
-        <h1>Distributed Intelligence &amp; Systems Laboratory</h1>
-        <h3>
-          ChungNam National University<br>
-          Welcome to our laboratory website.<br>
-          Exploring cutting-edge research in artificial intelligence,<br>
-          machine learning, and distributed systems.
-        </h3>
+      <!-- 실제 컨텐츠 -->
+      <div class="content">
+        <div class="title-section">
+          <!-- CNU 로고 -->
+          <img
+            src="https://raw.githubusercontent.com/dislab5504/dislab5504.github.io/main/src/img/cnu_logo.png"
+            alt="CNU Logo"
+            class="logo"
+          >
+          <!-- 연구실 이름 -->
+          <h1>Distributed Intelligence &amp; Systems Laboratory</h1>
+          <h3>
+            ChungNam National University<br>
+            Welcome to our laboratory website.<br>
+            Exploring cutting-edge research in artificial intelligence,<br>
+            machine learning, and distributed systems.
+          </h3>
+        </div>
       </div>
     </div>
   </div>
@@ -152,8 +168,8 @@
       minWidth: 200.00,
       scale: 1.00,
       scaleMobile: 1.00,
-      color: 0xffffff,          // 라인 색상
-      backgroundColor: 0x2f365c // 배경색
+      color: 0xffffff,       // 라인 색상
+      backgroundColor: 0x13294b // 다크블루 (Pantone 655C 근사값)
     });
   </script>
 </body>
