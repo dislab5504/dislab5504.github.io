@@ -27,20 +27,17 @@
       box-sizing: inherit;
     }
 
-    /* 페이지 전체 래퍼 */
+    /* 전체 래퍼: 가운데 정렬 */
     .wrapper {
-      display: flex;
-      justify-content: space-between; /* 좌: 내용, 우: 메뉴 */
-      align-items: flex-start;        /* 내용이 길어질 때 상단 정렬 */
-      max-width: 2560px;
-      margin: 0 auto;
-      padding: 2rem;                 /* 좌우 간격 */
-      gap: 2rem;                     /* 내용과 메뉴 사이 여백 */
+      position: relative;       /* 메뉴를 절대 위치로 배치할 때 기준이 됨 */
+      max-width: 1200px;       /* 원하는 최대 폭 */
+      margin: 0 auto;          /* 수평 가운데 정렬 */
+      padding: 2rem;           /* 기본 여백 */
     }
 
-    /* 왼쪽 콘텐츠 영역 */
+    /* 콘텐츠 영역 (교수님 / 석사 / 학부연구생 정보) */
     .content {
-      max-width: 1200px; /* 필요 시 조정 */
+      width: 100%;
     }
 
     /* 교수님 사진 스타일 */
@@ -48,23 +45,28 @@
       width: clamp(150px, 20vw, 300px); /* 화면 크기에 따라 유연 조절 */
       margin-bottom: 1rem;
       border-radius: 4px;
+      display: block;         /* 가운데 정렬을 위해 block + auto margin 가능 */
+      margin-left: auto;      /* 사진 자체를 중앙에 놓고 싶다면 */
+      margin-right: auto;
     }
 
-    /* 상단 큰 제목 (이 페이지의 대표) */
+    /* 큰 제목 (교수님 이름) */
     h1 {
-      margin: 0 0 1rem 0;
-      font-size: clamp(28px, 5vw, 60px); /* 화면 크기에 따라 유연 조절 */
-      font-weight: 700;                  /* 굵게 (Bold) */
-      color: #002554;                    /* 강조 색상 */
+      margin: 1rem 0 1rem 0;
+      text-align: center;                     /* 중앙 정렬 */
+      font-size: clamp(28px, 5vw, 60px);      /* 화면 크기에 따라 유연 조절 */
+      font-weight: 700;                       /* 굵게 (Bold) */
+      color: #002554;                         /* 강조 색상 */
       line-height: 1.2;
     }
 
     /* 부제(직함 등) */
     .subtitle {
       margin: 0 0 1rem 0;
+      text-align: center;                     /* 중앙 정렬 */
       font-size: clamp(20px, 3vw, 36px);
       font-weight: 600;  /* 조금 굵게 (Semi-Bold) */
-      color: #333;       /* 본문보다는 진하지만 메인컬러보다는 덜 강조 */
+      color: #333;
     }
 
     /* 일반 텍스트 라인 */
@@ -73,12 +75,14 @@
       font-size: clamp(16px, 2vw, 24px);
       font-weight: 400;
       line-height: 1.4;
+      text-align: center;    /* 중앙 정렬 */
     }
 
     /* 구분선/섹션 제목 */
     .section-title {
       margin-top: 2rem;
       margin-bottom: 1rem;
+      text-align: center;
       font-size: clamp(22px, 3vw, 36px);
       font-weight: 700;
       color: #002554; /* 강조 색상 */
@@ -86,9 +90,9 @@
 
     /* 테이블 스타일 (4열×2행 유지) */
     table {
-      width: 100%;
+      margin: 0 auto;                   /* 테이블 자체도 가운데 정렬 */
       border-collapse: separate;
-      border-spacing: 1rem;  /* 셀 간격 */
+      border-spacing: 1rem;             /* 셀 간격 */
       margin-bottom: 2rem;
     }
     td {
@@ -96,6 +100,7 @@
       padding: 1rem;
       border: 1px solid #ccc; /* 테두리 예시 */
       width: 25%;             /* 4열이므로 25%씩 */
+      text-align: center;     /* 셀 내용도 중앙 정렬 */
     }
 
     /* 석사/학부생 사진 스타일 */
@@ -103,12 +108,15 @@
       display: block;
       width: 100%;
       max-width: 200px;
-      margin-bottom: 0.5rem;
+      margin: 0 auto 0.5rem auto; /* 가운데 정렬 */
       border-radius: 4px;
     }
 
-    /* 오른쪽 메뉴 */
+    /* 오른쪽 메뉴: 절대 위치 */
     .menu {
+      position: absolute;
+      top: 2rem;
+      right: 2rem;
       display: flex;
       flex-direction: column;
       align-items: flex-end;
@@ -116,7 +124,7 @@
     }
     .menu a {
       text-decoration: none;
-      color: #002554;           /* 어두운 파랑 톤 (혹은 #333 등) */
+      color: #002554;           /* 어두운 파랑 톤 */
       font-size: clamp(16px, 2vw, 24px);
       font-weight: 400;
       transition: color 0.3s;
@@ -125,7 +133,7 @@
       color: #666;
     }
 
-    /* 숨기고 싶은 부분 (석사과정에 2명만 표시하기 위해) */
+    /* 숨기고 싶은 부분 (석사과정 2명만 표시) */
     .hidden {
       display: none !important;
     }
@@ -134,10 +142,20 @@
 <body>
 
   <div class="wrapper">
-    <!-- 왼쪽 콘텐츠 -->
+    <!-- 오른쪽 메뉴 (절대 위치) -->
+    <nav class="menu">
+      <a href="index.html">Home</a>
+      <a href="members.html">Members</a>
+      <a href="#">Publications</a>
+      <a href="#">Research</a>
+      <a href="#">Projects</a>
+      <a href="#">Lecture</a>
+      <a href="#">News</a>
+    </nav>
+
+    <!-- 가운데 정렬할 메인 콘텐츠 -->
     <div class="content">
       <!-- 교수님 정보 -->
-      <!-- 교수님 사진 추가 -->
       <img
         src="assets/professor.png"
         alt="Professor Heecheol Yang"
@@ -156,59 +174,33 @@
         99 Daehak-ro, Yuseong-gu, Deajeon, Korea [34134]
       </div>
 
-      <!-- 섹션: Master Graduate Students -->
+      <!-- 석사 과정(Master Graduate Students) -->
       <div class="section-title">Master Graduate Students</div>
       <table>
-        <!-- 첫 번째 행 (4열) -->
         <tr>
-          <!-- 1번 칸 -->
           <td>
             <img src="assets/mg_seongyoon.jpg" alt="Seongyoon Kim" class="photo">
             <div class="info-line"><strong>Seongyoon Kim</strong></div>
             <div class="info-line">E-mail: seongyoon@example.com</div>
             <div class="info-line">Tel.: 010-1234-5678</div>
           </td>
-
-          <!-- 2번 칸 -->
           <td>
             <img src="assets/mg_jihyun.jpg" alt="Jihyun Ryu" class="photo">
             <div class="info-line"><strong>Jihyun Ryu</strong></div>
             <div class="info-line">E-mail: jihyun@example.com</div>
             <div class="info-line">Tel.: 010-1111-2222</div>
           </td>
-
-          <!-- 나머지 2칸은 일단 숨김 -->
-          <td class="hidden">
-            <!-- 빈 내용 (표시 안 됨) -->
-          </td>
-          <td class="hidden">
-            <!-- 빈 내용 (표시 안 됨) -->
-          </td>
+          <!-- 남는 2칸은 숨김 처리 -->
+          <td class="hidden"></td>
+          <td class="hidden"></td>
         </tr>
-
-        <!-- 두 번째 행 (4열)은 통째로 숨김 -->
         <tr class="hidden">
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
+          <td></td><td></td><td></td><td></td>
         </tr>
       </table>
 
-      <!-- 아래는 필요하다면 Undergraduate Researchers 등 다른 섹션 -->
-
+      <!-- 학부연구생 등 다른 섹션도 동일 구조로 추가 가능 -->
     </div>
-
-    <!-- 오른쪽 메뉴 (index.html과 동일 구조) -->
-    <nav class="menu">
-      <a href="index.html">Home</a>
-      <a href="members.html">Members</a>
-      <a href="#">Publications</a>
-      <a href="#">Research</a>
-      <a href="#">Projects</a>
-      <a href="#">Lecture</a>
-      <a href="#">News</a>
-    </nav>
   </div>
 
 </body>
