@@ -5,12 +5,6 @@
   <title>Distributed Intelligence & Systems Laboratory</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- 
-    "Circular" 폰트는 기본적으로 웹 안전 폰트가 아닙니다.
-    시스템에 설치되어 있지 않다면 "Segoe UI" 또는 sans-serif로 폴백됩니다.
-    실제로 "Circular" 웹 폰트를 사용하려면 @font-face 등을 통해 별도 로드가 필요합니다.
-  -->
-
   <!-- three.js, Vanta.js (버전은 필요 시 조정) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
   <!-- 실제 환경에 맞춰 경로 수정 -->
@@ -23,7 +17,8 @@
       padding: 0;
       width: 100%;
       height: 100%;
-      font-family: "Circular", "Segoe UI", sans-serif; /* 요청된 폰트 */
+      /* 폰트: "Circular" 폰트가 없다면 "Segoe UI" → sans-serif 폴백 */
+      font-family: "Circular", "Segoe UI", sans-serif;
       background-color: #2f365c; /* Vanta.js와 동일 배경색 */
       color: #ffffff;           /* 글자색 #ffffff */
     }
@@ -61,31 +56,29 @@
       max-width: 80%;
     }
 
-    /* 로고 이미지 스타일 (크기는 상황에 맞게 조절) */
+    /* 로고: vw 단위 사용 */
     .logo {
-      width: clamp(50px, 10vw, 100px);
+      width: 10vw;          /* 브라우저 폭의 10% 정도 */
       margin-bottom: 2vh;
     }
 
-    /* 큰 타이틀 (기본 72px를 중심으로 최소/최대값 설정) */
+    /* 큰 타이틀: vw 단위 & 폰트 웨이트 줄임 */
     h1 {
       margin: 0;
-      /* 예: 최소 48px, 뷰포트폭 대비 6vw, 최대 72px */
-      font-size: clamp(48px, 6vw, 72px);
-      font-weight: 700;
+      font-size: 6vw;       /* 뷰포트 폭의 6% */
+      font-weight: 500;     /* 너무 두껍지 않도록 500 정도 */
       line-height: 1.2;
     }
 
-    /* 부가 텍스트 (타이틀보다는 작게) */
+    /* 부가 텍스트: vw 단위 & 폰트 웨이트 줄임 */
     h3 {
       margin-top: 1rem;
-      /* 예: 최소 20px, 뷰포트폭 대비 3vw, 최대 36px */
-      font-size: clamp(20px, 3vw, 36px);
-      font-weight: 400;
+      font-size: 3vw;       /* 뷰포트 폭의 3% */
+      font-weight: 300;     /* 더 가볍게 */
       line-height: 1.4;
     }
 
-    /* 우측 가운데 메뉴 */
+    /* 우측 (세로) 중앙 메뉴 */
     .menu {
       position: absolute;
       top: 50%;               /* 세로 중앙 */
@@ -94,16 +87,16 @@
       display: flex;
       flex-direction: column;
       align-items: flex-end;
-      gap: 1vh; /* 메뉴 항목 간 간격 */
+      gap: 2vh; /* 메뉴 항목 간 간격 */
       z-index: 2; /* 배경보다 위 */
     }
 
-    /* 메뉴 폰트 크기 (유동적) */
+    /* 메뉴 폰트 크기 (vw 사용, 폰트 웨이트 조정) */
     .menu a {
       color: #ffffff;
       text-decoration: none;
-      /* 예: 최소 18px, 뷰포트폭 대비 3vw, 최대 32px */
-      font-size: clamp(18px, 3vw, 32px);
+      font-size: 2vw;   /* 뷰포트 폭의 2% */
+      font-weight: 400; /* 적당히 가볍게 */
       transition: color 0.3s;
     }
     .menu a:hover {
