@@ -59,23 +59,23 @@
       max-width: 80%;
     }
 
-    /* 로고 이미지 스타일 (브라우저 크기에 따라 유연해지도록 clamp) */
+    /* 로고 이미지 스타일 (기존 유지) */
     .logo {
       width: clamp(50px, 10vw, 100px);
       margin-bottom: 2vh;
     }
 
-    /* 큰 타이틀 - clamp()로 최소/중간/최대 폰트 사이즈 지정 */
+    /* 큰 타이틀 - 기존 clamp의 값을 2배로 조정 */
     h1 {
       margin: 0;
-      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-size: clamp(4rem, 10vw, 7rem); 
       font-weight: 700;
     }
 
-    /* 부가 텍스트 */
+    /* 부가 텍스트 - 기존 clamp의 값을 2배로 조정 */
     h3 {
       margin-top: 1rem;
-      font-size: clamp(1rem, 2vw, 1.5rem);
+      font-size: clamp(2rem, 4vw, 3rem);
       font-weight: 400;
       line-height: 1.6;
     }
@@ -92,10 +92,11 @@
       z-index: 2; /* 배경보다 위 */
     }
 
+    /* 메뉴 폰트 크기 역시 2배로 조정 */
     .menu a {
       color: #ffffff;
       text-decoration: none;
-      font-size: clamp(0.8rem, 1.5vw, 1.2rem); /* 브라우저 크기에 따라 유연 */
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
       transition: color 0.3s;
     }
     .menu a:hover {
