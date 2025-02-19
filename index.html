@@ -17,10 +17,10 @@
       padding: 0;
       width: 100%;
       height: 100%;
-      /* 폰트: "Circular" 폰트가 없다면 "Segoe UI" → sans-serif 폴백 */
+      /* 폰트: "Circular"가 없다면 "Segoe UI" → sans-serif로 폴백 */
       font-family: "Circular", "Segoe UI", sans-serif;
       background-color: #2f365c; /* Vanta.js와 동일 배경색 */
-      color: #ffffff;           /* 글자색 #ffffff */
+      color: #ffffff;
     }
 
     /* Vanta.js 전체 화면 */
@@ -47,43 +47,43 @@
       height: 100%;
       display: flex;
       flex-direction: column;
-      justify-content: center;  /* 수직 가운데 정렬 */
-      padding-left: 5%;         /* 왼쪽 여백 */
+      justify-content: center;   /* 수직 가운데 정렬 */
+      padding-left: 5%;
+      padding-right: 5%;
     }
-
-    /* 로고와 텍스트 묶음 */
     .title-section {
-      max-width: 80%;
+      /* 너무 넓은 화면에서 본문이 지나치게 퍼지지 않도록 */
+      max-width: clamp(600px, 60vw, 1400px);
     }
 
-    /* 로고: vw 단위 사용 */
+    /* 로고 크기도 세로 비율에 맞춤 */
     .logo {
-      width: 10vw;          /* 브라우저 폭의 10% 정도 */
+      width: 10vh;
       margin-bottom: 2vh;
     }
 
-    /* 큰 타이틀: vw 단위 & 폰트 웨이트 줄임 */
+    /* 큰 타이틀: 세로 뷰포트 비율 & 폰트 두께 낮춤 */
     h1 {
       margin: 0;
-      font-size: 6vw;       /* 뷰포트 폭의 6% */
-      font-weight: 500;     /* 너무 두껍지 않도록 500 정도 */
+      font-size: 6vh;   /* 세로 뷰포트 높이의 6% */
+      font-weight: 400; /* 너무 두껍지 않게 400 정도 */
       line-height: 1.2;
     }
 
-    /* 부가 텍스트: vw 단위 & 폰트 웨이트 줄임 */
+    /* 부가 텍스트 */
     h3 {
       margin-top: 1rem;
-      font-size: 3vw;       /* 뷰포트 폭의 3% */
-      font-weight: 300;     /* 더 가볍게 */
+      font-size: 3vh;   /* 세로 뷰포트 높이의 3% */
+      font-weight: 300; /* 좀 더 가볍게 300 */
       line-height: 1.4;
     }
 
     /* 우측 (세로) 중앙 메뉴 */
     .menu {
       position: absolute;
-      top: 50%;               /* 세로 중앙 */
-      right: 2vw;            /* 오른쪽 여백 */
-      transform: translateY(-50%); /* 세로 축 -50%로 이동해 정확히 가운데 정렬 */
+      top: 50%;                  /* 세로 중앙 */
+      right: 2vw;               /* 오른쪽 여백 */
+      transform: translateY(-50%); /* 세로축 -50% 이동 → 정확히 가운데 정렬 */
       display: flex;
       flex-direction: column;
       align-items: flex-end;
@@ -91,12 +91,12 @@
       z-index: 2; /* 배경보다 위 */
     }
 
-    /* 메뉴 폰트 크기 (vw 사용, 폰트 웨이트 조정) */
+    /* 메뉴 폰트 크기도 세로 뷰포트 비율로 설정 */
     .menu a {
       color: #ffffff;
       text-decoration: none;
-      font-size: 2vw;   /* 뷰포트 폭의 2% */
-      font-weight: 400; /* 적당히 가볍게 */
+      font-size: 2vh;
+      font-weight: 400;
       transition: color 0.3s;
     }
     .menu a:hover {
