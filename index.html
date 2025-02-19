@@ -5,7 +5,7 @@
   <title>Distributed Intelligence & Systems Laboratory</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Rethink Sans 폰트 로드 -->
+  <!-- Rethink Sans 폰트 로드 (가중치 300, 600, 700 사용) -->
   <link href="https://fonts.googleapis.com/css2?family=Rethink+Sans:wght@300;600;700&display=swap" rel="stylesheet">
 
   <!-- three.js, Vanta.js -->
@@ -20,12 +20,16 @@
       padding: 0;
       width: 100%;
       height: 100%;
-      font-family: 'Rethink Sans', sans-serif; /* Rethink Sans 적용 */
+      font-family: 'Rethink Sans', sans-serif;
       background-color: #002554; /* Pantone 655C 근사값 */
       color: #ffffff;
+      box-sizing: border-box;
+    }
+    *, *::before, *::after {
+      box-sizing: inherit;
     }
 
-    /* Vanta.js 전체 화면 */
+    /* Vanta.js 전체 화면 컨테이너 */
     .vanta-container {
       position: relative;
       width: 100%;
@@ -41,78 +45,63 @@
       z-index: -1; /* 내용 뒤에 위치 */
     }
 
-    /* 메인 컨테이너: 중앙 고정 + 최대 폭 제한 */
+    /* 전체를 감싸는 래퍼: 가로 폭 제한 & 가운데 정렬 */
     .wrapper {
-      position: relative;
+      display: flex;
+      align-items: center;       /* 수직 가운데 정렬 */
+      justify-content: space-between; /* 좌: 콘텐츠, 우: 메뉴 */
       width: 100%;
       height: 100%;
-      max-width: 2560px;       /* 요청대로 2560px 로 수정 */
+      max-width: 2560px;        /* 요청에 따른 최대 폭 */
       margin: 0 auto;
-      padding: 0 1rem;
-      box-sizing: border-box;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;  /* 세로 중앙 정렬 */
+      padding: 1rem;            /* 좌우 기본 여백 */
     }
 
-    /* 콘텐츠 부분 (제목/설명) */
+    /* 콘텐츠(왼쪽 영역) */
     .content {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
+      max-width: 1000px;        /* 필요 시 조절 */
+      text-align: left;
     }
-
-    /* 텍스트 영역이 너무 퍼지지 않도록 추가 제한 */
-    .title-section {
-      max-width: 1000px;
-    }
-
-    /* 로고: 세로 뷰포트 비율 */
+    /* 로고 크기: 화면이 작아도 너무 작아지지 않도록 clamp */
     .logo {
-      width: 10vh;
+      width: clamp(80px, 10vh, 150px);
       margin-bottom: 2vh;
     }
 
-    /* 큰 타이틀: 세로 뷰포트 비율 & 볼드(700) */
+    /* 연구실 이름: Bold, 줄이 너무 쉽게 바뀌지 않도록 clamp */
     h1 {
       margin: 0;
-      font-size: 6vh;
-      font-weight: 700; /* 요청대로 Bold */
+      font-size: clamp(28px, 6vw, 72px); /* 화면 크기에 따라 유연 조절 */
+      font-weight: 700;  /* Bold */
       line-height: 1.2;
     }
 
-    /* 부가 텍스트 (기본 얇게 300) */
-    h3 {
-      margin-top: 1rem;
-      font-size: 3vh;
-      font-weight: 300; /* 얇게 */
-      line-height: 1.4;
-    }
-
-    /* @ChungNam National University 부분만 좀 더 두껍게(600) */
+    /* @ChungNam National University만 반영할 스타일 */
     .semi-bold {
-      font-weight: 600;
+      font-weight: 600;  /* 더 굵게 */
+      display: inline-block;
+      margin-top: 1rem;
     }
 
-    /* 우측 (세로) 중앙 메뉴 */
+    /* 나머지 설명 텍스트 (얇게 300), 줄바꿈 쉽게 안 되도록 clamp */
+    .desc {
+      font-size: clamp(16px, 2.5vw, 28px);
+      font-weight: 300;
+      line-height: 1.4;
+      margin: 1rem 0 0 0;
+    }
+
+    /* 오른쪽 메뉴: 절대 배치 대신 flex로 배치 → 시스템 스케일 문제 완화 */
     .menu {
-      position: absolute;
-      top: 50%;
-      right: 1rem;               /* wrapper의 좌우 패딩과 비슷하게 */
-      transform: translateY(-50%);
       display: flex;
       flex-direction: column;
       align-items: flex-end;
-      gap: 2vh;                  /* 메뉴 항목 간 간격 */
-      z-index: 2;               /* 배경보다 위 */
+      gap: 2vh; /* 메뉴 항목 간 간격 */
     }
-
-    /* 메뉴 폰트 크기 (세로 뷰포트 비율) */
     .menu a {
       color: #ffffff;
       text-decoration: none;
-      font-size: 2vh;
+      font-size: clamp(14px, 2vh, 24px);
       font-weight: 400;
       transition: color 0.3s;
     }
@@ -123,11 +112,31 @@
 </head>
 <body>
   <div class="vanta-container" id="vanta-area">
-    <!-- Vanta.js 배경 영역 -->
     <div class="vanta-bg"></div>
 
+    <!-- 메인 래퍼 (좌: 콘텐츠, 우: 메뉴) -->
     <div class="wrapper">
-      <!-- 우측 (세로) 중앙 메뉴 -->
+      <!-- 왼쪽 콘텐츠 -->
+      <div class="content">
+        <img
+          src="https://raw.githubusercontent.com/dislab5504/dislab5504.github.io/main/src/img/cnu_logo.png"
+          alt="CNU Logo"
+          class="logo"
+        >
+        <h1>Distributed Intelligence &amp; Systems Laboratory</h1>
+        
+        <!-- @ChungNam National University (semi-bold) -->
+        <div class="semi-bold">@ChungNam National University</div>
+        
+        <!-- 나머지 설명 텍스트 (얇게) -->
+        <div class="desc">
+          Welcome to our laboratory website.<br>
+          Exploring cutting-edge research in artificial intelligence,<br>
+          machine learning, and distributed systems.
+        </div>
+      </div>
+
+      <!-- 오른쪽 메뉴 -->
       <nav class="menu">
         <a href="#">Home</a>
         <a href="#">Members</a>
@@ -137,27 +146,6 @@
         <a href="#">Lecture</a>
         <a href="#">News</a>
       </nav>
-
-      <!-- 실제 컨텐츠 -->
-      <div class="content">
-        <div class="title-section">
-          <!-- CNU 로고 -->
-          <img
-            src="https://raw.githubusercontent.com/dislab5504/dislab5504.github.io/main/src/img/cnu_logo.png"
-            alt="CNU Logo"
-            class="logo"
-          >
-          <!-- 연구실 이름 (Bold) -->
-          <h1>Distributed Intelligence &amp; Systems Laboratory</h1>
-          <!-- 설명 (일부만 두껍게) -->
-          <h3>
-            <span class="semi-bold">@ChungNam National University</span><br>
-            Welcome to our laboratory website.<br>
-            Exploring cutting-edge research in artificial intelligence,<br>
-            machine learning, and distributed systems.
-          </h3>
-        </div>
-      </div>
     </div>
   </div>
 
@@ -172,7 +160,7 @@
       minWidth: 200.00,
       scale: 1.00,
       scaleMobile: 1.00,
-      color: 0xffffff,        // 라인 색상
+      color: 0xffffff,         // 라인 색상
       backgroundColor: 0x002554, // Pantone 655C 헥스 코드
       points: 20              // points 설정
     });
