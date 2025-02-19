@@ -20,99 +20,22 @@
       min-height: 100%;
       font-family: 'Rethink Sans', sans-serif;
       background-color: #ffffff; /* 밝은 배경 */
-      color: #000000;           /* 검은 글씨 */
+      color: #000000;           /* 기본 검정 글씨 */
       box-sizing: border-box;
     }
     *, *::before, *::after {
       box-sizing: inherit;
     }
 
-    /* 전체 래퍼: 가운데 정렬 */
+    /* 전체 래퍼 */
     .wrapper {
-      position: relative;       /* 메뉴를 절대 위치로 배치할 때 기준이 됨 */
+      position: relative;       /* 메뉴(우측) 절대 위치 시 기준이 됨 */
       max-width: 1200px;       /* 원하는 최대 폭 */
-      margin: 0 auto;          /* 수평 가운데 정렬 */
-      padding: 2rem;           /* 기본 여백 */
+      margin: 0 auto;          /* 가운데 정렬 */
+      padding: 2rem;           /* 상하좌우 여백 */
     }
 
-    /* 콘텐츠 영역 (교수님 / 석사 / 학부연구생 정보) */
-    .content {
-      width: 100%;
-    }
-
-    /* 교수님 사진 스타일 */
-    .prof-photo {
-      width: clamp(150px, 20vw, 300px); /* 화면 크기에 따라 유연 조절 */
-      margin-bottom: 1rem;
-      border-radius: 4px;
-      display: block;         /* 가운데 정렬을 위해 block + auto margin 가능 */
-      margin-left: auto;      /* 사진 자체를 중앙에 놓고 싶다면 */
-      margin-right: auto;
-    }
-
-    /* 큰 제목 (교수님 이름) */
-    h1 {
-      margin: 1rem 0 1rem 0;
-      text-align: center;                     /* 중앙 정렬 */
-      font-size: clamp(28px, 5vw, 60px);      /* 화면 크기에 따라 유연 조절 */
-      font-weight: 700;                       /* 굵게 (Bold) */
-      color: #002554;                         /* 강조 색상 */
-      line-height: 1.2;
-    }
-
-    /* 부제(직함 등) */
-    .subtitle {
-      margin: 0 0 1rem 0;
-      text-align: center;                     /* 중앙 정렬 */
-      font-size: clamp(20px, 3vw, 36px);
-      font-weight: 600;  /* 조금 굵게 (Semi-Bold) */
-      color: #333;
-    }
-
-    /* 일반 텍스트 라인 */
-    .info-line {
-      margin: 0.3rem 0;
-      font-size: clamp(16px, 2vw, 24px);
-      font-weight: 400;
-      line-height: 1.4;
-      text-align: center;    /* 중앙 정렬 */
-    }
-
-    /* 구분선/섹션 제목 */
-    .section-title {
-      margin-top: 2rem;
-      margin-bottom: 1rem;
-      text-align: center;
-      font-size: clamp(22px, 3vw, 36px);
-      font-weight: 700;
-      color: #002554; /* 강조 색상 */
-    }
-
-    /* 테이블 스타일 (4열×2행 유지) */
-    table {
-      margin: 0 auto;                   /* 테이블 자체도 가운데 정렬 */
-      border-collapse: separate;
-      border-spacing: 1rem;             /* 셀 간격 */
-      margin-bottom: 2rem;
-    }
-    td {
-      vertical-align: top;
-      padding: 1rem;
-      border: 1px solid #ccc; /* 테두리 예시 */
-      width: 25%;             /* 4열이므로 25%씩 */
-      text-align: center;     /* 셀 내용도 중앙 정렬 */
-    }
-
-    /* 석사/학부생 사진 스타일 */
-    .photo {
-      display: block;
-      width: 100%;
-      max-width: 200px;
-      margin: 0 auto 0.5rem auto; /* 가운데 정렬 */
-      border-radius: 4px;
-    }
-
-    /* 오른쪽 메뉴: 절대 위치 */
+    /* 오른쪽 메뉴 (절대 위치) */
     .menu {
       position: absolute;
       top: 2rem;
@@ -133,7 +56,117 @@
       color: #666;
     }
 
-    /* 숨기고 싶은 부분 (석사과정 2명만 표시) */
+    /* 메인 콘텐츠 영역 */
+    .content {
+      width: 100%;
+    }
+
+    /* 교수님 테이블 (2열) */
+    .prof-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 1rem;  /* 셀 간격 */
+      margin-bottom: 2rem;
+    }
+    .prof-table td {
+      vertical-align: top;
+      width: 50%;           /* 2열이므로 각각 50% */
+      border: 1px solid #ccc; /* 예시 테두리 */
+      padding: 1rem;
+    }
+
+    /* 교수님 사진: 가운데 정렬 */
+    .prof-photo {
+      display: block;
+      margin: 0 auto;       /* 사진만 가운데 정렬 */
+      width: clamp(150px, 20vw, 300px); /* 화면 크기에 따라 유연 조절 */
+      border-radius: 4px;
+      margin-bottom: 1rem;
+    }
+
+    /* 교수님 텍스트는 왼쪽 정렬 */
+    .prof-info {
+      text-align: left;
+    }
+    /* 교수님 이름 (크게, Bold) */
+    .prof-info h1 {
+      margin: 0 0 1rem 0;
+      font-size: clamp(28px, 5vw, 60px);
+      font-weight: 700;
+      color: #002554; /* 강조 색상 */
+    }
+    /* 부제(직함 등) */
+    .prof-info .subtitle {
+      margin: 0 0 1rem 0;
+      font-size: clamp(20px, 3vw, 36px);
+      font-weight: 600;
+      color: #333;
+    }
+    /* 일반 텍스트 라인 */
+    .prof-info .info-line {
+      margin: 0.3rem 0;
+      font-size: clamp(16px, 2vw, 24px);
+      font-weight: 400;
+      line-height: 1.4;
+    }
+    /* 전화번호는 폰트 크기를 좀 더 작게 */
+    .prof-info .phone-line {
+      margin: 0.3rem 0;
+      font-size: clamp(12px, 1.5vw, 16px); /* 더 작게 */
+      font-weight: 400;
+      line-height: 1.4;
+    }
+
+    /* -------- 추가: Education, Research Experience 등 -------- */
+    .prof-section h2 {
+      margin: 1.5rem 0 0.5rem 0;
+      font-size: clamp(18px, 2vw, 24px);
+      font-weight: 600;
+      color: #000;  /* 소제목은 검정색 */
+    }
+    .prof-section ul {
+      margin: 0;
+      padding-left: 1.2rem;
+      list-style-type: disc;
+    }
+    .prof-section li {
+      margin: 0.3rem 0;
+      color: #777;  /* 내용은 회색 */
+      font-size: clamp(16px, 2vw, 20px);
+      line-height: 1.4;
+    }
+
+    /* 석사/학부생 테이블 */
+    .section-title {
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+      font-size: clamp(22px, 3vw, 36px);
+      font-weight: 700;
+      color: #002554;
+      text-align: center;
+    }
+    .student-table {
+      margin: 0 auto;
+      border-collapse: separate;
+      border-spacing: 1rem;
+      margin-bottom: 2rem;
+    }
+    .student-table td {
+      vertical-align: top;
+      padding: 1rem;
+      border: 1px solid #ccc;
+      width: 25%; /* 4열 */
+      text-align: center;
+    }
+    .student-photo {
+      display: block;
+      width: 100%;
+      max-width: 200px;
+      margin: 0 auto 0.5rem auto;
+      border-radius: 4px;
+    }
+
+    /* 숨김 처리 (석사 2명만 표시할 때 사용) */
     .hidden {
       display: none !important;
     }
@@ -142,7 +175,7 @@
 <body>
 
   <div class="wrapper">
-    <!-- 오른쪽 메뉴 (절대 위치) -->
+    <!-- 오른쪽 메뉴 -->
     <nav class="menu">
       <a href="index.html">Home</a>
       <a href="members.html">Members</a>
@@ -153,44 +186,91 @@
       <a href="#">News</a>
     </nav>
 
-    <!-- 가운데 정렬할 메인 콘텐츠 -->
+    <!-- 메인 콘텐츠 -->
     <div class="content">
-      <!-- 교수님 정보 -->
-      <img
-        src="assets/professor.png"
-        alt="Professor Heecheol Yang"
-        class="prof-photo"
-      >
-      <h1>Heecheol Yang</h1>
-      <div class="subtitle">Assistant Professor, Ph. D.</div>
+      <!-- 교수님 정보: 2열 테이블 -->
+      <table class="prof-table">
+        <tr>
+          <!-- 왼쪽 열: 사진 + 정보 -->
+          <td>
+            <!-- 사진 (가운데 정렬) -->
+            <img
+              src="assets/professor.png"
+              alt="Professor Heecheol Yang"
+              class="prof-photo"
+            >
+            <!-- 텍스트 (왼쪽 정렬) -->
+            <div class="prof-info">
+              <h1>Heecheol Yang</h1>
+              <div class="subtitle">Assistant Professor, Ph. D.</div>
+              <div class="info-line">Division of Computer Convergence, Chungnam National University</div>
+              <div class="info-line">E-mail: hcyang@cnu.ac.kr</div>
+              <div class="phone-line">Tel.: 042-821-6656</div>
+              <div class="info-line">
+                Address: Rm. 522, Engineering Unit 5 (W2),<br>
+                Chungnam National University,<br>
+                99 Daehak-ro, Yuseong-gu, Deajeon, Korea [34134]
+              </div>
 
-      <!-- 기본 정보 -->
-      <div class="info-line">Division of Computer Convergence, Chungnam National University</div>
-      <div class="info-line">E-mail: hcyang@cnu.ac.kr</div>
-      <div class="info-line">Tel.: 042-821-6656</div>
-      <div class="info-line">
-        Address: Rm. 522, Engineering Unit 5 (W2),<br>
-        Chungnam National University,<br>
-        99 Daehak-ro, Yuseong-gu, Deajeon, Korea [34134]
-      </div>
+              <!-- 추가 정보 (Education, Research Experience, Honors, etc.) -->
+              <div class="prof-section">
+                <h2>Education</h2>
+                <ul>
+                  <li>Ph.D. Dept. of Electrical and Computer Engineering, Seoul National University</li>
+                  <li>B.S. Dept. of Electrical and Computer Engineering, Seoul National University</li>
+                </ul>
+              </div>
 
-      <!-- 석사 과정(Master Graduate Students) -->
+              <div class="prof-section">
+                <h2>Research Experience</h2>
+                <ul>
+                  <li>Assistant Professor School of Electrical Engineering, Kumoh National Institute of Technology</li>
+                  <li>Staff Engineer Standard Research Team, Samsung Research, Samsung Electronics</li>
+                  <li>Visiting Scholar University of Southern California</li>
+                </ul>
+              </div>
+
+              <div class="prof-section">
+                <h2>Honors and Awards</h2>
+                <ul>
+                  <li>Distinguished Ph.D. Dissertation Award, Dept. of Electrical and Computer Engineering at Seoul National University</li>
+                  <li>Gold Prize at 2017 IEEE Seoul Section Student Paper Contest, IEEE Seoul Section</li>
+                  <li>Bronze Prize at the 23rd Samsung Electronics HumanTech Paper Contest, Samsung Electronics</li>
+                </ul>
+              </div>
+
+              <div class="prof-section">
+                <h2>Academic Activities</h2>
+                <ul>
+                  <li>TPC member @ IEEE Wireless Communications and Networking Conference (2020, 2021)</li>
+                </ul>
+              </div>
+
+            </div>
+          </td>
+
+          <!-- 오른쪽 열: 비워둠 -->
+          <td></td>
+        </tr>
+      </table>
+
+      <!-- 석사 과정(Master Graduate Students) 예시 -->
       <div class="section-title">Master Graduate Students</div>
-      <table>
+      <table class="student-table">
         <tr>
           <td>
-            <img src="assets/mg_seongyoon.jpg" alt="Seongyoon Kim" class="photo">
-            <div class="info-line"><strong>Seongyoon Kim</strong></div>
-            <div class="info-line">E-mail: seongyoon@example.com</div>
-            <div class="info-line">Tel.: 010-1234-5678</div>
+            <img src="assets/mg_seongyoon.jpg" alt="Seongyoon Kim" class="student-photo">
+            <div><strong>Seongyoon Kim</strong></div>
+            <div>E-mail: seongyoon@example.com</div>
+            <div>Tel.: 010-1234-5678</div>
           </td>
           <td>
-            <img src="assets/mg_jihyun.jpg" alt="Jihyun Ryu" class="photo">
-            <div class="info-line"><strong>Jihyun Ryu</strong></div>
-            <div class="info-line">E-mail: jihyun@example.com</div>
-            <div class="info-line">Tel.: 010-1111-2222</div>
+            <img src="assets/mg_jihyun.jpg" alt="Jihyun Ryu" class="student-photo">
+            <div><strong>Jihyun Ryu</strong></div>
+            <div>E-mail: jihyun@example.com</div>
+            <div>Tel.: 010-1111-2222</div>
           </td>
-          <!-- 남는 2칸은 숨김 처리 -->
+          <!-- 나머지 칸 숨김 (석사생 2명만 표시) -->
           <td class="hidden"></td>
           <td class="hidden"></td>
         </tr>
@@ -199,9 +279,10 @@
         </tr>
       </table>
 
-      <!-- 학부연구생 등 다른 섹션도 동일 구조로 추가 가능 -->
+      <!-- 학부 연구생 섹션 등도 동일하게 추가 가능 -->
+      <!-- ... -->
+
     </div>
   </div>
-
 </body>
 </html>
