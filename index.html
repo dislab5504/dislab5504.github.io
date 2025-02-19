@@ -5,6 +5,9 @@
   <title>Distributed Intelligence & Systems Laboratory</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <!-- Rethink Sans 폰트 로드 -->
+  <link href="https://fonts.googleapis.com/css2?family=Rethink+Sans:wght@300;600;700&display=swap" rel="stylesheet">
+
   <!-- three.js, Vanta.js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
   <!-- 실제 환경에 맞춰 Vanta.js 경로 수정 -->
@@ -17,7 +20,7 @@
       padding: 0;
       width: 100%;
       height: 100%;
-      font-family: "Circular", "Segoe UI", sans-serif; /* "Circular" 폰트 사용 */
+      font-family: 'Rethink Sans', sans-serif; /* Rethink Sans 적용 */
       background-color: #002554; /* Pantone 655C 근사값 */
       color: #ffffff;
     }
@@ -43,15 +46,13 @@
       position: relative;
       width: 100%;
       height: 100%;
-      /* 화면이 넓어도 너무 가운데로 몰리지 않도록 max-width 확장 */
-      max-width: 1600px;
+      max-width: 2560px;       /* 요청대로 2560px 로 수정 */
       margin: 0 auto;
-      /* 좌우 여백을 살짝 줄여서 조금 더 퍼지게 */
       padding: 0 1rem;
       box-sizing: border-box;
       display: flex;
       flex-direction: column;
-      justify-content: center;  /* 세로 방향 중앙 정렬 (content와 함께) */
+      justify-content: center;  /* 세로 중앙 정렬 */
     }
 
     /* 콘텐츠 부분 (제목/설명) */
@@ -62,7 +63,7 @@
       justify-content: center;
     }
 
-    /* 텍스트 영역이 너무 퍼지지 않도록 추가 제한 (필요시 조절) */
+    /* 텍스트 영역이 너무 퍼지지 않도록 추가 제한 */
     .title-section {
       max-width: 1000px;
     }
@@ -73,27 +74,32 @@
       margin-bottom: 2vh;
     }
 
-    /* 큰 타이틀: 세로 뷰포트 비율 & 더 볼드하게 (700) */
+    /* 큰 타이틀: 세로 뷰포트 비율 & 볼드(700) */
     h1 {
       margin: 0;
       font-size: 6vh;
-      font-weight: 700; /* 더 볼드 */
+      font-weight: 700; /* 요청대로 Bold */
       line-height: 1.2;
     }
 
-    /* 부가 텍스트 */
+    /* 부가 텍스트 (기본 얇게 300) */
     h3 {
       margin-top: 1rem;
       font-size: 3vh;
-      font-weight: 300;
+      font-weight: 300; /* 얇게 */
       line-height: 1.4;
+    }
+
+    /* @ChungNam National University 부분만 좀 더 두껍게(600) */
+    .semi-bold {
+      font-weight: 600;
     }
 
     /* 우측 (세로) 중앙 메뉴 */
     .menu {
       position: absolute;
       top: 50%;
-      right: 1rem;               /* wrapper의 좌우 패딩과 맞춤 */
+      right: 1rem;               /* wrapper의 좌우 패딩과 비슷하게 */
       transform: translateY(-50%);
       display: flex;
       flex-direction: column;
@@ -141,10 +147,11 @@
             alt="CNU Logo"
             class="logo"
           >
-          <!-- 연구실 이름 -->
+          <!-- 연구실 이름 (Bold) -->
           <h1>Distributed Intelligence &amp; Systems Laboratory</h1>
+          <!-- 설명 (일부만 두껍게) -->
           <h3>
-            ChungNam National University<br>
+            <span class="semi-bold">@ChungNam National University</span><br>
             Welcome to our laboratory website.<br>
             Exploring cutting-edge research in artificial intelligence,<br>
             machine learning, and distributed systems.
@@ -167,7 +174,7 @@
       scaleMobile: 1.00,
       color: 0xffffff,        // 라인 색상
       backgroundColor: 0x002554, // Pantone 655C 헥스 코드
-      points: 20             // points 설정
+      points: 20              // points 설정
     });
   </script>
 </body>
