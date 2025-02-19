@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Professor - Distributed Intelligence & Systems Laboratory</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Rethink Sans 폰트 로드 (300, 600, 700 가중치 사용) -->
+  <link href="https://fonts.googleapis.com/css2?family=Rethink+Sans:wght@300;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* 전역 스타일 */
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      min-height: 100%;
+      font-family: 'Rethink Sans', sans-serif;
+      background-color: #ffffff; /* 밝은 배경 */
+      color: #000000;           /* 검은 글씨 */
+      box-sizing: border-box;
+    }
+    *, *::before, *::after {
+      box-sizing: inherit;
+    }
+
+    /* 페이지 전체 래퍼 */
+    .wrapper {
+      display: flex;
+      justify-content: space-between; /* 좌: 내용, 우: 메뉴 */
+      align-items: flex-start;        /* 내용이 길어질 때 상단 정렬 */
+      max-width: 2560px;
+      margin: 0 auto;
+      padding: 2rem;                 /* 좌우 간격 */
+      gap: 2rem;                     /* 내용과 메뉴 사이 여백 */
+    }
+
+    /* 왼쪽 콘텐츠 영역 */
+    .content {
+      max-width: 1000px;            /* 필요 시 조정 */
+    }
+
+    /* 상단 큰 제목 (이 페이지의 대표) */
+    h1 {
+      margin: 0 0 1rem 0;
+      font-size: clamp(28px, 5vw, 60px); /* 화면 크기에 따라 유연 조절 */
+      font-weight: 700;                  /* 굵게 (Bold) */
+      color: #002554;                    /* 강조 색상 사용 */
+      line-height: 1.2;
+    }
+
+    /* 부제나 직함 등 */
+    .subtitle {
+      margin: 0 0 1rem 0;
+      font-size: clamp(20px, 3vw, 36px);
+      font-weight: 600;  /* 조금 굵게 (Semi-Bold) */
+      color: #333;       /* 본문보다는 진하지만 메인컬러보다는 덜 강조 */
+    }
+
+    /* 일반 텍스트 라인 */
+    .info-line {
+      margin: 0.3rem 0;
+      font-size: clamp(16px, 2vw, 24px);
+      font-weight: 400;
+      line-height: 1.4;
+    }
+
+    /* 구분선 또는 섹션 구분 */
+    .section-title {
+      margin-top: 2rem;
+      margin-bottom: 0.5rem;
+      font-size: clamp(18px, 2.5vw, 28px);
+      font-weight: 700;
+      color: #002554; /* 강조 색상 */
+    }
+
+    /* 목록 스타일 (간단히 ul) */
+    ul {
+      margin: 0;
+      padding-left: 1.2rem;
+    }
+    li {
+      margin: 0.4rem 0;
+      font-size: clamp(16px, 2vw, 24px);
+      font-weight: 400;
+      line-height: 1.4;
+    }
+
+    /* 오른쪽 메뉴 */
+    .menu {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 1rem; /* 메뉴 항목 간격 */
+    }
+    .menu a {
+      text-decoration: none;
+      color: #002554;           /* 어두운 파랑 톤 (혹은 #333 등) */
+      font-size: clamp(16px, 2vw, 24px);
+      font-weight: 400;
+      transition: color 0.3s;
+    }
+    .menu a:hover {
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="wrapper">
+    <!-- 왼쪽 콘텐츠 -->
+    <div class="content">
+      <!-- 교수 정보 -->
+      <h1>Heecheol Yang</h1>
+      <div class="subtitle">Assistant Professor, Ph. D.</div>
+
+      <!-- 기본 정보 -->
+      <div class="info-line">Division of Computer Convergence, Chungnam National University</div>
+      <div class="info-line">E-mail: hcyang@cnu.ac.kr</div>
+      <div class="info-line">Tel.: 042-821-6656</div>
+      <div class="info-line">
+        Address: Rm. 522, Engineering Unit 5 (W2), Chungnam National University,<br>
+        99 Daehak-ro, Yuseong-gu, Deajeon, Korea [34134]
+      </div>
+
+      <!-- Education -->
+      <div class="section-title">Education</div>
+      <ul>
+        <li>Ph.D. Dept. of Electrical and Computer Engineering, Seoul National University</li>
+        <li>B.S. Dept. of Electrical and Computer Engineering, Seoul National University</li>
+      </ul>
+
+      <!-- Research Experience -->
+      <div class="section-title">Research Experience</div>
+      <ul>
+        <li>Assistant Professor, School of Electrical Engineering, Kumoh National Institute of Technology</li>
+        <li>Staff Engineer, Standard Research Team, Samsung Research, Samsung Electronics</li>
+        <li>Visiting Scholar, University of Southern California</li>
+      </ul>
+
+      <!-- Honors and Awards -->
+      <div class="section-title">Honors and Awards</div>
+      <ul>
+        <li>Distinguished Ph.D. Dissertation Award, Dept. of ECE at Seoul National University</li>
+        <li>Gold Prize at 2017 IEEE Seoul Section Student Paper Contest, IEEE Seoul Section</li>
+        <li>Bronze Prize at the 23rd Samsung Electronics HumanTech Paper Contest, Samsung Electronics</li>
+      </ul>
+
+      <!-- Academic Activities -->
+      <div class="section-title">Academic Activities</div>
+      <ul>
+        <li>TPC member @ IEEE Wireless Communications and Networking Conference (2020, 2021)</li>
+      </ul>
+    </div>
+
+    <!-- 오른쪽 메뉴 (index.html과 동일 구조) -->
+    <nav class="menu">
+      <a href="index.html">Home</a>
+      <a href="members.html">Members</a>
+      <a href="#">Publications</a>
+      <a href="#">Research</a>
+      <a href="#">Projects</a>
+      <a href="#">Lecture</a>
+      <a href="#">News</a>
+    </nav>
+  </div>
+
+</body>
+</html>
