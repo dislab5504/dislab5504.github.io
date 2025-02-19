@@ -7,7 +7,7 @@
 
   <!-- three.js, Vanta.js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
-  <!-- Vanta.js (경로는 실제 환경에 맞춰 조정) -->
+  <!-- 실제 환경에 맞춰 Vanta.js 경로 수정 -->
   <script src="./dist/vanta.net.min.js"></script>
 
   <style>
@@ -17,9 +17,8 @@
       padding: 0;
       width: 100%;
       height: 100%;
-      /* 폰트: "Circular"가 없다면 "Segoe UI" → sans-serif로 폴백 */
-      font-family: "Circular", "Segoe UI", sans-serif;
-      background-color: #13294B; /* Pantone 655C 근사값 */
+      font-family: "Circular", "Segoe UI", sans-serif; /* "Circular" 폰트 사용 */
+      background-color: #002554; /* Pantone 655C 근사값 */
       color: #ffffff;
     }
 
@@ -41,44 +40,44 @@
 
     /* 메인 컨테이너: 중앙 고정 + 최대 폭 제한 */
     .wrapper {
-      /* 화면이 지나치게 넓어졌을 때도 가운데 정렬 & 최대 폭 유지 */
       position: relative;
       width: 100%;
       height: 100%;
-      max-width: 1400px;        /* 원하는 최대 폭 (예: 1400px) */
-      margin: 0 auto;           /* 가운데 정렬 */
-      padding: 0 2rem;          /* 좌우 기본 여백 */
+      /* 화면이 넓어도 너무 가운데로 몰리지 않도록 max-width 확장 */
+      max-width: 1600px;
+      margin: 0 auto;
+      /* 좌우 여백을 살짝 줄여서 조금 더 퍼지게 */
+      padding: 0 1rem;
       box-sizing: border-box;
       display: flex;
       flex-direction: column;
-      justify-content: center;  /* 세로 중앙 정렬용 (content와 함께 사용) */
+      justify-content: center;  /* 세로 방향 중앙 정렬 (content와 함께) */
     }
 
     /* 콘텐츠 부분 (제목/설명) */
     .content {
-      /* wrapper 내부에서 세로 가운데 정렬을 함께 처리 */
-      flex: 1;                  /* 상하로 공간을 채우도록 */
+      flex: 1;
       display: flex;
       flex-direction: column;
       justify-content: center;
     }
 
-    /* 텍스트 영역이 너무 퍼지지 않도록 추가 제한 */
+    /* 텍스트 영역이 너무 퍼지지 않도록 추가 제한 (필요시 조절) */
     .title-section {
-      max-width: 800px;         /* 필요 시 조정 (타이틀+설명 영역) */
+      max-width: 1000px;
     }
 
-    /* 로고 크기: 세로 뷰포트 비율 */
+    /* 로고: 세로 뷰포트 비율 */
     .logo {
       width: 10vh;
       margin-bottom: 2vh;
     }
 
-    /* 큰 타이틀: 세로 뷰포트 비율 & 가벼운 폰트 */
+    /* 큰 타이틀: 세로 뷰포트 비율 & 더 볼드하게 (700) */
     h1 {
       margin: 0;
-      font-size: 6vh;   /* 세로 뷰포트 높이의 6% */
-      font-weight: 400;
+      font-size: 6vh;
+      font-weight: 700; /* 더 볼드 */
       line-height: 1.2;
     }
 
@@ -90,12 +89,11 @@
       line-height: 1.4;
     }
 
-    /* 우측 (세로) 중앙 메뉴 
-       (wrapper 안에서 absolute로 배치, right: 2rem) */
+    /* 우측 (세로) 중앙 메뉴 */
     .menu {
       position: absolute;
       top: 50%;
-      right: 2rem;               /* wrapper의 내부 여백과 동일하게 맞춤 */
+      right: 1rem;               /* wrapper의 좌우 패딩과 맞춤 */
       transform: translateY(-50%);
       display: flex;
       flex-direction: column;
@@ -122,7 +120,6 @@
     <!-- Vanta.js 배경 영역 -->
     <div class="vanta-bg"></div>
 
-    <!-- 가운데 정렬 & 최대 폭 제한 래퍼 -->
     <div class="wrapper">
       <!-- 우측 (세로) 중앙 메뉴 -->
       <nav class="menu">
@@ -168,8 +165,9 @@
       minWidth: 200.00,
       scale: 1.00,
       scaleMobile: 1.00,
-      color: 0xffffff,       // 라인 색상
-      backgroundColor: 0x13294b // 다크블루 (Pantone 655C 근사값)
+      color: 0xffffff,        // 라인 색상
+      backgroundColor: 0x002554, // Pantone 655C 헥스 코드
+      points: 20             // points 설정
     });
   </script>
 </body>
