@@ -5,7 +5,7 @@
   <title>Distributed Intelligence & Systems Laboratory</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Rethink Sans 폰트 로드 (가중치 300, 600, 700 사용) -->
+  <!-- Rethink Sans 폰트 로드 (가중치 300, 600, 700 사용, Variable 포함) -->
   <link href="https://fonts.googleapis.com/css2?family=Rethink+Sans:wght@300;600;700&display=swap" rel="stylesheet">
 
   <!-- three.js, Vanta.js -->
@@ -59,7 +59,7 @@
 
     /* 왼쪽 콘텐츠 */
     .content {
-      max-width: 1200px;             /* 콘텐츠 폭 늘림 (필요 시 조정) */
+      max-width: 1200px;             /* 콘텐츠 폭 (필요 시 조정) */
       text-align: left;
     }
     /* 로고 크기: 화면이 작아도 너무 작아지지 않도록 clamp */
@@ -68,7 +68,7 @@
       margin-bottom: 2vh;
     }
 
-    /* 연구실 이름: Bold(700), 글씨 커지도록 clamp */
+    /* 연구실 이름: Bold(700) */
     h1 {
       margin: 0;
       font-size: clamp(40px, 7vw, 80px); /* 최소 40px ~ 최대 80px */
@@ -84,10 +84,10 @@
       display: block;
     }
 
-    /* 나머지 설명 텍스트: 얇게(300), 폰트 크게 clamp */
+    /* 나머지 설명 텍스트: 더 얇게 (200) */
     .desc {
       font-size: clamp(20px, 3vw, 40px);
-      font-weight: 300;
+      font-weight: 200;  /* 300보다 더 가늘게 설정 */
       line-height: 1.4;
       margin: 1rem 0 0 0;
     }
@@ -129,8 +129,8 @@
         <!-- @ChungNam National University -->
         <div class="semi-bold">@ChungNam National University</div>
         
-        <!-- 설명 -->
-        <div class="desc" style="font-weight: 200;">
+        <!-- 설명 (더 가는 폰트) -->
+        <div class="desc">
           Welcome to our laboratory website.<br>
           Exploring cutting-edge research in artificial intelligence,<br>
           machine learning, and distributed systems.
