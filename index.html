@@ -1,29 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Vanta.js - Animated 3D Backgrounds For Your Website</title>
+  <title></title>
   <meta charset="UTF-8">
-  <meta name="description" content="3D &amp; WebGL Background Animations For Your Website">
+  <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:url" content="https://www.vantajs.com">
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="Vanta.js - 3D &amp; WebGL Background Animations For Your Website">
-  <meta property="og:description" content="Gallery of customizable plug &amp; play animated backgrounds using three.js">
-  <meta property="og:image" content="https://www.vantajs.com/gallery/fb-share-image.jpg">
-
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:creator" content="@tengb11">
-  <meta name="twitter:title" content="Vanta.js - 3D &amp; WebGL Background Animations For Your Website">
-  <meta name="twitter:description" content="Gallery of customizable plug &amp; play animated backgrounds using three.js">
-  <meta name="twitter:image" content="https://www.vantajs.com/gallery/fb-share-image.jpg">
-
-  <link rel="stylesheet" href="./gallery/reset.css">
-  <link rel="stylesheet" href="./gallery/circular/stylesheet.css">
-  <link rel="stylesheet" href="./gallery/entypo/entypo.css">
   <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
-  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-
   <!-- analytics & jquery -->
   <script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script>
   <script type="text/javascript" async=""
@@ -38,21 +21,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
   <script src="./dist/vanta.net.min.js"></script>
 
-  <!-- rison & gallery for "Customize & Get Code" panel -->
-  <script src="./gallery/rison.js"></script>
-  <script src="./gallery/gallery.min.js"></script>
-  <link rel="stylesheet" href="./gallery/styles.css">
-
-  <!-- Google Analytics -->
-  <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-42988408-2"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'UA-42988408-2');
-  </script>
-
-  <!-- dat.gui / vanta gallery CSS (no ellipses, full) -->
   <style type="text/css">
     .dg ul {
       list-style: none;
@@ -394,29 +362,9 @@
 <body>
   <section class="wm">
     <span style="position: relative; z-index: 1;"></span>
-    <!-- 상단 메뉴 (GitHub, Customize) -->
-    <div class="top-left" style="z-index: 1;">
-      <a href="https://github.com/tengbao/vanta">
-        <i class="ent-github"> </i>
-        GitHub
-      </a>
-    </div>
-    <span style="position: relative; z-index: 1;"></span>
-    <div class="top-right" style="z-index: 1;">
-      <a href="javascript:void(0)" class="customize">
-        <i class="ent-cog"> </i>
-        Customize &amp; Get Code
-      </a>
-    </div>
-    <span style="position: relative; z-index: 1;"></span>
-    <div class="bottom-left" style="z-index: 1;">
-      <span id="fps">116.6 fps</span>
-    </div>
-    <span style="position: relative; z-index: 1;"></span>
-
     <!-- 여기서부터: Vanta.js 문구 -> 연구실 소개 문구로 교체 -->
     <div class="container inner">
-      <div class="eight columns">
+      <div class="eight columns" style="color: whitesmoke;">
         <h1>Distributed Intelligence &amp; System Laboratory</h1>
         <h3>
           ChungNam National University<br>
@@ -424,212 +372,23 @@
           Exploring cutting-edge research in artificial intelligence,<br>
           machine learning, and distributed systems.
         </h3>
-        <!-- 기존 버튼 주석 -->
-        <!-- <br> <div class="btn customize">
-          <i class="ent-cog"> </i>
-          Customize & Get Code
-        </div> -->
-        <div class="btn restart" style="display: none;"> Randomize! </div>
       </div>
     </div>
-    <span style="position: relative; z-index: 1;"></span>
-
-    <!-- Customize & Get Code 모달 -->
-    <div class="usage-cont" style="">
-      <a class="close-btn" href="javascript: void(0);">
-        <i class="ent-cancel"></i>
-      </a>
-      <h4 class="strong"> 1. Customize </h4>
-      <div class="gui-cont">
-        <div class="dg main">
-          <ul>
-            <li class="cr color">
-              <div>
-                <span class="property-name">color</span>
-                <div class="c">
-                  <input type="text"
-                         style="outline: none; text-align: center; color: rgb(0, 0, 0); border: 0px; font-weight: bold; text-shadow: rgba(255, 255, 255, 0.7) 0px 1px 1px; background-color: rgb(232, 149, 149);">
-                  <div class="selector"
-                       style="width: 122px; height: 102px; padding: 3px; background-color: rgb(34, 34, 34); box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 3px;">
-                    <div class="field-knob"
-                         style="position: absolute; width: 12px; height: 12px; border: 2px solid rgb(0, 0, 0); box-shadow: rgba(0, 0, 0, 0.5) 0px 1px 3px; border-radius: 12px; z-index: 1; margin-left: 28.7759px; margin-top: 2.01961px; background-color: rgb(232, 149, 149);">
-                    </div>
-                    <div class="saturation-field"
-                         style="width: 100px; height: 100px; border: 1px solid rgb(85, 85, 85); margin-right: 3px; display: inline-block; cursor: pointer; background: -webkit-linear-gradient(left, rgb(255, 255, 255) 0%, rgb(255, 0, 0) 100%);">
-                      <div style="width: 100%; height: 100%; background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgb(0, 0, 0) 100%);"></div>
-                    </div>
-                    <div class="hue-field"
-                         style="width: 15px; height: 100px; border: 1px solid rgb(85, 85, 85); cursor: ns-resize; position: absolute; top: 3px; right: 3px; background: -webkit-linear-gradient(top, rgb(255, 0, 0) 0%, rgb(255, 0, 255) 17%, rgb(0, 0, 255) 34%, rgb(0, 255, 255) 50%, rgb(0, 255, 0) 67%, rgb(255, 255, 0) 84%, rgb(255, 0, 0) 100%);">
-                      <div class="hue-knob"
-                           style="position: absolute; width: 15px; height: 2px; border-right: 4px solid rgb(255, 255, 255); z-index: 1; margin-top: 100px;">
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </li>
-            <li class="cr color">
-              <div>
-                <span class="property-name">backgroundColor</span>
-                <div class="c">
-                  <input type="text"
-                         style="outline: none; text-align: center; color: rgb(255, 255, 255); border: 0px; font-weight: bold; text-shadow: rgba(0, 0, 0, 0.7) 0px 1px 1px; background-color: rgb(0, 0, 0);">
-                  <div class="selector"
-                       style="width: 122px; height: 102px; padding: 3px; background-color: rgb(34, 34, 34); box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 3px;">
-                    <div class="field-knob"
-                         style="position: absolute; width: 12px; height: 12px; border: 2px solid rgb(255, 255, 255); box-shadow: rgba(0, 0, 0, 0.5) 0px 1px 3px; border-radius: 12px; z-index: 1; margin-left: -7px; margin-top: 93px; background-color: rgb(0, 0, 0);">
-                    </div>
-                    <div class="saturation-field"
-                         style="width: 100px; height: 100px; border: 1px solid rgb(85, 85, 85); margin-right: 3px; display: inline-block; cursor: pointer; background: -webkit-linear-gradient(left, rgb(255, 255, 255) 0%, rgb(255, 0, 0) 100%);">
-                      <div style="width: 100%; height: 100%; background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgb(0, 0, 0) 100%);"></div>
-                    </div>
-                    <div class="hue-field"
-                         style="width: 15px; height: 100px; border: 1px solid rgb(85, 85, 85); cursor: ns-resize; position: absolute; top: 3px; right: 3px; background: -webkit-linear-gradient(top, rgb(255, 0, 0) 0%, rgb(255, 0, 255) 17%, rgb(0, 0, 255) 34%, rgb(0, 255, 255) 50%, rgb(0, 255, 0) 67%, rgb(255, 255, 0) 84%, rgb(255, 0, 0) 100%);">
-                      <div class="hue-knob"
-                           style="position: absolute; width: 15px; height: 2px; border-right: 4px solid rgb(255, 255, 255); z-index: 1; margin-top: 100px;">
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </li>
-            <li class="cr number has-slider">
-              <div>
-                <span class="property-name">points</span>
-                <div class="c">
-                  <div><input type="text"></div>
-                  <div class="slider"><div class="slider-fg" style="width: 47.3684%;"></div></div>
-                </div>
-              </div>
-            </li>
-            <li class="cr number has-slider">
-              <div>
-                <span class="property-name">maxDistance</span>
-                <div class="c">
-                  <div><input type="text"></div>
-                  <div class="slider"><div class="slider-fg" style="width: 33.3333%;"></div></div>
-                </div>
-              </div>
-            </li>
-            <li class="cr number has-slider">
-              <div>
-                <span class="property-name">spacing</span>
-                <div class="c">
-                  <div><input type="text"></div>
-                  <div class="slider"><div class="slider-fg" style="width: 50%;"></div></div>
-                </div>
-              </div>
-            </li>
-            <li class="cr boolean">
-              <div>
-                <span class="property-name">showDots</span>
-                <div class="c">
-                  <input type="checkbox" checked="checked">
-                </div>
-              </div>
-            </li>
-          </ul>
-          <div class="close-button close-bottom">Close Controls</div>
-        </div>
-      </div>
-      <br>
-      <h4 class="strong"> 2. Grab the code </h4>
-      <ul class="features small all-instructions">
-        <li>
-          Change <strong> #your-element-selector </strong> to your element and include files from
-          <a href="https://cdn.jsdelivr.net/npm/vanta@latest/dist/">CDN</a>
-        </li>
-        <li>
-          Or view <a href="#" class="strk-toggle">instructions for Strikingly.com</a>
-        </li>
-      </ul>
-      <ul class="features small strk-instructions" style="display: none">
-        <li>
-          If you have a Strikingly.com site, paste the following code into Strikingly Editor -&gt; Settings -&gt; Custom Code -&gt; Footer Code.
-        </li>
-        <li>
-          Or view <a href="#" class="strk-toggle">general instructions</a>
-        </li>
-      </ul>
-
-      <div class="usage-for-all">
-        <div class="include-three" style="display:none">
-          &lt;script src="<a target="_blank" href="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js">three.r134.min.js</a>"&gt;&lt;/script&gt;
-        </div>
-        <div class="include-p5" style="display:none">
-          &lt;script src="<a target="_blank" href="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.1.9/p5.min.js">p5.min.js</a>"&gt;&lt;/script&gt;
-        </div>
-        <div disabled="true" class="usage" style="display: none;">
-          [[INCLUDE]]  
-          &lt;script src="<a target="_blank" href="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.[[EFFECTNAME]].min.js">vanta.[[EFFECTNAME]].min.js</a>"&gt;&lt;/script&gt;  
-          &lt;script&gt;  
-          [[CODE]]  
-          &lt;/script&gt;  
-        </div>
-        <div disabled="true" class="usage applied" style="">
-          &lt;script src="<a target="_blank" href="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js">three.r134.min.js</a>"&gt;&lt;/script&gt;  
-          &lt;script src="<a target="_blank" href="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js">vanta.net.min.js</a>"&gt;&lt;/script&gt;  
-          &lt;script&gt;  
-          VANTA.NET({
-            el: "<strong>#your-element-selector</strong>",
-            mouseControls: true,
-            touchControls: true,
-            gyroControls: false,
-            minHeight: 200.00,
-            minWidth: 200.00,
-            scale: 1.00,
-            scaleMobile: 1.00,
-            color: 0xe89595,
-            backgroundColor: 0x0
-          })
-          &lt;/script&gt;
-        </div>
-      </div>
-      <div class="usage-for-strk" style="display:none">
-        <div class="include-three" style="display:none">
-          &lt;script src="<a target="_blank" href="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js">https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js</a>"&gt;&lt;/script&gt;
-        </div>
-        <div class="include-p5" style="display:none">
-          &lt;script src="<a target="_blank" href="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.1.9/p5.min.js">https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.1.9/p5.min.js</a>"&gt;&lt;/script&gt;
-        </div>
-        <div disabled="true" class="usage" style="display: none;">
-          [[INCLUDE]]  
-          &lt;script src="<a target="_blank" href="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.[[EFFECTNAME]].min.js">https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.[[EFFECTNAME]].min.js</a>"&gt;&lt;/script&gt;  
-          &lt;script&gt;  
-          [[CODE_STRK]]  
-          &lt;/script&gt;
-        </div>
-        <div disabled="true" class="usage applied" style="">
-          &lt;script src="<a target="_blank" href="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js">https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js</a>"&gt;&lt;/script&gt;  
-          &lt;script src="<a target="_blank" href="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js">https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js</a>"&gt;&lt;/script&gt;  
-          &lt;script&gt;  
-          var setVanta = ()=&gt;{
-            if (window.VANTA) window.VANTA.NET({
-              el: "<strong>.s-page-1 .s-section-1 .s-section</strong>",
-              mouseControls: true,
-              touchControls: true,
-              gyroControls: false,
-              minHeight: 200.00,
-              minWidth: 200.00,
-              scale: 1.00,
-              scaleMobile: 1.00,
-              color: 0xe89595,
-              backgroundColor: 0x0
-            })
-          }
-          _strk.push(function() {
-            setVanta()
-            window.edit_page.Event.subscribe("Page.beforeNewOneFadeIn", setVanta)
-          })
-          &lt;/script&gt;
-        </div>
-      </div>
-    </div>
-    <span style="position: relative; z-index: 1;"></span>
-    <!-- canvas for Vanta -->
-    <canvas class="vanta-canvas" width="2574" height="858"
-            style="display: block; position: absolute; z-index: 0; top: 0px; left: 0px; width: 1287px; height: 429px;">
-    </canvas>
+    <div class="vanta-canvas" style="display: block; position: absolute; z-index: -999; top: 0px; left: 0px; width: 1011px; height: 656px;"></div>
+    <script>  
+        VANTA.NET({
+          el: ".vanta-canvas",
+          mouseControls: true,
+          touchControls: true,
+          gyroControls: false,
+          minHeight: 200.00,
+          minWidth: 200.00,
+          scale: 1.00,
+          scaleMobile: 1.00,
+          color: 0xe89595,
+          backgroundColor: 0x0
+        })
+    </script>
   </section>
 </body>
 </html>
