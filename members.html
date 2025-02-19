@@ -6,7 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- Rethink Sans 폰트 로드 (300, 600, 700 가중치 사용) -->
-  <link href="https://fonts.googleapis.com/css2?family=Rethink+Sans:wght@300;600;700&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Rethink+Sans:wght@300;600;700&display=swap"
+    rel="stylesheet"
+  >
 
   <style>
     /* 전역 스타일 */
@@ -37,27 +40,27 @@
 
     /* 왼쪽 콘텐츠 영역 */
     .content {
-      max-width: 1000px;            /* 필요 시 조정 */
+      max-width: 1200px; /* 필요 시 조정 */
     }
 
-    /* 상단 큰 제목 (이 페이지의 대표) */
+    /* 큰 제목 (페이지 대표) */
     h1 {
       margin: 0 0 1rem 0;
       font-size: clamp(28px, 5vw, 60px); /* 화면 크기에 따라 유연 조절 */
-      font-weight: 700;                  /* 굵게 (Bold) */
-      color: #002554;                    /* 강조 색상 사용 */
+      font-weight: 700;                  /* Bold */
+      color: #002554;                    /* 강조 색상 */
       line-height: 1.2;
     }
 
-    /* 부제나 직함 등 */
+    /* 부제(직함 등) */
     .subtitle {
       margin: 0 0 1rem 0;
       font-size: clamp(20px, 3vw, 36px);
-      font-weight: 600;  /* 조금 굵게 (Semi-Bold) */
-      color: #333;       /* 본문보다는 진하지만 메인컬러보다는 덜 강조 */
+      font-weight: 600;  /* Semi-Bold */
+      color: #333;
     }
 
-    /* 일반 텍스트 라인 */
+    /* 기본 텍스트 라인 */
     .info-line {
       margin: 0.3rem 0;
       font-size: clamp(16px, 2vw, 24px);
@@ -65,25 +68,36 @@
       line-height: 1.4;
     }
 
-    /* 구분선 또는 섹션 구분 */
+    /* 섹션 제목 */
     .section-title {
       margin-top: 2rem;
-      margin-bottom: 0.5rem;
-      font-size: clamp(18px, 2.5vw, 28px);
+      margin-bottom: 1rem;
+      font-size: clamp(22px, 3vw, 36px);
       font-weight: 700;
       color: #002554; /* 강조 색상 */
     }
 
-    /* 목록 스타일 (간단히 ul) */
-    ul {
-      margin: 0;
-      padding-left: 1.2rem;
+    /* 테이블 스타일 */
+    table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 1rem;  /* 셀 간격 */
+      margin-bottom: 2rem;
     }
-    li {
-      margin: 0.4rem 0;
-      font-size: clamp(16px, 2vw, 24px);
-      font-weight: 400;
-      line-height: 1.4;
+    td {
+      vertical-align: top;
+      padding: 1rem;
+      border: 1px solid #ccc; /* 테두리 예시 */
+      width: 25%;             /* 4열이므로 25%씩 */
+    }
+
+    /* 사진 스타일 */
+    .photo {
+      display: block;
+      width: 100%;
+      max-width: 200px;       /* 사진 최대 폭 */
+      margin-bottom: 0.5rem;
+      border-radius: 4px;     /* 모서리 살짝 둥글게 */
     }
 
     /* 오른쪽 메뉴 */
@@ -95,7 +109,7 @@
     }
     .menu a {
       text-decoration: none;
-      color: #002554;           /* 어두운 파랑 톤 (혹은 #333 등) */
+      color: #002554;  /* 파랑 톤 */
       font-size: clamp(16px, 2vw, 24px);
       font-weight: 400;
       transition: color 0.3s;
@@ -110,50 +124,150 @@
   <div class="wrapper">
     <!-- 왼쪽 콘텐츠 -->
     <div class="content">
-      <!-- 교수 정보 -->
+      <!-- 교수님 섹션 -->
       <h1>Heecheol Yang</h1>
       <div class="subtitle">Assistant Professor, Ph. D.</div>
-
-      <!-- 기본 정보 -->
       <div class="info-line">Division of Computer Convergence, Chungnam National University</div>
       <div class="info-line">E-mail: hcyang@cnu.ac.kr</div>
       <div class="info-line">Tel.: 042-821-6656</div>
       <div class="info-line">
-        Address: Rm. 522, Engineering Unit 5 (W2), Chungnam National University,<br>
-        99 Daehak-ro, Yuseong-gu, Deajeon, Korea [34134]
+        Address: Rm. 522, Engineering Unit 5 (W2),<br>
+        Chungnam National University, 99 Daehak-ro, Yuseong-gu,<br>
+        Deajeon, Korea [34134]
       </div>
 
-      <!-- Education -->
-      <div class="section-title">Education</div>
-      <ul>
-        <li>Ph.D. Dept. of Electrical and Computer Engineering, Seoul National University</li>
-        <li>B.S. Dept. of Electrical and Computer Engineering, Seoul National University</li>
-      </ul>
+      <!-- 섹션: Master Graduate Students -->
+      <div class="section-title">Master Graduate Students</div>
+      <table>
+        <tr>
+          <td>
+            <!-- 예시 1 -->
+            <img src="assets/mg1.jpg" alt="MG Student 1" class="photo">
+            <div class="info-line"><strong>홍길동</strong></div>
+            <div class="info-line">E-mail: mg1@example.com</div>
+            <div class="info-line">Tel.: 010-1234-5678</div>
+          </td>
+          <td>
+            <!-- 예시 2 -->
+            <img src="assets/mg2.jpg" alt="MG Student 2" class="photo">
+            <div class="info-line"><strong>김철수</strong></div>
+            <div class="info-line">E-mail: mg2@example.com</div>
+            <div class="info-line">Tel.: 010-1111-2222</div>
+          </td>
+          <td>
+            <!-- 예시 3 -->
+            <img src="assets/mg3.jpg" alt="MG Student 3" class="photo">
+            <div class="info-line"><strong>박영희</strong></div>
+            <div class="info-line">E-mail: mg3@example.com</div>
+            <div class="info-line">Tel.: 010-3333-4444</div>
+          </td>
+          <td>
+            <!-- 예시 4 -->
+            <img src="assets/mg4.jpg" alt="MG Student 4" class="photo">
+            <div class="info-line"><strong>이몽룡</strong></div>
+            <div class="info-line">E-mail: mg4@example.com</div>
+            <div class="info-line">Tel.: 010-5555-6666</div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <!-- 예시 5 -->
+            <img src="assets/mg5.jpg" alt="MG Student 5" class="photo">
+            <div class="info-line"><strong>최자두</strong></div>
+            <div class="info-line">E-mail: mg5@example.com</div>
+            <div class="info-line">Tel.: 010-7777-8888</div>
+          </td>
+          <td>
+            <!-- 예시 6 -->
+            <img src="assets/mg6.jpg" alt="MG Student 6" class="photo">
+            <div class="info-line"><strong>장보고</strong></div>
+            <div class="info-line">E-mail: mg6@example.com</div>
+            <div class="info-line">Tel.: 010-9999-0000</div>
+          </td>
+          <td>
+            <!-- 예시 7 -->
+            <img src="assets/mg7.jpg" alt="MG Student 7" class="photo">
+            <div class="info-line"><strong>고길동</strong></div>
+            <div class="info-line">E-mail: mg7@example.com</div>
+            <div class="info-line">Tel.: 010-1234-9999</div>
+          </td>
+          <td>
+            <!-- 예시 8 -->
+            <img src="assets/mg8.jpg" alt="MG Student 8" class="photo">
+            <div class="info-line"><strong>나순정</strong></div>
+            <div class="info-line">E-mail: mg8@example.com</div>
+            <div class="info-line">Tel.: 010-2222-3333</div>
+          </td>
+        </tr>
+      </table>
 
-      <!-- Research Experience -->
-      <div class="section-title">Research Experience</div>
-      <ul>
-        <li>Assistant Professor, School of Electrical Engineering, Kumoh National Institute of Technology</li>
-        <li>Staff Engineer, Standard Research Team, Samsung Research, Samsung Electronics</li>
-        <li>Visiting Scholar, University of Southern California</li>
-      </ul>
-
-      <!-- Honors and Awards -->
-      <div class="section-title">Honors and Awards</div>
-      <ul>
-        <li>Distinguished Ph.D. Dissertation Award, Dept. of ECE at Seoul National University</li>
-        <li>Gold Prize at 2017 IEEE Seoul Section Student Paper Contest, IEEE Seoul Section</li>
-        <li>Bronze Prize at the 23rd Samsung Electronics HumanTech Paper Contest, Samsung Electronics</li>
-      </ul>
-
-      <!-- Academic Activities -->
-      <div class="section-title">Academic Activities</div>
-      <ul>
-        <li>TPC member @ IEEE Wireless Communications and Networking Conference (2020, 2021)</li>
-      </ul>
+      <!-- 섹션: Undergraduate Researchers -->
+      <div class="section-title">Undergraduate Researchers</div>
+      <table>
+        <tr>
+          <td>
+            <!-- 예시 1 -->
+            <img src="assets/ug1.jpg" alt="UG Student 1" class="photo">
+            <div class="info-line"><strong>홍길동</strong></div>
+            <div class="info-line">E-mail: ug1@example.com</div>
+            <div class="info-line">Tel.: 010-0000-1111</div>
+          </td>
+          <td>
+            <!-- 예시 2 -->
+            <img src="assets/ug2.jpg" alt="UG Student 2" class="photo">
+            <div class="info-line"><strong>김철수</strong></div>
+            <div class="info-line">E-mail: ug2@example.com</div>
+            <div class="info-line">Tel.: 010-2222-3333</div>
+          </td>
+          <td>
+            <!-- 예시 3 -->
+            <img src="assets/ug3.jpg" alt="UG Student 3" class="photo">
+            <div class="info-line"><strong>박영희</strong></div>
+            <div class="info-line">E-mail: ug3@example.com</div>
+            <div class="info-line">Tel.: 010-4444-5555</div>
+          </td>
+          <td>
+            <!-- 예시 4 -->
+            <img src="assets/ug4.jpg" alt="UG Student 4" class="photo">
+            <div class="info-line"><strong>이몽룡</strong></div>
+            <div class="info-line">E-mail: ug4@example.com</div>
+            <div class="info-line">Tel.: 010-6666-7777</div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <!-- 예시 5 -->
+            <img src="assets/ug5.jpg" alt="UG Student 5" class="photo">
+            <div class="info-line"><strong>최자두</strong></div>
+            <div class="info-line">E-mail: ug5@example.com</div>
+            <div class="info-line">Tel.: 010-8888-9999</div>
+          </td>
+          <td>
+            <!-- 예시 6 -->
+            <img src="assets/ug6.jpg" alt="UG Student 6" class="photo">
+            <div class="info-line"><strong>장보고</strong></div>
+            <div class="info-line">E-mail: ug6@example.com</div>
+            <div class="info-line">Tel.: 010-1111-2222</div>
+          </td>
+          <td>
+            <!-- 예시 7 -->
+            <img src="assets/ug7.jpg" alt="UG Student 7" class="photo">
+            <div class="info-line"><strong>고길동</strong></div>
+            <div class="info-line">E-mail: ug7@example.com</div>
+            <div class="info-line">Tel.: 010-3333-4444</div>
+          </td>
+          <td>
+            <!-- 예시 8 -->
+            <img src="assets/ug8.jpg" alt="UG Student 8" class="photo">
+            <div class="info-line"><strong>나순정</strong></div>
+            <div class="info-line">E-mail: ug8@example.com</div>
+            <div class="info-line">Tel.: 010-5555-6666</div>
+          </td>
+        </tr>
+      </table>
     </div>
 
-    <!-- 오른쪽 메뉴 (index.html과 동일 구조) -->
+    <!-- 오른쪽 메뉴 -->
     <nav class="menu">
       <a href="index.html">Home</a>
       <a href="members.html">Members</a>
