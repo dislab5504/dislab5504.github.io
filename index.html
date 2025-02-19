@@ -10,7 +10,7 @@
 
   <!-- three.js, Vanta.js (버전은 필요 시 조정) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
-  <!-- 아래 경로는 실제 환경에 맞춰 조정하세요 -->
+  <!-- 실제 환경에 맞춰 경로 수정 -->
   <script src="./dist/vanta.net.min.js"></script>
 
   <style>
@@ -59,25 +59,47 @@
       max-width: 80%;
     }
 
-    /* 로고 이미지 스타일 */
+    /* 로고 이미지 스타일 (브라우저 크기에 따라 유연해지도록 clamp) */
     .logo {
-      width: 100px;      /* 필요 시 크기 조절 */
-      margin-bottom: 20px;
+      width: clamp(50px, 10vw, 100px);
+      margin-bottom: 2vh;
     }
 
-    /* 큰 타이틀 */
+    /* 큰 타이틀 - clamp()로 최소/중간/최대 폰트 사이즈 지정 */
     h1 {
       margin: 0;
-      font-size: 3.5rem;  /* 필요 시 크기 조정 */
+      font-size: clamp(2rem, 5vw, 3.5rem);
       font-weight: 700;
     }
 
     /* 부가 텍스트 */
     h3 {
       margin-top: 1rem;
-      font-size: 1.2rem;
+      font-size: clamp(1rem, 2vw, 1.5rem);
       font-weight: 400;
       line-height: 1.6;
+    }
+
+    /* 우측 상단 메뉴 */
+    .menu {
+      position: absolute;
+      top: 2vh;
+      right: 2vw;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 1vh; /* 메뉴 항목 간 간격 */
+      z-index: 2; /* 배경보다 위 */
+    }
+
+    .menu a {
+      color: #ffffff;
+      text-decoration: none;
+      font-size: clamp(0.8rem, 1.5vw, 1.2rem); /* 브라우저 크기에 따라 유연 */
+      transition: color 0.3s;
+    }
+    .menu a:hover {
+      color: #ccc;
     }
   </style>
 </head>
@@ -85,6 +107,17 @@
   <div class="vanta-container" id="vanta-area">
     <!-- Vanta.js 배경 영역 -->
     <div class="vanta-bg"></div>
+
+    <!-- 우측 상단 메뉴 -->
+    <nav class="menu">
+      <a href="#">Home</a>
+      <a href="#">Members</a>
+      <a href="#">Publications</a>
+      <a href="#">Research</a>
+      <a href="#">Projects</a>
+      <a href="#">Lecture</a>
+      <a href="#">News</a>
+    </nav>
 
     <!-- 실제 컨텐츠 -->
     <div class="content">
@@ -118,8 +151,8 @@
       minWidth: 200.00,
       scale: 1.00,
       scaleMobile: 1.00,
-      color: 0xffffff,         // 라인 색상 (흰색)
-      backgroundColor: 0x2f365c // 배경색 (두 번째 이미지 색상)
+      color: 0xffffff,          // 라인 색상
+      backgroundColor: 0x2f365c // 배경색
     });
   </script>
 </body>
