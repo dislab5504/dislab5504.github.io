@@ -45,21 +45,21 @@
       z-index: -1; /* 내용 뒤에 위치 */
     }
 
-    /* 전체를 감싸는 래퍼: 가로 폭 제한 & 가운데 정렬 */
+    /* 전체를 감싸는 래퍼: 가로 폭 제한 & 좌우 패딩 */
     .wrapper {
       display: flex;
-      align-items: center;       /* 수직 가운데 정렬 */
-      justify-content: space-between; /* 좌: 콘텐츠, 우: 메뉴 */
+      align-items: center;            /* 수직 가운데 정렬 */
+      justify-content: space-between; /* 왼쪽: 콘텐츠, 오른쪽: 메뉴 */
       width: 100%;
       height: 100%;
-      max-width: 2560px;        /* 요청에 따른 최대 폭 */
+      max-width: 2560px;             /* 요청에 따른 최대 폭 */
       margin: 0 auto;
-      padding: 1rem;            /* 좌우 기본 여백 */
+      padding: 2rem;                 /* 좌우 간격을 넉넉히 */
     }
 
-    /* 콘텐츠(왼쪽 영역) */
+    /* 왼쪽 콘텐츠 */
     .content {
-      max-width: 1000px;        /* 필요 시 조절 */
+      max-width: 1200px;             /* 콘텐츠 폭 늘림 (필요 시 조정) */
       text-align: left;
     }
     /* 로고 크기: 화면이 작아도 너무 작아지지 않도록 clamp */
@@ -68,30 +68,31 @@
       margin-bottom: 2vh;
     }
 
-    /* 연구실 이름: Bold, 줄이 너무 쉽게 바뀌지 않도록 clamp */
+    /* 연구실 이름: Bold(700), 글씨 커지도록 clamp */
     h1 {
       margin: 0;
-      font-size: clamp(28px, 6vw, 72px); /* 화면 크기에 따라 유연 조절 */
-      font-weight: 700;  /* Bold */
+      font-size: clamp(40px, 7vw, 80px); /* 최소 40px ~ 최대 80px */
+      font-weight: 700;
       line-height: 1.2;
     }
 
-    /* @ChungNam National University만 반영할 스타일 */
+    /* @ChungNam National University: Semi-Bold(600) */
     .semi-bold {
-      font-weight: 600;  /* 더 굵게 */
-      display: inline-block;
+      font-size: clamp(20px, 3vw, 40px);
+      font-weight: 600;
       margin-top: 1rem;
+      display: block;
     }
 
-    /* 나머지 설명 텍스트 (얇게 300), 줄바꿈 쉽게 안 되도록 clamp */
+    /* 나머지 설명 텍스트: 얇게(300), 폰트 크게 clamp */
     .desc {
-      font-size: clamp(16px, 2.5vw, 28px);
+      font-size: clamp(20px, 3vw, 40px);
       font-weight: 300;
       line-height: 1.4;
       margin: 1rem 0 0 0;
     }
 
-    /* 오른쪽 메뉴: 절대 배치 대신 flex로 배치 → 시스템 스케일 문제 완화 */
+    /* 오른쪽 메뉴 */
     .menu {
       display: flex;
       flex-direction: column;
@@ -101,7 +102,7 @@
     .menu a {
       color: #ffffff;
       text-decoration: none;
-      font-size: clamp(14px, 2vh, 24px);
+      font-size: clamp(18px, 3vw, 32px);
       font-weight: 400;
       transition: color 0.3s;
     }
@@ -114,7 +115,7 @@
   <div class="vanta-container" id="vanta-area">
     <div class="vanta-bg"></div>
 
-    <!-- 메인 래퍼 (좌: 콘텐츠, 우: 메뉴) -->
+    <!-- 좌: 콘텐츠, 우: 메뉴 -->
     <div class="wrapper">
       <!-- 왼쪽 콘텐츠 -->
       <div class="content">
@@ -125,10 +126,10 @@
         >
         <h1>Distributed Intelligence &amp; Systems Laboratory</h1>
         
-        <!-- @ChungNam National University (semi-bold) -->
+        <!-- @ChungNam National University -->
         <div class="semi-bold">@ChungNam National University</div>
         
-        <!-- 나머지 설명 텍스트 (얇게) -->
+        <!-- 설명 -->
         <div class="desc">
           Welcome to our laboratory website.<br>
           Exploring cutting-edge research in artificial intelligence,<br>
@@ -162,7 +163,7 @@
       scaleMobile: 1.00,
       color: 0xffffff,         // 라인 색상
       backgroundColor: 0x002554, // Pantone 655C 헥스 코드
-      points: 20              // points 설정
+      points: 20               // points 설정
     });
   </script>
 </body>
