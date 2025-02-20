@@ -5,9 +5,9 @@
   <title>Publications - Distributed Intelligence & Systems Laboratory</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- 메뉴용 폰트: Rethink Sans, 내용용 폰트: Roboto -->
+  <!-- 폰트: Rethink Sans(메뉴/제목), Roboto(본문), Material Symbols(아이콘) -->
   <link
-    href="https://fonts.googleapis.com/css2?family=Rethink+Sans:wght@300;600;700&family=Roboto:wght@300;400;500;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Rethink+Sans:wght@300;600;700&family=Roboto:wght@300;400;500;700&family=Material+Symbols+Outlined"
     rel="stylesheet"
   >
 
@@ -31,7 +31,18 @@
       font-family: 'Roboto', sans-serif;
     }
 
-    /* wrapper: 메뉴 + 메인 컨테이너 */
+    /* 아이콘(Material Symbols) 스타일 (원하는 크기로 조정 가능) */
+    .material-symbols-outlined {
+      font-variation-settings:
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 48;
+      font-size: 18px; /* 아이콘 크기 */
+      vertical-align: middle;
+    }
+
+    /* 전체 래퍼 */
     .wrapper {
       position: relative;
       max-width: 1200px;
@@ -39,16 +50,16 @@
       padding: 2rem;
     }
 
-    /* 메뉴(우측 상단), 폰트: Rethink Sans */
+    /* 오른쪽 메뉴 (약간 왼쪽으로 이동) */
     .menu {
       position: absolute;
       top: 2rem;
-      right: 2rem;
+      right: 6rem;  /* 기존 right: 2rem → 6rem로 변경 */
       display: flex;
       flex-direction: column;
       align-items: flex-end;
       gap: 1rem;
-      font-family: 'Rethink Sans', sans-serif; /* 메뉴 전용 폰트 */
+      font-family: 'Rethink Sans', sans-serif; /* 메뉴 폰트 */
     }
     .menu a {
       text-decoration: none;
@@ -61,11 +72,12 @@
       color: #666;
     }
 
-    /* 논문 목록 전체 감싸는 컨테이너 */
+    /* 메인 컨테이너 */
     .inner {
-      margin-top: 5rem; /* 메뉴 아래쪽 공간 확보용 */
+      margin-top: 5rem; /* 메뉴 아래 공간 확보 */
     }
     .inner > div > h2 {
+      font-family: 'Rethink Sans', sans-serif; /* 섹션 제목은 Rethink Sans */
       font-size: 1.8rem;
       margin-bottom: 1rem;
       color: #002554;
@@ -74,43 +86,39 @@
     /* 2열 그리드 컨테이너 */
     .sc-bTMaZy {
       display: flex;
-      flex-wrap: wrap;        /* 너비 좁으면 자동 줄바꿈 */
-      gap: 20px;              /* 카드 간격 */
+      flex-wrap: wrap; /* 너비 작으면 자동 줄바꿈 */
+      gap: 20px;       /* 카드 간격 */
     }
 
-    /* 각 논문 항목(a 태그) */
+    /* 논문 카드 (a 태그) */
     .sc-bTMaZy a {
       display: block;
-      width: calc(50% - 20px); /* 2열(2개/행) */
+      width: calc(50% - 20px); /* 2열(한 행에 2개) */
       text-decoration: none;
-      color: inherit;          /* 텍스트 색상은 상속 */
+      color: inherit;
     }
 
-    /* 각 논문 카드(왼/오 두 영역) */
+    /* 카드 배경 */
     .sc-ftvSup {
       display: flex;
-      justify-content: space-between;
+      flex-direction: column; /* 상단 정보 + 하단 #태그/버튼 영역 */
       border: 1px solid #ccc;
       border-radius: 6px;
       padding: 1rem;
-      transition: box-shadow 0.3s;
       background-color: #fafafa;
+      transition: box-shadow 0.3s;
+      min-height: 200px; /* 카드 최소 높이 */
     }
     .sc-ftvSup:hover {
       box-shadow: 0 2px 6px rgba(0,0,0,0.15);
     }
 
-    /* 왼쪽 영역 */
-    .sc-ftvSup > div:first-child {
-      max-width: 60%;
-    }
-    /* 오른쪽 영역 */
-    .sc-ftvSup > div:last-child {
-      text-align: right;
-      max-width: 35%;
+    /* 상단 (논문 메인 정보) */
+    .sc-ftvSup > .paper-top {
+      /* 상단 정보를 별도 div로 감싸 */
     }
 
-    /* 상단 라벨: (International Conference, etc.) */
+    /* 라벨 (International Conference 등) */
     .sc-papXJ {
       display: flex;
       gap: 8px;
@@ -127,15 +135,16 @@
       border-radius: 4px;
     }
 
-    /* 논문 제목 */
+    /* 논문 제목 (메뉴 폰트 + 조금 작은 크기) */
     .sc-jqUVSM {
+      font-family: 'Rethink Sans', sans-serif;
       font-size: 1rem;
       font-weight: 700;
       margin: 0 0 6px 0;
       color: #333;
     }
 
-    /* 저자/날짜/학회 정보 */
+    /* 저자/날짜/학회 */
     .sc-kDDrLX {
       list-style: none;
       padding: 0;
@@ -151,21 +160,24 @@
     .sc-kDDrLX li span {
       margin-right: 4px;
     }
-    .material-icons-outlined {
-      font-family: 'Material Icons Outlined';
-      font-size: 16px;
-      line-height: 1;
+
+    /* 하단 영역 (태그 + 버튼) */
+    .paper-bottom {
+      margin-top: auto; /* 카드 아래쪽 배치 */
+      display: flex;
+      flex-direction: column;
+      gap: 8px; /* 태그와 버튼 사이 */
     }
 
-    /* 키워드 목록 */
+    /* #태그 (좌측 정렬) */
     .sc-iqcoie {
-      list-style: none;
-      padding: 0;
-      margin: 0 0 8px 0;
       display: flex;
       flex-wrap: wrap;
       gap: 6px;
-      justify-content: flex-end;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      justify-content: flex-start; /* 왼쪽 정렬 */
     }
     .sc-iqcoie li {
       background-color: #e7f1fd;
@@ -179,30 +191,32 @@
       color: #1565c0;
     }
 
-    /* BibTeX/Reference 버튼 */
+    /* Copy 버튼을 하단 중앙 정렬 */
     .sc-crXcEl {
       display: flex;
-      gap: 6px;
-      justify-content: flex-end;
+      justify-content: center; /* 가운데 정렬 */
+      gap: 10px;
     }
+    /* Copy 버튼 스타일 (둥근 사각) */
     .sc-evZas {
-      background-color: #f0f0f0;
-      border-radius: 4px;
-      padding: 4px 8px;
-      font-size: 0.8rem;
+      font-family: 'Rethink Sans', sans-serif; /* 버튼 폰트 */
+      border: 1px solid #999;
+      border-radius: 20px;
+      padding: 0.4rem 1rem;
+      font-size: 0.85rem;
+      text-align: center;
       cursor: pointer;
-      color: #333;
+      color: #666;
       transition: background-color 0.2s;
     }
     .sc-evZas:hover {
-      background-color: #ddd;
+      background-color: #e6e6e6;
     }
   </style>
 </head>
 <body>
-
   <div class="wrapper">
-    <!-- 오른쪽 메뉴 (기존 유지) -->
+    <!-- 메뉴 (약간 왼쪽으로) -->
     <nav class="menu">
       <a href="index.html">Home</a>
       <a href="members.html">Members</a>
@@ -213,318 +227,195 @@
       <a href="#">News</a>
     </nav>
 
-    <!-- 실제 Publications 내용 -->
     <div class="inner">
-      <!-- 1) International Journal -->
+      <!-- International Journal 예시 -->
       <div>
-        <h2 class="sc-jQHtVU dqppyO">International Journal</h2>
+        <h2>International Journal</h2>
       </div>
-      <div class="sc-bTMaZy crDvsM">
-        <!-- [J19] 2024-03 (최신) -->
+      <div class="sc-bTMaZy">
+        <!-- 최신 논문 예시 -->
         <a href="https://ieeexplore.ieee.org/document/10473190" target="_blank">
-          <div class="sc-ftvSup epMVcB">
-            <!-- 왼쪽 -->
-            <div>
-              <ul class="sc-papXJ fxWLsb">
+          <div class="sc-ftvSup">
+            <!-- 상단 (논문 메인 정보) -->
+            <div class="paper-top">
+              <ul class="sc-papXJ">
                 <li>International Journal</li>
                 <li>IEEE TIFS</li>
               </ul>
-              <h3 class="sc-jqUVSM gEAcSf">
+              <h3 class="sc-jqUVSM">
                 Group-wise Verifiable Coded Computing under Byzantine Attacks and Stragglers
               </h3>
-              <ul class="sc-kDDrLX fiKJxg">
+              <ul class="sc-kDDrLX">
                 <li>
-                  <span class="material-icons-outlined">people_alt</span>
+                  <span class="material-symbols-outlined">people_alt</span>
                   Sangwoo Hong, <b>Heecheol Yang*</b>, Youngseok Yoon, Jungwoo Lee
                 </li>
                 <li>
-                  <span class="material-icons-outlined">calendar_today</span>
+                  <span class="material-symbols-outlined">calendar_today</span>
                   <span>2024-03</span>
                 </li>
                 <li>
-                  <span class="material-icons-outlined">history_edu</span>
+                  <span class="material-symbols-outlined">history_edu</span>
                   <span>IEEE Transactions on Information Forensics and Security</span>
                 </li>
               </ul>
             </div>
-            <!-- 오른쪽 -->
-            <div>
-              <ul class="sc-iqcoie GSYMS">
+
+            <!-- 하단 (#태그 + Copy 버튼) -->
+            <div class="paper-bottom">
+              <!-- #태그 (왼쪽 정렬) -->
+              <ul class="sc-iqcoie">
                 <li><span>#</span><span>Coded Computation</span></li>
                 <li><span>#</span><span>Byzantine Attack</span></li>
                 <li><span>#</span><span>Stragglers</span></li>
               </ul>
-              <div class="sc-crXcEl ioGxIX">
-                <div class="sc-evZas iwKQSe">Copy BibTeX</div>
-                <div class="sc-evZas iwKQSe">Copy reference</div>
+              <!-- Copy 버튼 (가운데 정렬) -->
+              <div class="sc-crXcEl">
+                <div class="sc-evZas">Copy BibTeX</div>
+                <div class="sc-evZas">Copy reference</div>
               </div>
             </div>
           </div>
         </a>
 
-        <!-- [J18] 2023-08 -->
-        <a href="https://www.sciencedirect.com/science/article/pii/S2405959523000115" target="_blank">
-          <div class="sc-ftvSup epMVcB">
-            <div>
-              <ul class="sc-papXJ fxWLsb">
-                <li>International Journal</li>
-                <li>ICT Express</li>
-              </ul>
-              <h3 class="sc-jqUVSM gEAcSf">
-                Fully Private and Secure Coded Matrix Multiplication with Colluding Workers
-              </h3>
-              <ul class="sc-kDDrLX fiKJxg">
-                <li>
-                  <span class="material-icons-outlined">people_alt</span>
-                  Minchul Kim, <b>Heecheol Yang*</b>, Jungwoo Lee
-                </li>
-                <li>
-                  <span class="material-icons-outlined">calendar_today</span>
-                  <span>2023-08</span>
-                </li>
-                <li>
-                  <span class="material-icons-outlined">history_edu</span>
-                  <span>ICT Express</span>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <ul class="sc-iqcoie GSYMS">
-                <li><span>#</span><span>Private Computation</span></li>
-                <li><span>#</span><span>Matrix Multiplication</span></li>
-                <li><span>#</span><span>Colluding Workers</span></li>
-              </ul>
-              <div class="sc-crXcEl ioGxIX">
-                <div class="sc-evZas iwKQSe">Copy BibTeX</div>
-                <div class="sc-evZas iwKQSe">Copy reference</div>
-              </div>
-            </div>
-          </div>
-        </a>
-
-        <!-- [J17] 2023-06 -->
-        <a href="https://ieeexplore.ieee.org/document/10136521" target="_blank">
-          <div class="sc-ftvSup epMVcB">
-            <div>
-              <ul class="sc-papXJ fxWLsb">
-                <li>International Journal</li>
-                <li>IEEE/KICS JCN</li>
-              </ul>
-              <h3 class="sc-jqUVSM gEAcSf">
-                Towards 6G Hyper-Connectivity: Vision, Challenges, and Key Enabling Technologies
-              </h3>
-              <ul class="sc-kDDrLX fiKJxg">
-                <li>
-                  <span class="material-icons-outlined">people_alt</span>
-                  Howon Lee, Byungju Lee, <b>Heecheol Yang</b>, et al.
-                </li>
-                <li>
-                  <span class="material-icons-outlined">calendar_today</span>
-                  <span>2023-06</span>
-                </li>
-                <li>
-                  <span class="material-icons-outlined">history_edu</span>
-                  <span>IEEE/KICS Journal of Communications and Networks</span>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <ul class="sc-iqcoie GSYMS">
-                <li><span>#</span><span>6G</span></li>
-                <li><span>#</span><span>Hyper-Connectivity</span></li>
-                <li><span>#</span><span>Wireless Networks</span></li>
-              </ul>
-              <div class="sc-crXcEl ioGxIX">
-                <div class="sc-evZas iwKQSe">Copy BibTeX</div>
-                <div class="sc-evZas iwKQSe">Copy reference</div>
-              </div>
-            </div>
-          </div>
-        </a>
-
-        <!-- ... 이하 [J16], [J15], ... [J1] 순서대로 (생략 가능) -->
+        <!-- 더 아래에 [J18], [J17], ... -->
       </div>
 
-      <!-- 2) International Conference -->
+      <!-- International Conference 예시 -->
       <div>
-        <h2 class="sc-jQHtVU dqppyO">International Conference</h2>
+        <h2>International Conference</h2>
       </div>
-      <div class="sc-bTMaZy crDvsM">
-        <!-- [C20] 2022-06 -->
+      <div class="sc-bTMaZy">
         <a href="https://ieeexplore.ieee.org/document/9834271" target="_blank">
-          <div class="sc-ftvSup epMVcB">
-            <div>
-              <ul class="sc-papXJ fxWLsb">
+          <div class="sc-ftvSup">
+            <div class="paper-top">
+              <ul class="sc-papXJ">
                 <li>International Conference</li>
                 <li>ISIT</li>
               </ul>
-              <h3 class="sc-jqUVSM gEAcSf">
+              <h3 class="sc-jqUVSM">
                 Byzantine Attack Identification in Distributed Matrix Multiplication via Locally Testable Codes
               </h3>
-              <ul class="sc-kDDrLX fiKJxg">
+              <ul class="sc-kDDrLX">
                 <li>
-                  <span class="material-icons-outlined">people_alt</span>
+                  <span class="material-symbols-outlined">people_alt</span>
                   Sangwoo Hong, <b>Heecheol Yang</b>, Jungwoo Lee
                 </li>
                 <li>
-                  <span class="material-icons-outlined">calendar_today</span>
+                  <span class="material-symbols-outlined">calendar_today</span>
                   <span>2022-06</span>
                 </li>
                 <li>
-                  <span class="material-icons-outlined">history_edu</span>
+                  <span class="material-symbols-outlined">history_edu</span>
                   <span>International Symposium on Information Theory</span>
                 </li>
               </ul>
             </div>
-            <div>
-              <ul class="sc-iqcoie GSYMS">
+            <div class="paper-bottom">
+              <ul class="sc-iqcoie">
                 <li><span>#</span><span>Byzantine Attack</span></li>
                 <li><span>#</span><span>Matrix Multiplication</span></li>
                 <li><span>#</span><span>Locally Testable Codes</span></li>
               </ul>
-              <div class="sc-crXcEl ioGxIX">
-                <div class="sc-evZas iwKQSe">Copy BibTeX</div>
-                <div class="sc-evZas iwKQSe">Copy reference</div>
+              <div class="sc-crXcEl">
+                <div class="sc-evZas">Copy BibTeX</div>
+                <div class="sc-evZas">Copy reference</div>
               </div>
             </div>
           </div>
         </a>
 
-        <!-- [C19] 2021-07 -->
-        <a href="https://proceedings.mlr.press/v139/hong21b.html" target="_blank">
-          <div class="sc-ftvSup epMVcB">
-            <div>
-              <ul class="sc-papXJ fxWLsb">
-                <li>International Conference</li>
-                <li>ICML</li>
-              </ul>
-              <h3 class="sc-jqUVSM gEAcSf">
-                Chebyshev Polynomial Codes: Task Entanglement-based Coding for Distributed Matrix Multiplication
-              </h3>
-              <ul class="sc-kDDrLX fiKJxg">
-                <li>
-                  <span class="material-icons-outlined">people_alt</span>
-                  Sangwoo Hong*, <b>Heecheol Yang*</b>, et al.
-                </li>
-                <li>
-                  <span class="material-icons-outlined">calendar_today</span>
-                  <span>2021-07</span>
-                </li>
-                <li>
-                  <span class="material-icons-outlined">history_edu</span>
-                  <span>International Conference on Machine Learning</span>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <ul class="sc-iqcoie GSYMS">
-                <li><span>#</span><span>Coded Computation</span></li>
-                <li><span>#</span><span>Chebyshev Polynomial</span></li>
-                <li><span>#</span><span>Distributed Matrix Multiplication</span></li>
-              </ul>
-              <div class="sc-crXcEl ioGxIX">
-                <div class="sc-evZas iwKQSe">Copy BibTeX</div>
-                <div class="sc-evZas iwKQSe">Copy reference</div>
-              </div>
-            </div>
-          </div>
-        </a>
-
-        <!-- ... 이하 [C18], [C17], ... [C1] 순서대로 (생략 가능) -->
+        <!-- 더 아래 [C19], [C18], ... -->
       </div>
 
-      <!-- 3) Domestic Journal -->
+      <!-- Domestic Journal 예시 -->
       <div>
-        <h2 class="sc-jQHtVU dqppyO">Domestic Journal</h2>
+        <h2>Domestic Journal</h2>
       </div>
-      <div class="sc-bTMaZy crDvsM">
-        <!-- [DJ5] 2023-10 -->
+      <div class="sc-bTMaZy">
         <a href="#" target="_blank">
-          <div class="sc-ftvSup epMVcB">
-            <div>
-              <ul class="sc-papXJ fxWLsb">
+          <div class="sc-ftvSup">
+            <div class="paper-top">
+              <ul class="sc-papXJ">
                 <li>Domestic Journal</li>
                 <li>KICS</li>
               </ul>
-              <h3 class="sc-jqUVSM gEAcSf">
+              <h3 class="sc-jqUVSM">
                 Look-Up Table을 이용한 부호화 기반 프라이버시 보장 행렬 곱 기법
               </h3>
-              <ul class="sc-kDDrLX fiKJxg">
+              <ul class="sc-kDDrLX">
                 <li>
-                  <span class="material-icons-outlined">people_alt</span>
+                  <span class="material-symbols-outlined">people_alt</span>
                   김민철, 양희철
                 </li>
                 <li>
-                  <span class="material-icons-outlined">calendar_today</span>
+                  <span class="material-symbols-outlined">calendar_today</span>
                   <span>2023-10</span>
                 </li>
                 <li>
-                  <span class="material-icons-outlined">history_edu</span>
+                  <span class="material-symbols-outlined">history_edu</span>
                   <span>한국통신학회논문지</span>
                 </li>
               </ul>
             </div>
-            <div>
-              <ul class="sc-iqcoie GSYMS">
+            <div class="paper-bottom">
+              <ul class="sc-iqcoie">
                 <li><span>#</span><span>Private Computation</span></li>
                 <li><span>#</span><span>Lookup Table</span></li>
               </ul>
-              <div class="sc-crXcEl ioGxIX">
-                <div class="sc-evZas iwKQSe">Copy BibTeX</div>
-                <div class="sc-evZas iwKQSe">Copy reference</div>
+              <div class="sc-crXcEl">
+                <div class="sc-evZas">Copy BibTeX</div>
+                <div class="sc-evZas">Copy reference</div>
               </div>
             </div>
           </div>
         </a>
-
-        <!-- ... 이하 [DJ4], [DJ3], [DJ2], [DJ1] (생략 가능) -->
+        <!-- ... -->
       </div>
 
-      <!-- 4) Domestic Conference -->
+      <!-- Domestic Conference 예시 -->
       <div>
-        <h2 class="sc-jQHtVU dqppyO">Domestic Conference</h2>
+        <h2>Domestic Conference</h2>
       </div>
-      <div class="sc-bTMaZy crDvsM">
-        <!-- [DC19] 2024-02 -->
+      <div class="sc-bTMaZy">
         <a href="#" target="_blank">
-          <div class="sc-ftvSup epMVcB">
-            <div>
-              <ul class="sc-papXJ fxWLsb">
+          <div class="sc-ftvSup">
+            <div class="paper-top">
+              <ul class="sc-papXJ">
                 <li>Domestic Conference</li>
                 <li>KICS</li>
               </ul>
-              <h3 class="sc-jqUVSM gEAcSf">
+              <h3 class="sc-jqUVSM">
                 HeteroSplitFed: 클라이언트의 서로 다른 학습능력과 통신환경을 고려한 분산학습 기법 연구
               </h3>
-              <ul class="sc-kDDrLX fiKJxg">
+              <ul class="sc-kDDrLX">
                 <li>
-                  <span class="material-icons-outlined">people_alt</span>
+                  <span class="material-symbols-outlined">people_alt</span>
                   류지현, 양희철
                 </li>
                 <li>
-                  <span class="material-icons-outlined">calendar_today</span>
+                  <span class="material-symbols-outlined">calendar_today</span>
                   <span>2024-02</span>
                 </li>
                 <li>
-                  <span class="material-icons-outlined">history_edu</span>
+                  <span class="material-symbols-outlined">history_edu</span>
                   <span>한국통신학회 동계종합학술발표회</span>
                 </li>
               </ul>
             </div>
-            <div>
-              <ul class="sc-iqcoie GSYMS">
+            <div class="paper-bottom">
+              <ul class="sc-iqcoie">
                 <li><span>#</span><span>Federated Learning</span></li>
                 <li><span>#</span><span>Split Learning</span></li>
               </ul>
-              <div class="sc-crXcEl ioGxIX">
-                <div class="sc-evZas iwKQSe">Copy BibTeX</div>
-                <div class="sc-evZas iwKQSe">Copy reference</div>
+              <div class="sc-crXcEl">
+                <div class="sc-evZas">Copy BibTeX</div>
+                <div class="sc-evZas">Copy reference</div>
               </div>
             </div>
           </div>
         </a>
-
-        <!-- ... 이하 [DC18], [DC17], ... [DC1] (생략 가능) -->
+        <!-- ... -->
       </div>
     </div>
   </div>
