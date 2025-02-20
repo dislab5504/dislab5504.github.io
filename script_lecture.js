@@ -4,9 +4,11 @@ const slides = Array.from(track.children);
 const prevButton = document.querySelector('.prev');
 const nextButton = document.querySelector('.next');
 
-// 카드 하나의 폭 + 좌우 마진 계산
-// (위 CSS에서 .slide { width: 300px; margin: 0 15px; } => 총 330px)
-let slideWidth = slides[0].getBoundingClientRect().width + 30;
+/*
+  카드 하나의 실제 폭 + 좌우 마진 계산
+  (.slide { width: 350px; margin: 0 30px; } => 총 350 + 60 = 410)
+*/
+let slideWidth = slides[0].getBoundingClientRect().width + 60;
 
 // 현재 보여줄 슬라이드 인덱스
 let currentIndex = 0;
