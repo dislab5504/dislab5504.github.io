@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>Lectures - Distributed Intelligence & Systems Laboratory</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Google Fonts & Material Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Rethink+Sans:wght@300;600;700&family=Roboto:wght@300;400;500;700&family=Material+Symbols+Outlined" rel="stylesheet">
+  <style>
+    /* 기본 리셋 및 박스 모델 */
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      min-height: 100%;
+      background-color: #ffffff;
+      color: #000000;
+      box-sizing: border-box;
+      font-family: 'Roboto', sans-serif;
+    }
+    *, *::before, *::after {
+      box-sizing: inherit;
+    }
+
+    .wrapper {
+      position: relative;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    /* 오른쪽 메뉴 */
+    .menu {
+      position: absolute;
+      top: 2rem;
+      right: -6rem;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 1rem;
+      font-family: 'Rethink Sans', sans-serif;
+    }
+    .menu a {
+      text-decoration: none;
+      color: #002554;
+      font-size: clamp(14px, 2vw, 20px);
+      font-weight: 400;
+      transition: color 0.3s;
+    }
+    .menu a:hover {
+      color: #666;
+    }
+
+    .inner {
+      margin-top: 5rem;
+      text-align: center;
+    }
+    .inner h1 {
+      margin-bottom: 2rem;
+    }
+
+    /* 슬라이더 전체 컨테이너 */
+    .slider-container {
+      position: relative;
+      width: 700px; /* 필요에 따라 조절 */
+      margin: 0 auto;
+      overflow: hidden; /* 슬라이드가 넘치지 않도록 숨김 */
+    }
+
+    /* 슬라이드들을 감싸는 트랙 */
+    .slider-track {
+      display: flex;
+      transition: transform 0.4s ease-in-out; /* 좌우 이동 애니메이션 */
+    }
+
+    /* 개별 슬라이드 */
+    .slide {
+      flex-shrink: 0;           /* 줄어들지 않도록 고정 */
+      width: 600px;            /* 카드(슬라이드)의 실제 너비 */
+      margin: 0 10px;          /* 슬라이드 간 간격 */
+      background: #f5f5f5;     /* 카드 배경색 */
+      border-radius: 10px;     /* 모서리 라운드 */
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+      text-align: left;
+      padding: 1rem;
+    }
+    .slide h2 {
+      font-family: 'Rethink Sans', sans-serif;
+      margin-bottom: 0.5rem;
+      font-size: 1.4rem;
+    }
+    .slide ul {
+      list-style: disc;
+      margin: 0 0 0 1.5rem;
+      padding: 0;
+    }
+
+    /* 좌우 버튼 */
+    .slide-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      font-size: 2rem;
+      cursor: pointer;
+      z-index: 10;
+      color: #333;
+      transition: color 0.2s;
+    }
+    .slide-arrow:hover {
+      color: #666;
+    }
+    .prev {
+      left: 0;
+    }
+    .next {
+      right: 0;
+    }
+
+    /* 반응형: 모바일에서 폭이 좁아지면 자동 조절 */
+    @media (max-width: 768px) {
+      .menu {
+        position: static;
+        flex-direction: row;
+        justify-content: center;
+        margin-bottom: 1rem;
+      }
+      .slider-container {
+        width: 90%;
+      }
+      .slide {
+        width: 80%;
+        margin: 0 5px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <!-- 오른쪽 메뉴 -->
+    <nav class="menu">
+      <a href="index.html">Home</a>
+      <a href="members.html">Members</a>
+      <a href="publications.html">Publications</a>
+      <a href="research.html">Research</a>
+      <a href="projects.html">Projects</a>
+      <a href="lectures.html">Lectures</a>
+      <a href="news.html">News</a>
+    </nav>
+
+    <div class="inner">
+      <h1>Lectures</h1>
+
+      <div class="slider-container">
+        <!-- 이전 버튼 -->
+        <button class="slide-arrow prev">&lt;</button>
+
+        <!-- 슬라이드 트랙 -->
+        <div class="slider-track">
+          <!-- 가장 최신 학기부터 차례대로 슬라이드 생성 -->
+
+          <!-- Spring 2024 -->
+          <div class="slide">
+            <h2>Spring 2024</h2>
+            <ul>
+              <li>이산수학 (Discrete Mathematics)</li>
+              <li>딥러닝 (Deep Learning)</li>
+              <li>AI/ML프레임워크 (AI/ML Frameworks)</li>
+              <li>고급AI시스템 (Advanced AI Systems) [Grad.]</li>
+            </ul>
+          </div>
+
+          <!-- Fall 2023 -->
+          <div class="slide">
+            <h2>Fall 2023</h2>
+            <ul>
+              <li>선형대수 (Linear Algebra)</li>
+              <li>기계학습 (Machine Learning)</li>
+              <li>분산시스템 (Distributed Systems)</li>
+            </ul>
+          </div>
+
+          <!-- Spring 2023 -->
+          <div class="slide">
+            <h2>Spring 2023</h2>
+            <ul>
+              <li>이산수학 (Discrete Mathematics)</li>
+              <li>딥러닝 (Deep Learning)</li>
+              <li>고급AI시스템 (Advanced AI Systems) [Grad.]</li>
+            </ul>
+          </div>
+
+          <!-- Fall 2022 -->
+          <div class="slide">
+            <h2>Fall 2022</h2>
+            <ul>
+              <li>선형대수 (Linear Algebra)</li>
+              <li>분산시스템 (Distributed Systems)</li>
+            </ul>
+          </div>
+
+          <!-- Spring 2022 -->
+          <div class="slide">
+            <h2>Spring 2022</h2>
+            <ul>
+              <li>이산수학 (Discrete Mathematics)</li>
+            </ul>
+          </div>
+
+          <!-- Fall 2021 -->
+          <div class="slide">
+            <h2>Fall 2021</h2>
+            <ul>
+              <li>선형대수 (Linear Algebra)</li>
+              <li>분산시스템 (Distributed Systems)</li>
+            </ul>
+          </div>
+
+          <!-- Spring 2021 -->
+          <div class="slide">
+            <h2>Spring 2021</h2>
+            <ul>
+              <li>이산수학 (Discrete Mathematics)</li>
+              <li>논리회로 (Logic Circuits)</li>
+              <li>차세대컴퓨팅 (Next-Generation Computing Systems) [Grad.]</li>
+            </ul>
+          </div>
+
+          <!-- Fall 2020 (before CNU) -->
+          <div class="slide">
+            <h2>Fall 2020 (before CNU)</h2>
+            <ul>
+              <li>통신공학 2 (Communication Systems)</li>
+              <li>디지털 신호 처리 (Digital Signal Processing)</li>
+              <li>응용 소프트웨어 실습 (Practice on Applied Software)</li>
+            </ul>
+          </div>
+
+          <!-- Spring 2020 (before CNU) -->
+          <div class="slide">
+            <h2>Spring 2020 (before CNU)</h2>
+            <ul>
+              <li>통신공학 1 (Communication Systems)</li>
+              <li>마이크로프로세서 응용 설계 (Microprocessor and Its Applications)</li>
+              <li>공학수학 1 (Engineering Mathematics)</li>
+            </ul>
+          </div>
+
+          <!-- Fall 2019 (before CNU) -->
+          <div class="slide">
+            <h2>Fall 2019 (before CNU)</h2>
+            <ul>
+              <li>마이크로프로세서 및 실습 (Microprocessor)</li>
+              <li>HDL 설계 (Digital System Design w/ verilog HDL)</li>
+              <li>디지털 신호 처리 (Digital Signal Processing)</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 다음 버튼 -->
+        <button class="slide-arrow next">&gt;</button>
+      </div>
+    </div>
+  </div>
+  <!-- 별도 JS 파일 -->
+  <script src="script_lecture.js"></script>
+</body>
+</html>
