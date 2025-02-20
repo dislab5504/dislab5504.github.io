@@ -104,7 +104,7 @@
       font-weight: 400;
       line-height: 1.4;
     }
-    /* 2 x 2 카드 스타일 for 정보 섹션 (교수 소개 카드 - 높이 25% 줄임) */
+    /* 2 x 2 카드 스타일 for 정보 섹션 (교수 소개 카드 높이: 225px) */
     .info-cards {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -116,8 +116,7 @@
       border-radius: 8px;
       padding: 1rem;
       text-align: center;
-      /* 기존 최소 높이 300px에서 25% 줄여 225px */
-      min-height: 225px;
+      min-height: 225px; /* 25% 줄인 높이 */
       box-shadow: 2px 2px 5px rgba(0,0,0,0.05);
     }
     .card h2 {
@@ -138,10 +137,19 @@
       font-size: clamp(14px, 2vw, 16px);
       line-height: 1.4;
     }
-    /* 석사 및 학부 연구생 테이블 - 테이블 셀 높이 키움 */
-    .master-table td,
-    .student-table td {
+    /* 석사 및 학부 연구생 테이블 - 셀 높이 키움 */
+    .master-table, .student-table {
+      margin: 0 auto 2rem auto;
+      border-collapse: separate;
+      border-spacing: 1rem;
+      width: 100%;
+    }
+    .master-table td, .student-table td {
+      vertical-align: top;
+      padding: 1rem;
+      border: 1px solid #ccc;
       min-height: 300px;
+      text-align: center;
     }
     .section-title {
       margin-top: 2rem;
@@ -151,33 +159,7 @@
       color: #002554;
       text-align: center;
     }
-    .master-table {
-      margin: 0 auto 2rem auto;
-      border-collapse: separate;
-      border-spacing: 1rem;
-      width: 100%;
-    }
-    .master-table td {
-      vertical-align: top;
-      padding: 1rem;
-      border: 1px solid #ccc;
-      width: 50%;
-      text-align: center;
-    }
-    .student-table {
-      margin: 0 auto 2rem auto;
-      border-collapse: separate;
-      border-spacing: 1rem;
-      width: 100%;
-    }
-    .student-table td {
-      vertical-align: top;
-      padding: 1rem;
-      border: 1px solid #ccc;
-      width: 25%;
-      text-align: center;
-    }
-    /* 학생 사진: 기존 150px에서 20% 증가 -> 180px (세로, 가로 동일) */
+    /* 학생 사진: 기존 150px에서 20% 증가 -> 180px */
     .student-photo {
       display: block;
       width: 180px;
@@ -186,18 +168,25 @@
       margin: 0 auto 0.5rem auto;
       border-radius: 4px;
     }
-    /* 학생 이름 및 연락처 스타일 (석사, 학부 동일) - 텍스트 위치를 좀 더 아래로 */
+    /* 학생 이름 및 연락처 스타일 (석사, 학부 동일) - 텍스트 위치 조정 */
     .student-name {
       font-size: 1.2em;
       font-weight: bold;
-      margin-top: 1rem; /* 이전보다 더 아래로 */
-      margin-bottom: 0.5rem;
+      margin-top: 1.2rem; /* 이전보다 더 아래로 */
+      margin-bottom: 0.3rem;
     }
     .student-contact {
       font-size: 0.9em;
       color: #555;
-      margin-top: 0.5rem; /* 조금 더 아래로 */
-      margin-bottom: 0.3rem;
+      margin-top: 0.2rem;
+      margin-bottom: 0.1rem;
+    }
+    /* 별도 클래스: 이메일과 깃허브 연락처 간격 조정 */
+    .email-contact {
+      margin-bottom: 0.1rem; /* 줄어든 간격 */
+    }
+    .github-contact {
+      margin-top: 0.1rem;
     }
     /* 숨김 처리 */
     .hidden {
@@ -280,12 +269,12 @@
             <!-- 김성윤 학생 정보 -->
             <img src="assets/kim_seongyoon.jpg" alt="Seongyoon Kim" class="student-photo">
             <div class="student-name">Seongyoon Kim</div>
-            <div class="student-contact">
+            <div class="student-contact email-contact">
               <a href="mailto:201902664@o.cnu.ac.kr" style="text-decoration:none; color:inherit;">
                 <span class="material-symbols-outlined">mail</span> 201902664@o.cnu.ac.kr
               </a>
             </div>
-            <div class="student-contact">
+            <div class="student-contact github-contact">
               <a href="https://github.com/kimsy1106" target="_blank" style="text-decoration:none; color:inherit;">
                 <span class="material-symbols-outlined">code</span> github.com/kimsy1106
               </a>
@@ -295,12 +284,12 @@
             <!-- 류지현 학생 정보 -->
             <img src="assets/ryu_jihyun.jpg" alt="Jihyun Ryu" class="student-photo">
             <div class="student-name">Jihyun Ryu</div>
-            <div class="student-contact">
+            <div class="student-contact email-contact">
               <a href="mailto:ryujihyunmail@gmail.com" style="text-decoration:none; color:inherit;">
                 <span class="material-symbols-outlined">mail</span> ryujihyunmail@gmail.com
               </a>
             </div>
-            <div class="student-contact">
+            <div class="student-contact github-contact">
               <a href="https://github.com/Dolce-Latte" target="_blank" style="text-decoration:none; color:inherit;">
                 <span class="material-symbols-outlined">code</span> github.com/Dolce-Latte
               </a>
@@ -315,12 +304,12 @@
           <td>
             <img src="assets/baek_jeongeun.jpg" alt="Jeongeun Baek" class="student-photo">
             <div class="student-name">Jeongeun Baek</div>
-            <div class="student-contact">
+            <div class="student-contact email-contact">
               <a href="mailto:bjo5029@o.cnu.ac.kr" style="text-decoration:none; color:inherit;">
                 <span class="material-symbols-outlined">mail</span> bjo5029@o.cnu.ac.kr
               </a>
             </div>
-            <div class="student-contact">
+            <div class="student-contact github-contact">
               <a href="http://github.com/bjo5029" target="_blank" style="text-decoration:none; color:inherit;">
                 <span class="material-symbols-outlined">code</span> github.com/bjo5029
               </a>
@@ -329,12 +318,12 @@
           <td>
             <img src="assets/cho_chanyeong.jpg" alt="Chanyeong Cho" class="student-photo">
             <div class="student-name">Chanyeong Cho</div>
-            <div class="student-contact">
+            <div class="student-contact email-contact">
               <a href="mailto:oriental8@o.cnu.ac.kr" style="text-decoration:none; color:inherit;">
                 <span class="material-symbols-outlined">mail</span> oriental8@o.cnu.ac.kr
               </a>
             </div>
-            <div class="student-contact">
+            <div class="student-contact github-contact">
               <a href="https://github.com/ChanyeongCho" target="_blank" style="text-decoration:none; color:inherit;">
                 <span class="material-symbols-outlined">code</span> github.com/ChanyeongCho
               </a>
@@ -344,7 +333,7 @@
             <!-- 허재민 (사진 없음; 동일한 레이아웃 위해 빈 사진 박스 사용) -->
             <div class="student-photo" style="background-color: transparent;"></div>
             <div class="student-name">Jaemin Heo</div>
-            <div class="student-contact">
+            <div class="student-contact email-contact">
               <a href="mailto:unknown@o.cnu.ac.kr" style="text-decoration:none; color:inherit;">
                 <span class="material-symbols-outlined">mail</span> unknown@o.cnu.ac.kr
               </a>
@@ -357,5 +346,4 @@
       </table>
     </div>
   </div>
-</body>
-</html>
+<
