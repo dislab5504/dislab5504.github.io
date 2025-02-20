@@ -33,23 +33,18 @@
 
     /* 전체 래퍼 */
     .wrapper {
-      position: relative;
       max-width: 1200px;
       margin: 0 auto;
       padding: 2rem;
     }
 
-    /* 오른쪽 메뉴 (절대 위치) */
+    /* 메뉴: 최상단 중앙에 가로로 배치 */
     .menu {
-      position: absolute;
-      top: 2rem;
-      right: 2rem;
       display: flex;
-      flex-direction: column;
-      align-items: flex-end;
+      justify-content: center;
       gap: 1rem;
+      margin-bottom: 2rem;
     }
-    /* 메뉴 텍스트는 Rethink Sans */
     .menu a {
       font-family: 'Rethink Sans', sans-serif;
       text-decoration: none;
@@ -75,7 +70,7 @@
       width: 100%;
     }
 
-    /* 교수님 테이블: 오른쪽 셀 없이 하나의 셀 (석사과정 테이블과 동일 너비) */
+    /* 교수님 테이블: 단일 셀로 구성 */
     .prof-table {
       width: 100%;
       border-collapse: separate;
@@ -84,25 +79,20 @@
     }
     .prof-table td {
       vertical-align: top;
-      width: 50%;
+      width: 100%;
       border: 1px solid #ccc;
       padding: 1rem;
-    }
-    /* 단일 셀일 경우 전체 너비 사용 */
-    .prof-table.single-cell td {
-      width: 100%;
     }
 
     /* 교수님 사진: 크기 축소, 가운데 정렬 */
     .prof-photo {
       display: block;
-      margin: 0 auto;
+      margin: 0 auto 1rem auto;
       width: clamp(100px, 15vw, 200px);
       border-radius: 4px;
-      margin-bottom: 1rem;
     }
 
-    /* 교수님 기본 정보 (폰트 사이즈 줄임 및 가운데 정렬) */
+    /* 교수님 기본 정보: 가운데 정렬 및 폰트 사이즈 줄임 */
     .prof-info {
       text-align: center;
     }
@@ -125,46 +115,41 @@
       line-height: 1.4;
     }
 
-    /* 4개 정보 (Education, Research Experience, Honors and Awards, Academic Activities) 테이블 */
-    .info-table {
-      width: 100%;
-      border-collapse: separate;
-      border-spacing: 1rem;
-      margin-top: 1rem;
-      margin-bottom: 2rem;
-      table-layout: fixed;
+    /* 2 x 2 카드 스타일 for 정보 섹션 */
+    .info-cards {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin: 1rem 0 2rem 0;
     }
-    .info-table td {
+    .card {
       border: 1px solid #ccc;
+      border-radius: 8px;
       padding: 1rem;
-      width: 50%;
-      height: 200px; /* 고정 높이로 모든 셀을 동일하게 */
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
       text-align: center;
+      height: 100%;
+      box-shadow: 2px 2px 5px rgba(0,0,0,0.05);
     }
-    .info-table h2 {
+    .card h2 {
       margin: 0 0 1rem 0;
       font-size: clamp(16px, 2vw, 20px);
       font-weight: 600;
       color: #000;
     }
-    .info-table ul {
+    .card ul {
       margin: 0;
       padding-left: 1.2rem;
       list-style-type: disc;
       text-align: left;
     }
-    .info-table li {
+    .card li {
       margin: 0.3rem 0;
       color: #777;
       font-size: clamp(14px, 2vw, 16px);
       line-height: 1.4;
     }
 
-    /* 석사/학부 연구생 테이블 */
+    /* 석사 및 학부 연구생 테이블 */
     .section-title {
       margin-top: 2rem;
       margin-bottom: 1rem;
@@ -173,12 +158,10 @@
       color: #002554;
       text-align: center;
     }
-    /* 석사과정생은 2열 */
     .master-table {
-      margin: 0 auto;
+      margin: 0 auto 2rem auto;
       border-collapse: separate;
       border-spacing: 1rem;
-      margin-bottom: 2rem;
       width: 100%;
     }
     .master-table td {
@@ -188,12 +171,10 @@
       width: 50%;
       text-align: center;
     }
-    /* 학부연구생은 4열 */
     .student-table {
-      margin: 0 auto;
+      margin: 0 auto 2rem auto;
       border-collapse: separate;
       border-spacing: 1rem;
-      margin-bottom: 2rem;
       width: 100%;
     }
     .student-table td {
@@ -203,7 +184,6 @@
       width: 25%;
       text-align: center;
     }
-    /* 학생 사진 크기 */
     .student-photo {
       display: block;
       width: 100%;
@@ -221,7 +201,7 @@
 <body>
 
   <div class="wrapper">
-    <!-- 오른쪽 메뉴 -->
+    <!-- 메뉴: 최상단 중앙 가로 배치 -->
     <nav class="menu">
       <a href="index.html">Home</a>
       <a href="members.html">Members</a>
@@ -234,8 +214,8 @@
 
     <!-- 메인 콘텐츠 -->
     <div class="content">
-      <!-- 교수님 정보: 오른쪽 셀 없이 단일 셀 테이블 -->
-      <table class="prof-table single-cell">
+      <!-- 교수님 정보: 단일 셀 테이블 -->
+      <table class="prof-table">
         <tr>
           <td>
             <img
@@ -257,42 +237,38 @@
               </div>
             </div>
 
-            <!-- 4개 정보 섹션을 동일 셀 크기로 배치 -->
-            <table class="info-table">
-              <tr>
-                <td>
-                  <h2>Education</h2>
-                  <ul>
-                    <li>Ph.D. Dept. of Electrical and Computer Engineering, Seoul National University</li>
-                    <li>B.S. Dept. of Electrical and Computer Engineering, Seoul National University</li>
-                  </ul>
-                </td>
-                <td>
-                  <h2>Research Experience</h2>
-                  <ul>
-                    <li>Assistant Professor, School of Electrical Engineering, Kumoh National Institute of Technology</li>
-                    <li>Staff Engineer, Standard Research Team, Samsung Research, Samsung Electronics</li>
-                    <li>Visiting Scholar, University of Southern California</li>
-                  </ul>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <h2>Honors and Awards</h2>
-                  <ul>
-                    <li>Distinguished Ph.D. Dissertation Award, Dept. of Electrical and Computer Engineering at Seoul National University</li>
-                    <li>Gold Prize at 2017 IEEE Seoul Section Student Paper Contest, IEEE Seoul Section</li>
-                    <li>Bronze Prize at the 23rd Samsung Electronics HumanTech Paper Contest, Samsung Electronics</li>
-                  </ul>
-                </td>
-                <td>
-                  <h2>Academic Activities</h2>
-                  <ul>
-                    <li>TPC member @ IEEE Wireless Communications and Networking Conference (2020, 2021)</li>
-                  </ul>
-                </td>
-              </tr>
-            </table>
+            <!-- 2 x 2 카드로 구성된 정보 섹션 -->
+            <div class="info-cards">
+              <div class="card">
+                <h2>Education</h2>
+                <ul>
+                  <li>Ph.D. Dept. of Electrical and Computer Engineering, Seoul National University</li>
+                  <li>B.S. Dept. of Electrical and Computer Engineering, Seoul National University</li>
+                </ul>
+              </div>
+              <div class="card">
+                <h2>Research Experience</h2>
+                <ul>
+                  <li>Assistant Professor, School of Electrical Engineering, Kumoh National Institute of Technology</li>
+                  <li>Staff Engineer, Standard Research Team, Samsung Research, Samsung Electronics</li>
+                  <li>Visiting Scholar, University of Southern California</li>
+                </ul>
+              </div>
+              <div class="card">
+                <h2>Honors and Awards</h2>
+                <ul>
+                  <li>Distinguished Ph.D. Dissertation Award, Dept. of Electrical and Computer Engineering at Seoul National University</li>
+                  <li>Gold Prize at 2017 IEEE Seoul Section Student Paper Contest, IEEE Seoul Section</li>
+                  <li>Bronze Prize at the 23rd Samsung Electronics HumanTech Paper Contest, Samsung Electronics</li>
+                </ul>
+              </div>
+              <div class="card">
+                <h2>Academic Activities</h2>
+                <ul>
+                  <li>TPC member @ IEEE Wireless Communications and Networking Conference (2020, 2021)</li>
+                </ul>
+              </div>
+            </div>
           </td>
         </tr>
       </table>
