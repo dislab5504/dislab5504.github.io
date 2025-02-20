@@ -33,17 +33,12 @@ const updatedSlides = Array.from(track.children);
 currentIndex = 1;
 track.style.transform = `translateX(${-slideWidth * currentIndex}px)`;
 
-// 초기에 active 갱신
-updateActiveSlide();
-
 // '다음' 버튼 클릭 시
 nextButton.addEventListener('click', () => {
   if (currentIndex >= updatedSlides.length - 1) return;
   currentIndex++;
   track.style.transition = 'transform 0.4s ease-in-out';
   track.style.transform = `translateX(${-slideWidth * currentIndex}px)`;
-
-  updateActiveSlide();
 });
 
 // '이전' 버튼 클릭 시
@@ -52,8 +47,6 @@ prevButton.addEventListener('click', () => {
   currentIndex--;
   track.style.transition = 'transform 0.4s ease-in-out';
   track.style.transform = `translateX(${-slideWidth * currentIndex}px)`;
-
-  updateActiveSlide();
 });
 
 // 트랜지션이 끝난 뒤, 복제 슬라이드 위치에 도달하면 점프(순환)
@@ -63,23 +56,11 @@ track.addEventListener('transitionend', () => {
     currentIndex = 1; // 실제 첫 슬라이드 위치
     track.style.transition = 'none';
     track.style.transform = `translateX(${-slideWidth * currentIndex}px)`;
-    updateActiveSlide();
   }
   // 맨 앞의 lastClone 위치
   if (updatedSlides[currentIndex] === lastClone) {
     currentIndex = slides.length; // 실제 마지막 슬라이드 위치
     track.style.transition = 'none';
     track.style.transform = `translateX(${-slideWidth * currentIndex}px)`;
-    updateActiveSlide();
   }
 });
-
-/* 
-  가운데 슬라이드(active) 표시:
-  1) 모든 슬라이드에서 active 제거
-  2) currentIndex 위치 슬라이드에 active 부여
-*/
-function updateActiveSlide() {
-  updatedSlides.forEach(slide => slide.classList.remove('active'));
-  updatedSlides[currentIndex].classList.add('active');
-}
