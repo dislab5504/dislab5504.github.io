@@ -137,28 +137,16 @@
       font-size: clamp(14px, 2vw, 16px);
       line-height: 1.4;
     }
-    /* 석사 및 학부 연구생 테이블 - 셀 높이 키움 및 테이블 레이아웃 고정 */
-    .master-table {
+    /* 석사 및 학부 연구생 테이블 - 테이블 레이아웃 고정, 셀 높이 키움 */
+    .master-table,
+    .student-table {
       margin: 0 auto 2rem auto;
       border-collapse: separate;
       border-spacing: 1rem;
       width: 100%;
       table-layout: fixed;
     }
-    .master-table td {
-      vertical-align: top;
-      padding: 1rem;
-      border: 1px solid #ccc;
-      min-height: 300px;
-      text-align: center;
-    }
-    .student-table {
-      margin: 0 auto 2rem auto;
-      border-collapse: separate;
-      border-spacing: 1rem;
-      width: 100%;
-      table-layout: fixed; /* 모든 셀 너비 동일하게 */
-    }
+    .master-table td,
     .student-table td {
       vertical-align: top;
       padding: 1rem;
@@ -166,20 +154,24 @@
       min-height: 300px;
       text-align: center;
     }
-    /* 학생 사진: 기존 150px에서 20% 증가 -> 180px */
-    .student-photo {
-      display: block;
-      width: 180px;
-      height: 180px;
-      object-fit: cover;
-      margin: 0 auto 0.5rem auto;
-      border-radius: 4px;
+    /* 학생 사진 컨테이너: 모든 사진의 세로 높이를 동일하게 (자르지 않고 비율 유지) */
+    .student-photo-container {
+      height: 220px; /* 이 컨테이너 높이를 기준으로 가장 세로가 긴 이미지에 맞춤 */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 0.5rem;
     }
-    /* 학생 이름 및 연락처 스타일 (석사, 학부 동일) - 텍스트 위치 조정 */
+    .student-photo {
+      max-height: 100%;
+      width: auto;
+      object-fit: contain;
+    }
+    /* 학생 이름 및 연락처 스타일 (석사, 학부 동일) - 텍스트 위치 고정 */
     .student-name {
       font-size: 1.2em;
       font-weight: bold;
-      margin-top: 1.2rem; /* 텍스트를 아래로 내림 */
+      margin-top: 0.5rem;
       margin-bottom: 0.3rem;
     }
     .student-contact {
@@ -274,7 +266,9 @@
         <tr>
           <td>
             <!-- 김성윤 학생 정보 -->
-            <img src="assets/kim_seongyoon.jpg" alt="Seongyoon Kim" class="student-photo">
+            <div class="student-photo-container">
+              <img src="assets/kim_seongyoon.jpg" alt="Seongyoon Kim" class="student-photo">
+            </div>
             <div class="student-name">Seongyoon Kim</div>
             <div class="student-contact email-contact">
               <a href="mailto:201902664@o.cnu.ac.kr" style="text-decoration:none; color:inherit;">
@@ -289,7 +283,9 @@
           </td>
           <td>
             <!-- 류지현 학생 정보 -->
-            <img src="assets/ryu_jihyun.jpg" alt="Jihyun Ryu" class="student-photo">
+            <div class="student-photo-container">
+              <img src="assets/ryu_jihyun.jpg" alt="Jihyun Ryu" class="student-photo">
+            </div>
             <div class="student-name">Jihyun Ryu</div>
             <div class="student-contact email-contact">
               <a href="mailto:ryujihyunmail@gmail.com" style="text-decoration:none; color:inherit;">
@@ -309,7 +305,9 @@
       <table class="student-table">
         <tr>
           <td>
-            <img src="assets/baek_jeongeun.jpg" alt="Jeongeun Baek" class="student-photo">
+            <div class="student-photo-container">
+              <img src="assets/baek_jeongeun.jpg" alt="Jeongeun Baek" class="student-photo">
+            </div>
             <div class="student-name">Jeongeun Baek</div>
             <div class="student-contact email-contact">
               <a href="mailto:bjo5029@o.cnu.ac.kr" style="text-decoration:none; color:inherit;">
@@ -323,7 +321,9 @@
             </div>
           </td>
           <td>
-            <img src="assets/cho_chanyeong.jpg" alt="Chanyeong Cho" class="student-photo">
+            <div class="student-photo-container">
+              <img src="assets/cho_chanyeong.jpg" alt="Chanyeong Cho" class="student-photo">
+            </div>
             <div class="student-name">Chanyeong Cho</div>
             <div class="student-contact email-contact">
               <a href="mailto:oriental8@o.cnu.ac.kr" style="text-decoration:none; color:inherit;">
@@ -338,7 +338,7 @@
           </td>
           <td>
             <!-- 허재민 (사진 없음; 동일한 레이아웃 위해 빈 사진 박스 사용) -->
-            <div class="student-photo" style="background-color: transparent;"></div>
+            <div class="student-photo-container" style="background-color: transparent;"></div>
             <div class="student-name">Jaemin Heo</div>
             <div class="student-contact email-contact">
               <a href="mailto:unknown@o.cnu.ac.kr" style="text-decoration:none; color:inherit;">
