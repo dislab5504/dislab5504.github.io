@@ -1,3 +1,1281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Publications - Distributed Intelligence & Systems Laboratory</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- 폰트: Rethink Sans(메뉴/제목), Roboto(본문), Material Symbols(아이콘) -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Rethink+Sans:wght@300;600;700&family=Roboto:wght@300;400;500;700&family=Material+Symbols+Outlined"
+    rel="stylesheet"
+  >
+
+  <style>
+    /* 전역 리셋 및 박스 모델 설정 */
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      min-height: 100%;
+      background-color: #ffffff; /* 밝은 배경 */
+      color: #000000;           /* 기본 검정 글씨 */
+      box-sizing: border-box;
+    }
+    *, *::before, *::after {
+      box-sizing: inherit;
+    }
+
+    /* body 전체에는 Roboto 폰트 적용 */
+    body {
+      font-family: 'Roboto', sans-serif;
+    }
+
+    /* 아이콘(Material Symbols) 스타일 (원하는 크기로 조정 가능) */
+    .material-symbols-outlined {
+      font-variation-settings:
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 48;
+      font-size: 18px; /* 아이콘 크기 */
+      vertical-align: middle;
+    }
+
+    /* 전체 래퍼 */
+    .wrapper {
+      position: relative;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    /* 오른쪽 메뉴 */
+    .menu {
+      position: absolute;
+      top: 2rem;
+      right: -6rem;  /* 약간 왼쪽으로 이동하여 본문과 겹치지 않도록 */
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 1rem;
+      font-family: 'Rethink Sans', sans-serif; /* 메뉴 폰트 */
+    }
+    .menu a {
+      text-decoration: none;
+      color: #002554;
+      font-size: clamp(14px, 2vw, 20px);
+      font-weight: 400;
+      transition: color 0.3s;
+    }
+    .menu a:hover {
+      color: #666;
+    }
+
+    /* 메인 컨테이너 */
+    .inner {
+      margin-top: 5rem; /* 메뉴 아래 공간 확보 */
+    }
+    .inner > div > h2 {
+      font-family: 'Rethink Sans', sans-serif; /* 섹션 제목은 Rethink Sans */
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      color: #002554;
+      text-align: center;
+    }
+
+    /* 2열 그리드 컨테이너 */
+    .grid-container {
+      display: flex;
+      flex-wrap: wrap; /* 너비 작으면 자동 줄바꿈 */
+      gap: 20px;       /* 카드 간격 */
+      margin-bottom: 2rem;
+    }
+
+    /* 논문 카드 (a 태그) */
+    .paper-card {
+      display: block;
+      width: calc(50% - 20px); /* 2열(한 행에 2개) */
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* 카드 배경 및 고정 높이로 동일 크기 유지 */
+    .paper-card-inner {
+      display: flex;
+      flex-direction: column; /* 상단 정보 + 하단 #태그/버튼 영역 */
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      padding: 1rem;
+      background-color: #fafafa;
+      transition: box-shadow 0.3s;
+      height: 300px;  /* 셀 높이 증가 및 동일 크기 */
+    }
+    .paper-card-inner:hover {
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    }
+
+    /* 상단 (논문 메인 정보) */
+    .paper-top {
+      /* 상단 정보를 별도 div로 감싸 */
+    }
+
+    /* 라벨 (예: International Journal, KICS 등) */
+    .paper-labels {
+      display: flex;
+      gap: 8px;
+      list-style: none;
+      padding: 0;
+      margin: 0 0 4px 0;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #444;
+    }
+    .paper-labels li {
+      background-color: #e0e0e0;
+      padding: 4px 8px; /* 패딩 확대 */
+      border-radius: 8px; /* 라운드 효과 확대 */
+    }
+
+    /* 논문 제목 (메뉴 폰트 + 더 크고 굵게) */
+    .paper-title {
+      font-family: 'Rethink Sans', sans-serif;
+      font-size: 1.4rem; /* 폰트 크기 증가 */
+      font-weight: 800;  /* 폰트 굵게 */
+      margin: 0 0 6px 0;
+      color: #333;
+    }
+
+    /* 저자/날짜/학회 */
+    .paper-info {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      font-size: 0.85rem;
+      color: #555;
+    }
+    .paper-info li {
+      display: flex;
+      align-items: center;
+      margin: 2px 0;
+    }
+    .paper-info li span {
+      margin-right: 4px;
+    }
+
+    /* 하단 영역 (태그 + 버튼) */
+    .paper-bottom {
+      margin-top: auto; /* 카드 아래쪽 배치 */
+      display: flex;
+      flex-direction: column;
+      gap: 8px; /* 태그와 버튼 사이 */
+    }
+
+    /* #태그 (왼쪽 정렬) */
+    .paper-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      justify-content: flex-start; /* 왼쪽 정렬 */
+    }
+    .paper-tags li {
+      background-color: #e7f1fd;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      color: #1565c0;
+    }
+    .paper-tags li span:first-child {
+      margin-right: 2px;
+      color: #1565c0;
+    }
+
+    /* Copy 버튼을 하단 중앙 정렬 */
+    .paper-buttons {
+      display: flex;
+      justify-content: center; /* 가운데 정렬 */
+      gap: 10px;
+    }
+    /* Copy 버튼 스타일 (둥근 사각) - 크기 증가 */
+    .copy-btn {
+      font-family: 'Rethink Sans', sans-serif; /* 버튼 폰트 */
+      border: 1px solid #999;
+      border-radius: 20px;
+      padding: 0.6rem 1.2rem; /* 패딩 확대 */
+      font-size: 1rem; /* 폰트 크기 증가 */
+      text-align: center;
+      cursor: pointer;
+      color: #666;
+      transition: background-color 0.2s;
+    }
+    .copy-btn:hover {
+      background-color: #e6e6e6;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <!-- 오른쪽 메뉴 -->
+    <nav class="menu">
+      <a href="index.html">Home</a>
+      <a href="members.html">Members</a>
+      <a href="publications.html">Publications</a>
+      <a href="#">Research</a>
+      <a href="#">Projects</a>
+      <a href="#">Lecture</a>
+      <a href="#">News</a>
+    </nav>
+
+    <div class="inner">
+      <!-- International Journal -->
+      <div>
+        <h2>International Journal</h2>
+      </div>
+      <div class="grid-container">
+        <!-- J19 (2024-03) -->
+        <a href="https://ieeexplore.ieee.org/document/10473190" target="_blank" class="paper-card">
+          <div class="paper-card-inner">
+            <div class="paper-top">
+              <ul class="paper-labels">
+                <li>International Journal</li>
+                <li>IEEE TIFS</li>
+              </ul>
+              <h3 class="paper-title">
+                Group-wise Verifiable Coded Computing under Byzantine Attacks and Stragglers
+              </h3>
+              <ul class="paper-info">
+                <li>
+                  <span class="material-symbols-outlined">people_alt</span>
+                  Sangwoo Hong,  <b>Heecheol Yang*</b>,  Youngseok Yoon,  Jungwoo Lee
+                </li>
+                <li>
+                  <span class="material-symbols-outlined">calendar_today</span>
+                  Mar. 2024
+                </li>
+                <li>
+                  <span class="material-symbols-outlined">history_edu</span>
+                  IEEE Transactions on Information Forensics and Security
+                </li>
+              </ul>
+            </div>
+            <div class="paper-bottom">
+              <ul class="paper-tags">
+                <li><span>#</span><span>Coded Computing</span></li>
+                <li><span>#</span><span>Byzantine Attack</span></li>
+                <li><span>#</span><span>Stragglers</span></li>
+              </ul>
+              <div class="paper-buttons">
+                <div class="copy-btn">Copy BibTeX</div>
+                <div class="copy-btn">Copy reference</div>
+              </div>
+            </div>
+          </div>
+        </a>
+        <!-- J18 (2023-08) -->
+        <a href="https://www.sciencedirect.com/science/article/pii/S2405959523000115" target="_blank" class="paper-card">
+          <div class="paper-card-inner">
+            <div class="paper-top">
+              <ul class="paper-labels">
+                <li>International Journal</li>
+                <li>ICT Express</li>
+              </ul>
+              <h3 class="paper-title">
+                Fully Private and Secure Coded Matrix Multiplication with Colluding Workers
+              </h3>
+              <ul class="paper-info">
+                <li>
+                  <span class="material-symbols-outlined">people_alt</span>
+                  Minchul Kim,  <b>Heecheol Yang*</b>,  Jungwoo Lee
+                </li>
+                <li>
+                  <span class="material-symbols-outlined">calendar_today</span>
+                  Aug. 2023
+                </li>
+                <li>
+                  <span class="material-symbols-outlined">history_edu</span>
+                  ICT Express
+                </li>
+              </ul>
+            </div>
+            <div class="paper-bottom">
+              <ul class="paper-tags">
+                <li><span>#</span><span>Private Computation</span></li>
+                <li><span>#</span><span>Colluding Workers</span></li>
+              </ul>
+              <div class="paper-buttons">
+                <div class="copy-btn">Copy BibTeX</div>
+                <div class="copy-btn">Copy reference</div>
+              </div>
+            </div>
+          </div>
+        </a>
+        <!-- J17 (2023-06) -->
+        <a href="https://ieeexplore.ieee.org/document/10136521" target="_blank" class="paper-card">
+          <div class="paper-card-inner">
+            <div class="paper-top">
+              <ul class="paper-labels">
+                <li>International Journal</li>
+                <li>IEEE/KICS JCN</li>
+              </ul>
+              <h3 class="paper-title">
+                Towards 6G Hyper-Connectivity: Vision, Challenges, and Key Enabling Technologies
+              </h3>
+              <ul class="paper-info">
+                <li>
+                  <span class="material-symbols-outlined">people_alt</span>
+                  Howon Lee,  Byungju Lee,  <b>Heecheol Yang</b>,  Junghyun Kim,  Seungnyun Kim,  Wonjae Shin,  Beonghyo Shim,  and H. Vincent Poor
+                </li>
+                <li>
+                  <span class="material-symbols-outlined">calendar_today</span>
+                  Jun. 2023
+                </li>
+                <li>
+                  <span class="material-symbols-outlined">history_edu</span>
+                  IEEE/KICS Journal of Communications and Networks
+                </li>
+              </ul>
+            </div>
+            <div class="paper-bottom">
+              <ul class="paper-tags">
+                <li><span>#</span><span>6G</span></li>
+                <li><span>#</span><span>Hyper-Connectivity</span></li>
+              </ul>
+              <div class="paper-buttons">
+                <div class="copy-btn">Copy BibTeX</div>
+                <div class="copy-btn">Copy reference</div>
+              </div>
+            </div>
+          </div>
+        </a>
+        <!-- J16 (2023-03) -->
+        <a href="https://ieeexplore.ieee.org/document/10015804" target="_blank" class="paper-card">
+          <div class="paper-card-inner">
+            <div class="paper-top">
+              <ul class="paper-labels">
+                <li>International Journal</li>
+                <li>IEEE Trans. on Communications</li>
+              </ul>
+              <h3 class="paper-title">
+                Straggler-Exploiting Fully Private Distributed Matrix Multiplication with Chebyshev Polynomials
+              </h3>
+              <ul class="paper-info">
+                <li>
+                  <span class="material-symbols-outlined">people_alt</span>
+                  Sangwoo Hong,  <b>Heecheol Yang*</b>,  Youngseok Yoon,  Jungwoo Lee
+                </li>
+                <li>
+                  <span class="material-symbols-outlined">calendar_today</span>
+                  Mar. 2023
+                </li>
+                <li>
+                  <span class="material-symbols-outlined">history_edu</span>
+                  IEEE Transactions on Communications
+                </li>
+              </ul>
+            </div>
+            <div class="paper-bottom">
+              <ul class="paper-tags">
+                <li><span>#</span><span>Private Distributed Computing</span></li>
+                <li><span>#</span><span>Straggler Exploitation</span></li>
+              </ul>
+              <div class="paper-buttons">
+                <div class="copy-btn">Copy BibTeX</div>
+                <div class="copy-btn">Copy reference</div>
+              </div>
+            </div>
+          </div>
+        </a>
+        <!-- J15 (2022-04) -->
+        <a href="https://www.mdpi.com/1099-4300/24/5/612" target="_blank" class="paper-card">
+          <div class="paper-card-inner">
+            <div class="paper-top">
+              <ul class="paper-labels">
+                <li>International Journal</li>
+                <li>Entropy</li>
+              </ul>
+              <h3 class="paper-title">
+                Repair Rates of Multiple Descriptions on Distributed Storage
+              </h3>
+              <ul class="paper-info">
+                <li>
+                  <span class="material-symbols-outlined">people_alt</span>
+                  Anders Host-Madsen,  <b>Heecheol Yang</b>,  Minchul Kim,  Jungwoo Lee
+                </li>
+                <li>
+                  <span class="material-symbols-outlined">calendar_today</span>
+                  Apr. 2022
+                </li>
+                <li>
+                  <span class="material-symbols-outlined">history_edu</span>
+                  Entropy
+                </li>
+              </ul>
+            </div>
+            <div class="paper-bottom">
+              <ul class="paper-tags">
+                <li><span>#</span><span>Distributed Storage</span></li>
+                <li><span>#</span><span>Multiple Descriptions</span></li>
+              </ul>
+              <div class="paper-buttons">
+                <div class="copy-btn">Copy BibTeX</div>
+                <div class="copy-btn">Copy reference</div>
+              </div>
+            </div>
+          </div>
+        </a>
+        <!-- J14 (2022-03) -->
+        <a href="https://ieeexplore.ieee.org/document/9678333" target="_blank" class="paper-card">
+          <div class="paper-card-inner">
+            <div class="paper-top">
+              <ul class="paper-labels">
+                <li>International Journal</li>
+                <li>IEEE JSAC</li>
+              </ul>
+              <h3 class="paper-title">
+                Hierarchical Group Testing for Byzantine Attack Identification in Distributed Matrix Multiplication
+              </h3>
+              <ul class="paper-info">
+                <li>
+                  <span class="material-symbols-outlined">people_alt</span>
+                  Sangwoo Hong,  <b>Heecheol Yang*</b>,  Jungwoo Lee
+                </li>
+                <li>
+                  <span class="material-symbols-outlined">calendar_today</span>
+                  Mar. 2022
+                </li>
+                <li>
+                  <span class="material-symbols-outlined">history_edu</span>
+                  IEEE Journal on Selected Areas in Communications
+                </li>
+              </ul>
+            </div>
+            <div class="paper-bottom">
+              <ul class="paper-tags">
+                <li><span>#</span><span>Byzantine Attack</span></li>
+                <li><span>#</span><span>Group Testing</span></li>
+              </ul>
+              <div class="paper-buttons">
+                <div class="copy-btn">Copy BibTeX</div>
+                <div class="copy-btn">Copy reference</div>
+              </div>
+            </div>
+          </div>
+        </a>
+        <!-- J13 (2021-12) -->
+        <a href="https://ieeexplore.ieee.org/abstract/document/9650882" target="_blank" class="paper-card">
+          <div class="paper-card-inner">
+            <div class="paper-top">
+              <ul class="paper-labels">
+                <li>International Journal</li>
+                <li>IEEE Access</li>
+              </ul>
+              <h3 class="paper-title">
+                Securely Straggler-Exploiting Coded Computation for Distributed Matrix Multiplication
+              </h3>
+              <ul class="paper-info">
+                <li>
+                  <span class="material-symbols-outlined">people_alt</span>
+                  <b>Heecheol Yang</b>,  Sangwoo Hong,  Jungwoo Lee
+                </li>
+                <li>
+                  <span class="material-symbols-outlined">calendar_today</span>
+                  Dec. 2021
+                </li>
+                <li>
+                  <span class="material-symbols-outlined">history_edu</span>
+                  IEEE Access
+                </li>
+              </ul>
+            </div>
+            <div class="paper-bottom">
+              <ul class="paper-tags">
+                <li><span>#</span><span>Straggler Exploitation</span></li>
+                <li><span>#</span><span>Secure Coded Computation</span></li>
+              </ul>
+              <div class="paper-buttons">
+                <div class="copy-btn">Copy BibTeX</div>
+                <div class="copy-btn">Copy reference</div>
+              </div>
+            </div>
+          </div>
+        </a>
+        <!-- J12 (2021-03) -->
+        <a href="https://ieeexplore.ieee.org/document/9257373" target="_blank" class="paper-card">
+          <div class="paper-card-inner">
+            <div class="paper-top">
+              <ul class="paper-labels">
+                <li>International Journal</li>
+                <li>IEEE Comm. Letters</li>
+              </ul>
+              <h3 class="paper-title">
+                Fully Private Coded Matrix Multiplication from Colluding Workers
+              </h3>
+              <ul class="paper-info">
+                <li>
+                  <span class="material-symbols-outlined">people_alt</span>
+                  Minchul Kim,  <b>Heecheol Yang*</b>,  Jungwoo Lee
+                </li>
+                <li>
+                  <span class="material-symbols-outlined">calendar_today</span>
+                  Mar. 2021
+                </li>
+                <li>
+                  <span class="material-symbols-outlined">history_edu</span>
+                  IEEE Communications Letters
+                </li>
+              </ul>
+            </div>
+            <div class="paper-bottom">
+              <ul class="paper-tags">
+                <li><span>#</span><span>Privacy</span></li>
+                <li><span>#</span><span>Colluding Workers</span></li>
+              </ul>
+              <div class="paper-buttons">
+                <div class="copy-btn">Copy BibTeX</div>
+                <div class="copy-btn">Copy reference</div>
+              </div>
+            </div>
+          </div>
+        </a>
+        <!-- J11 (2020-10) -->
+        <a href="https://ieeexplore.ieee.org/document/9226517" target="_blank" class="paper-card">
+          <div class="paper-card-inner">
+            <div class="paper-top">
+              <ul class="paper-labels">
+                <li>International Journal</li>
+                <li>IEEE Access</li>
+              </ul>
+              <h3 class="paper-title">
+                Squeezed Polynomial Codes: Communication-Efficient Coded Computation in Straggler-Exploiting Distributed Matrix Multiplication
+              </h3>
+              <ul class="paper-info">
+                <li>
+                  <span class="material-symbols-outlined">people_alt</span>
+                  Sangwoo Hong,  <b>Heecheol Yang*</b>,  Jungwoo Lee
+                </li>
+                <li>
+                  <span class="material-symbols-outlined">calendar_today</span>
+                  Oct. 2020
+                </li>
+                <li>
+                  <span class="material-symbols-outlined">history_edu</span>
+                  IEEE Access
+                </li>
+              </ul>
+            </div>
+            <div class="paper-bottom">
+              <ul class="paper-tags">
+                <li><span>#</span><span>Squeezed Polynomial Codes</span></li>
+                <li><span>#</span><span>Communication-Efficient</span></li>
+              </ul>
+              <div class="paper-buttons">
+                <div class="copy-btn">Copy BibTeX</div>
+                <div class="copy-btn">Copy reference</div>
+              </div>
+            </div>
+          </div>
+        </a>
+        <!-- J10 (2020-09) -->
+        <a href="https://ieeexplore.ieee.org/document/9205303" target="_blank" class="paper-card">
+          <div class="paper-card-inner">
+            <div class="paper-top">
+              <ul class="paper-labels">
+                <li>International Journal</li>
+                <li>IEEE Access</li>
+              </ul>
+              <h3 class="paper-title">
+                On the Design of Tailored Neural Networks for Energy Harvesting Broadcast Channels: A Reinforcement Learning Approach
+              </h3>
+              <ul class="paper-info">
+                <li>
+                  <span class="material-symbols-outlined">people_alt</span>
+                  Heasung Kim,  Jungtae Kim,  Wonjae Shin,  <b>Heecheol Yang</b>,  Nayoung Lee,  Sung Jin Kim,  and Jungwoo Lee
+                </li>
+                <li>
+                  <span class="material-symbols-outlined">calendar_today</span>
+                  Sep. 2020
+                </li>
+                <li>
+                  <span class="material-symbols-outlined">history_edu</span>
+                  IEEE Access
+                </li>
+              </ul>
+            </div>
+            <div class="paper-bottom">
+              <ul class="paper-tags">
+                <li><span>#</span><span>Neural Networks</span></li>
+                <li><span>#</span><span>Energy Harvesting</span></li>
+              </ul>
+              <div class="paper-buttons">
+                <div class="copy-btn">Copy BibTeX</div>
+                <div class="copy-btn">Copy reference</div>
+              </div>
+            </div>
+          </div>
+        </a>
+        <!-- J9 (2019-09) -->
+        <a href="https://ieeexplore.ieee.org/document/8832193" target="_blank" class="paper-card">
+          <div class="paper-card-inner">
+            <div class="paper-top">
+              <ul class="paper-labels">
+                <li>International Journal</li>
+                <li>IEEE TIFS</li>
+              </ul>
+              <h3 class="paper-title">
+                Private Coded Matrix Multiplication
+              </h3>
+              <ul class="paper-info">
+                <li>
+                  <span class="material-symbols-outlined">people_alt</span>
+                  Minchul Kim,  <b>Heecheol Yang</b>,  Jungwoo Lee
+                </li>
+                <li>
+                  <span class="material-symbols-outlined">calendar_today</span>
+                  Sep. 2019
+                </li>
+                <li>
+                  <span class="material-symbols-outlined">history_edu</span>
+                  IEEE Transactions on Information Forensics and Security
+                </li>
+              </ul>
+            </div>
+            <div class="paper-bottom">
+              <ul class="paper-tags">
+                <li><span>#</span><span>Private Computation</span></li>
+                <li><span>#</span><span>Coded Matrix Multiplication</span></li>
+              </ul>
+              <div class="paper-buttons">
+                <div class="copy-btn">Copy BibTeX</div>
+                <div class="copy-btn">Copy reference</div>
+              </div>
+            </div>
+          </div>
+        </a>
+        <!-- J8 (2019-01) -->
+        <a href="https://ieeexplore.ieee.org/document/8382305/" target="_blank" class="paper-card">
+          <div class="paper-card-inner">
+            <div class="paper-top">
+              <ul class="paper-labels">
+                <li>International Journal</li>
+                <li>IEEE TIFS</li>
+              </ul>
+              <h3 class="paper-title">
+                Secure Distributed Computing with Straggling Servers Using Polynomial Codes
+              </h3>
+              <ul class="paper-info">
+                <li>
+                  <span class="material-symbols-outlined">people_alt</span>
+                  <b>Heecheol Yang</b>,  Jungwoo Lee
+                </li>
+                <li>
+                  <span class="material-symbols-outlined">calendar_today</span>
+                  Jan. 2019
+                </li>
+                <li>
+                  <span class="material-symbols-outlined">history_edu</span>
+                  IEEE Transactions on Information Forensics and Security
+                </li>
+              </ul>
+            </div>
+            <div class="paper-bottom">
+              <ul class="paper-tags">
+                <li><span>#</span><span>Secure Distributed Computing</span></li>
+                <li><span>#</span><span>Polynomial Codes</span></li>
+              </ul>
+              <div class="paper-buttons">
+                <div class="copy-btn">Copy BibTeX</div>
+                <div class="copy-btn">Copy reference</div>
+              </div>
+            </div>
+          </div>
+        </a>
+        <!-- J7 (2018-12) -->
+        <a href="https://ieeexplore.ieee.org/document/8353857/" target="_blank" class="paper-card">
+          <div class="paper-card-inner">
+            <div class="paper-top">
+              <ul class="paper-labels">
+                <li>International Journal</li>
+                <li>IEEE TIFS</li>
+              </ul>
+              <h3 class="paper-title">
+                Private Information Retrieval for Secure Distributed Storage Systems
+              </h3>
+              <ul class="paper-info">
+                <li>
+                  <span class="material-symbols-outlined">people_alt</span>
+                  <b>Heecheol Yang</b>,  Wonjae Shin,  Jungwoo Lee
+                </li>
+                <li>
+                  <span class="material-symbols-outlined">calendar_today</span>
+                  Dec. 2018
+                </li>
+                <li>
+                  <span class="material-symbols-outlined">history_edu</span>
+                  IEEE Transactions on Information Forensics and Security
+                </li>
+              </ul>
+            </div>
+            <div class="paper-bottom">
+              <ul class="paper-tags">
+                <li><span>#</span><span>Private Information Retrieval</span></li>
+                <li><span>#</span><span>Secure Storage</span></li>
+              </ul>
+              <div class="paper-buttons">
+                <div class="copy-btn">Copy BibTeX</div>
+                <div class="copy-btn">Copy reference</div>
+              </div>
+            </div>
+          </div>
+        </a>
+        <!-- J6 (2017-12) -->
+        <a href="http://ieeexplore.ieee.org/document/8047970/" target="_blank" class="paper-card">
+          <div class="paper-card-inner">
+            <div class="paper-top">
+              <ul class="paper-labels">
+                <li>International Journal</li>
+                <li>IEEE SPL</li>
+              </ul>
+              <h3 class="paper-title">
+                Relay-Aided NOMA in Uplink Cellular Networks
+              </h3>
+              <ul class="paper-info">
+                <li>
+                  <span class="material-symbols-outlined">people_alt</span>
+                  Wonjae Shin,  <b>Heecheol Yang</b>,  Mojtaba Vaezi,  Jungwoo Lee,  and H. Vincent Poor
+                </li>
+                <li>
+                  <span class="material-symbols-outlined">calendar_today</span>
+                  Dec. 2017
+                </li>
+                <li>
+                  <span class="material-symbols-outlined">history_edu</span>
+                  IEEE Signal Processing Letters
+                </li>
+              </ul>
+            </div>
+            <div class="paper-bottom">
+              <ul class="paper-tags">
+                <li><span>#</span><span>NOMA</span></li>
+                <li><span>#</span><span>Uplink Cellular</span></li>
+              </ul>
+              <div class="paper-buttons">
+                <div class="copy-btn">Copy BibTeX</div>
+                <div class="copy-btn">Copy reference</div>
+              </div>
+            </div>
+          </div>
+        </a>
+        <!-- J5 (2017-11) -->
+        <a href="http://ieeexplore.ieee.org/document/8014468/" target="_blank" class="paper-card">
+          <div class="paper-card-inner">
+            <div class="paper-top">
+              <ul class="paper-labels">
+                <li>International Journal</li>
+                <li>IEEE TWC</li>
+              </ul>
+              <h3 class="paper-title">
+                Linear Degrees of Freedom of Full-Duplex Cellular Networks with Reconfigurable Antennas
+              </h3>
+              <ul class="paper-info">
+                <li>
+                  <span class="material-symbols-outlined">people_alt</span>
+                  <b>Heecheol Yang</b>,  Wonjae Shin,  Jungwoo Lee
+                </li>
+                <li>
+                  <span class="material-symbols-outlined">calendar_today</span>
+                  Nov. 2017
+                </li>
+                <li>
+                  <span class="material-symbols-outlined">history_edu</span>
+                  IEEE Transactions on Wireless Communications
+                </li>
+              </ul>
+            </div>
+            <div class="paper-bottom">
+              <ul class="paper-tags">
+                <li><span>#</span><span>Full-Duplex Cellular</span></li>
+                <li><span>#</span><span>Reconfigurable Antennas</span></li>
+              </ul>
+              <div class="paper-buttons">
+                <div class="copy-btn">Copy BibTeX</div>
+                <div class="copy-btn">Copy reference</div>
+              </div>
+            </div>
+          </div>
+        </a>
+        <!-- J4 (2017-11) -->
+        <a href="http://ieeexplore.ieee.org/document/7946120/" target="_blank" class="paper-card">
+          <div class="paper-card-inner">
+            <div class="paper-top">
+              <ul class="paper-labels">
+                <li>International Journal</li>
+                <li>IEEE Trans. on Communications</li>
+              </ul>
+              <h3 class="paper-title">
+                Topological Interference Management with Reconfigurable Antennas
+              </h3>
+              <ul class="paper-info">
+                <li>
+                  <span class="material-symbols-outlined">people_alt</span>
+                  <b>Heecheol Yang</b>,  Navid Naderializadeh,  A. S. Avestimehr,  Jungwoo Lee
+                </li>
+                <li>
+                  <span class="material-symbols-outlined">calendar_today</span>
+                  Nov. 2017
+                </li>
+                <li>
+                  <span class="material-symbols-outlined">history_edu</span>
+                  IEEE Transactions on Communications
+                </li>
+              </ul>
+            </div>
+            <div class="paper-bottom">
+              <ul class="paper-tags">
+                <li><span>#</span><span>Topological Interference</span></li>
+                <li><span>#</span><span>Reconfigurable Antennas</span></li>
+              </ul>
+              <div class="paper-buttons">
+                <div class="copy-btn">Copy BibTeX</div>
+                <div class="copy-btn">Copy reference</div>
+              </div>
+            </div>
+          </div>
+        </a>
+        <!-- J3 (2017-03) -->
+        <a href="http://ieeexplore.ieee.org/document/7831485/" target="_blank" class="paper-card">
+          <div class="paper-card-inner">
+            <div class="paper-top">
+              <ul class="paper-labels">
+                <li>International Journal</li>
+                <li>IEEE TWC</li>
+              </ul>
+              <h3 class="paper-title">
+                Linear Degrees of Freedom for K-user MISO Interference Channels with Blind Interference Alignment
+              </h3>
+              <ul class="paper-info">
+                <li>
+                  <span class="material-symbols-outlined">people_alt</span>
+                  <b>Heecheol Yang</b>,  Wonjae Shin,  Jungwoo Lee
+                </li>
+                <li>
+                  <span class="material-symbols-outlined">calendar_today</span>
+                  Mar. 2017
+                </li>
+                <li>
+                  <span class="material-symbols-outlined">history_edu</span>
+                  IEEE Transactions on Wireless Communications
+                </li>
+              </ul>
+            </div>
+            <div class="paper-bottom">
+              <ul class="paper-tags">
+                <li><span>#</span><span>Blind Interference Alignment</span></li>
+                <li><span>#</span><span>MISO Interference</span></li>
+              </ul>
+              <div class="paper-buttons">
+                <div class="copy-btn">Copy BibTeX</div>
+                <div class="copy-btn">Copy reference</div>
+              </div>
+            </div>
+          </div>
+        </a>
+        <!-- J2 (2017-01) -->
+        <a href="http://ieeexplore.ieee.org/xpls/abs_all.jsp?arnumber=7434050" target="_blank" class="paper-card">
+          <div class="paper-card-inner">
+            <div class="paper-top">
+              <ul class="paper-labels">
+                <li>International Journal</li>
+                <li>IEEE TVT</li>
+              </ul>
+              <h3 class="paper-title">
+                Relay-aided Successive Aligned Interference Cancellation for Wireless X Networks with Full-Duplex Relays
+              </h3>
+              <ul class="paper-info">
+                <li>
+                  <span class="material-symbols-outlined">people_alt</span>
+                  Wonjae Shin,  Namyoon Lee,  <b>Heecheol Yang</b>,  Jungwoo Lee
+                </li>
+                <li>
+                  <span class="material-symbols-outlined">calendar_today</span>
+                  Jan. 2017
+                </li>
+                <li>
+                  <span class="material-symbols-outlined">history_edu</span>
+                  IEEE Transactions on Vehicular Technology
+                </li>
+              </ul>
+            </div>
+            <div class="paper-bottom">
+              <ul class="paper-tags">
+                <li><span>#</span><span>Full-Duplex Relays</span></li>
+                <li><span>#</span><span>Interference Cancellation</span></li>
+              </ul>
+              <div class="paper-buttons">
+                <div class="copy-btn">Copy BibTeX</div>
+                <div class="copy-btn">Copy reference</div>
+              </div>
+            </div>
+          </div>
+        </a>
+        <!-- J1 (2016-03) -->
+        <a href="http://ieeexplore.ieee.org/xpl/articleDetails.jsp?arnumber=7313016" target="_blank" class="paper-card">
+          <div class="paper-card-inner">
+            <div class="paper-top">
+              <ul class="paper-labels">
+                <li>International Journal</li>
+                <li>IEEE TSP</li>
+              </ul>
+              <h3 class="paper-title">
+                Hierarchical Blind Interference Alignment over Interference Networks with Finite Coherence Time
+              </h3>
+              <ul class="paper-info">
+                <li>
+                  <span class="material-symbols-outlined">people_alt</span>
+                  <b>Heecheol Yang</b>,  Wonjae Shin,  Jungwoo Lee
+                </li>
+                <li>
+                  <span class="material-symbols-outlined">calendar_today</span>
+                  Mar. 2016
+                </li>
+                <li>
+                  <span class="material-symbols-outlined">history_edu</span>
+                  IEEE Transactions on Signal Processing
+                </li>
+              </ul>
+            </div>
+            <div class="paper-bottom">
+              <ul class="paper-tags">
+                <li><span>#</span><span>Blind IA</span></li>
+                <li><span>#</span><span>Finite Coherence Time</span></li>
+              </ul>
+              <div class="paper-buttons">
+                <div class="copy-btn">Copy BibTeX</div>
+                <div class="copy-btn">Copy reference</div>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <!-- International Conference -->
+      <div>
+        <h2>International Conference</h2>
+      </div>
+      <div class="grid-container">
+        <!-- C20 (2022-06) -->
+        <a href="https://ieeexplore.ieee.org/document/9834271" target="_blank" class="paper-card">
+          <div class="paper-card-inner">
+            <div class="paper-top">
+              <ul class="paper-labels">
+                <li>International Conference</li>
+                <li>ISIT 2022</li>
+              </ul>
+              <h3 class="paper-title">
+                Byzantine Attack Identification in Distributed Matrix Multiplication via Locally Testable Codes
+              </h3>
+              <ul class="paper-info">
+                <li>
+                  <span class="material-symbols-outlined">people_alt</span>
+                  Sangwoo Hong,  <b>Heecheol Yang</b>,  Jungwoo Lee
+                </li>
+                <li>
+                  <span class="material-symbols-outlined">calendar_today</span>
+                  Jun. 2022
+                </li>
+                <li>
+                  <span class="material-symbols-outlined">history_edu</span>
+                  ISIT (Espoo, Finland)
+                </li>
+              </ul>
+            </div>
+            <div class="paper-bottom">
+              <ul class="paper-tags">
+                <li><span>#</span><span>Byzantine Attack</span></li>
+                <li><span>#</span><span>Locally Testable Codes</span></li>
+              </ul>
+              <div class="paper-buttons">
+                <div class="copy-btn">Copy BibTeX</div>
+                <div class="copy-btn">Copy reference</div>
+              </div>
+            </div>
+          </div>
+        </a>
+        <!-- C19 (2021-07) -->
+        <a href="https://proceedings.mlr.press/v139/hong21b.html" target="_blank" class="paper-card">
+          <div class="paper-card-inner">
+            <div class="paper-top">
+              <ul class="paper-labels">
+                <li>International Conference</li>
+                <li>ICML 2021</li>
+              </ul>
+              <h3 class="paper-title">
+                Chebyshev Polynomial Codes: Task Entanglement-based Coding for Distributed Matrix Multiplication
+              </h3>
+              <ul class="paper-info">
+                <li>
+                  <span class="material-symbols-outlined">people_alt</span>
+                  Sangwoo Hong*,  <b>Heecheol Yang*</b>,  Youngseok Yoon,  et al.
+                </li>
+                <li>
+                  <span class="material-symbols-outlined">calendar_today</span>
+                  Jul. 2021
+                </li>
+                <li>
+                  <span class="material-symbols-outlined">history_edu</span>
+                  ICML (Vienna, Austria)
+                </li>
+              </ul>
+            </div>
+            <div class="paper-bottom">
+              <ul class="paper-tags">
+                <li><span>#</span><span>Distributed Matrix Multiplication</span></li>
+                <li><span>#</span><span>Chebyshev Polynomial</span></li>
+              </ul>
+              <div class="paper-buttons">
+                <div class="copy-btn">Copy BibTeX</div>
+                <div class="copy-btn">Copy reference</div>
+              </div>
+            </div>
+          </div>
+        </a>
+        <!-- C18 (2021-07) -->
+        <a href="https://ieeexplore.ieee.org/document/9517789" target="_blank" class="paper-card">
+          <div class="paper-card-inner">
+            <div class="paper-top">
+              <ul class="paper-labels">
+                <li>International Conference</li>
+                <li>ISIT 2021</li>
+              </ul>
+              <h3 class="paper-title">
+                Private and Secure Coded Computation in Straggler-Exploiting Distributed Matrix Multiplication
+              </h3>
+              <ul class="paper-info">
+                <li>
+                  <span class="material-symbols-outlined">people_alt</span>
+                  <b>Heecheol Yang</b>,  Sangwoo Hong,  Jungwoo Lee
+                </li>
+                <li>
+                  <span class="material-symbols-outlined">calendar_today</span>
+                  Jul. 2021
+                </li>
+                <li>
+                  <span class="material-symbols-outlined">history_edu</span>
+                  ISIT (Melbourne, Australia)
+                </li>
+              </ul>
+            </div>
+            <div class="paper-bottom">
+              <ul class="paper-tags">
+                <li><span>#</span><span>Private & Secure</span></li>
+                <li><span>#</span><span>Straggler Exploiting</span></li>
+              </ul>
+              <div class="paper-buttons">
+                <div class="copy-btn">Copy BibTeX</div>
+                <div class="copy-btn">Copy reference</div>
+              </div>
+            </div>
+          </div>
+        </a>
+        <!-- C17 (2020-10) -->
+        <a href="https://ieeexplore.ieee.org/document/9366093" target="_blank" class="paper-card">
+          <div class="paper-card-inner">
+            <div class="paper-top">
+              <ul class="paper-labels">
+                <li>International Conference</li>
+                <li>ISITA 2020</li>
+              </ul>
+              <h3 class="paper-title">
+                Repair of Multiple Descriptions on Distributed Storage
+              </h3>
+              <ul class="paper-info">
+                <li>
+                  <span class="material-symbols-outlined">people_alt</span>
+                  Anders Host-Madsen,  <b>Heecheol Yang</b>,  Minchul Kim,  Jungwoo Lee
+                </li>
+                <li>
+                  <span class="material-symbols-outlined">calendar_today</span>
+                  Oct. 2020
+                </li>
+                <li>
+                  <span class="material-symbols-outlined">history_edu</span>
+                  ISITA (Hawaii, USA)
+                </li>
+              </ul>
+            </div>
+            <div class="paper-bottom">
+              <ul class="paper-tags">
+                <li><span>#</span><span>Distributed Storage</span></li>
+                <li><span>#</span><span>Multiple Descriptions</span></li>
+              </ul>
+              <div class="paper-buttons">
+                <div class="copy-btn">Copy BibTeX</div>
+                <div class="copy-btn">Copy reference</div>
+              </div>
+            </div>
+          </div>
+        </a>
+        <!-- C16 (2020-06) -->
+        <a href="https://ieeexplore.ieee.org/document/9145452" target="_blank" class="paper-card">
+          <div class="paper-card-inner">
+            <div class="paper-top">
+              <ul class="paper-labels">
+                <li>International Conference</li>
+                <li>ICC Workshop</li>
+              </ul>
+              <h3 class="paper-title">
+                RL-based Transmission Completion Time Minimization with Energy Harvesting for Time-varying Channels
+              </h3>
+              <ul class="paper-info">
+                <li>
+                  <span class="material-symbols-outlined">people_alt</span>
+                  Heasung Kim,  Wonjae Shin,  <b>Heecheol Yang</b>,  Jungwoo Lee
+                </li>
+                <li>
+                  <span class="material-symbols-outlined">calendar_today</span>
+                  Jun. 2020
+                </li>
+                <li>
+                  <span class="material-symbols-outlined">history_edu</span>
+                  IEEE ICC (Dublin, Ireland)
+                </li>
+              </ul>
+            </div>
+            <div class="paper-bottom">
+              <ul class="paper-tags">
+                <li><span>#</span><span>Reinforcement Learning</span></li>
+                <li><span>#</span><span>Energy Harvesting</span></li>
+              </ul>
+              <div class="paper-buttons">
+                <div class="copy-btn">Copy BibTeX</div>
+                <div class="copy-btn">Copy reference</div>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <!-- Domestic Journal -->
+      <div>
+        <h2>Domestic Journal</h2>
+      </div>
+      <div class="grid-container">
+        <!-- DJ5 (2023-10) -->
+        <div class="paper-card">
+          <div class="paper-card-inner">
+            <div class="paper-top">
+              <ul class="paper-labels">
+                <li>Domestic Journal</li>
+                <li>KICS</li>
+              </ul>
+              <h3 class="paper-title">
+                Look-Up Table을 이용한 부호화 기반 프라이버시 보장 행렬 곱 기법
+              </h3>
+              <ul class="paper-info">
+                <li>
+                  <span class="material-symbols-outlined">people_alt</span>
+                  김민철,  양희철
+                </li>
+                <li>
+                  <span class="material-symbols-outlined">calendar_today</span>
+                  Oct. 2023
+                </li>
+                <li>
+                  <span class="material-symbols-outlined">history_edu</span>
+                  한국통신학회논문지 (vol.48, no.10)
+                </li>
+              </ul>
+            </div>
+            <div class="paper-bottom">
+              <ul class="paper-tags">
+                <li><span>#</span><span>Lookup Table</span></li>
+                <li><span>#</span><span>부호화 기반 프라이버시</span></li>
+              </ul>
+              <div class="paper-buttons">
+                <div class="copy-btn">Copy BibTeX</div>
+                <div class="copy-btn">Copy reference</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- DJ4 (2023-02) -->
+        <div class="paper-card">
+          <div class="paper-card-inner">
+            <div class="paper-top">
+              <ul class="paper-labels">
+                <li>Domestic Journal</li>
+                <li>KICS</li>
+              </ul>
+              <h3 class="paper-title">
+                행렬 곱 연산을 위한 분산 부호화 컴퓨팅에서 집단 검증 기반의 악의적 공격 탐지 기법
+              </h3>
+              <ul class="paper-info">
+                <li>
+                  <span class="material-symbols-outlined">people_alt</span>
+                  홍상우,  양희철,  윤영석,  이정우
+                </li>
+                <li>
+                  <span class="material-symbols-outlined">calendar_today</span>
+                  Feb. 2023
+                </li>
+                <li>
+                  <span class="material-symbols-outlined">history_edu</span>
+                  한국통신학회논문지 (vol.48, no.2)
+                </li>
+              </ul>
+            </div>
+            <div class="paper-bottom">
+              <ul class="paper-tags">
+                <li><span>#</span><span>분산 부호화 컴퓨팅</span></li>
+                <li><span>#</span><span>공격 탐지</span></li>
+              </ul>
+              <div class="paper-buttons">
+                <div class="copy-btn">Copy BibTeX</div>
+                <div class="copy-btn">Copy reference</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Domestic Conference -->
+      <div>
+        <h2>Domestic Conference</h2>
+      </div>
+      <div class="grid-container">
+        <!-- DC19 (2024-02) -->
+        <div class="paper-card">
+          <div class="paper-card-inner">
+            <div class="paper-top">
+              <ul class="paper-labels">
+                <li>Domestic Conference</li>
+                <li>KICS</li>
+              </ul>
+              <h3 class="paper-title">
+                HeteroSplitFed: 클라이언트의 서로 다른 학습능력과 통신환경을 고려한 분산학습 기법 연구
+              </h3>
+              <ul class="paper-info">
+                <li>
+                  <span class="material-symbols-outlined">people_alt</span>
+                  류지현,  양희철
+                </li>
+                <li>
+                  <span class="material-symbols-outlined">calendar_today</span>
+                  Feb. 2024
+                </li>
+                <li>
+                  <span class="material-symbols-outlined">history_edu</span>
+                  한국통신학회 동계종합학술발표회
+                </li>
+              </ul>
+            </div>
+            <div class="paper-bottom">
+              <ul class="paper-tags">
+                <li><span>#</span><span>Federated Learning</span></li>
+                <li><span>#</span><span>Split Learning</span></li>
+              </ul>
               <div class="paper-buttons">
                 <div class="copy-btn">Copy BibTeX</div>
                 <div class="copy-btn">Copy reference</div>
@@ -43,674 +1321,7 @@
             </div>
           </div>
         </div>
-        <!-- DC17 (2023-12) -->
-        <div class="paper-card">
-          <div class="paper-card-inner">
-            <div class="paper-top">
-              <ul class="paper-labels">
-                <li>Domestic Conference</li>
-                <li>KIISE</li>
-              </ul>
-              <h3 class="paper-title">
-                기상 데이터 이미지화를 통해 관측소 위치 정보를 활용한 ConvLSTM 기반 미세먼지 농도 예측 모델
-              </h3>
-              <ul class="paper-info">
-                <li>
-                  <span class="material-symbols-outlined">people_alt</span>
-                  김성윤,  차영은,  송교원,  양희철
-                </li>
-                <li>
-                  <span class="material-symbols-outlined">calendar_today</span>
-                  Dec. 2023
-                </li>
-                <li>
-                  <span class="material-symbols-outlined">history_edu</span>
-                  한국정보과학회 한국소프트웨어종합학술대회
-                </li>
-              </ul>
-            </div>
-            <div class="paper-bottom">
-              <ul class="paper-tags">
-                <li><span>#</span><span>ConvLSTM</span></li>
-                <li><span>#</span><span>미세먼지 예측</span></li>
-              </ul>
-              <div class="paper-buttons">
-                <div class="copy-btn">Copy BibTeX</div>
-                <div class="copy-btn">Copy reference</div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- DC16 (2023-02) -->
-        <div class="paper-card">
-          <div class="paper-card-inner">
-            <div class="paper-top">
-              <ul class="paper-labels">
-                <li>Domestic Conference</li>
-                <li>KICS</li>
-              </ul>
-              <h3 class="paper-title">
-                시계열 위치 데이터를 활용한 MOBA 게임 승패 예측: 리그오브레전드 사례 분석
-              </h3>
-              <ul class="paper-info">
-                <li>
-                  <span class="material-symbols-outlined">people_alt</span>
-                  김성윤,  이태홍,  양희철
-                </li>
-                <li>
-                  <span class="material-symbols-outlined">calendar_today</span>
-                  Feb. 2023
-                </li>
-                <li>
-                  <span class="material-symbols-outlined">history_edu</span>
-                  한국통신학회 동계종합학술발표회
-                </li>
-              </ul>
-            </div>
-            <div class="paper-bottom">
-              <ul class="paper-tags">
-                <li><span>#</span><span>MOBA</span></li>
-                <li><span>#</span><span>승패 예측</span></li>
-              </ul>
-              <div class="paper-buttons">
-                <div class="copy-btn">Copy BibTeX</div>
-                <div class="copy-btn">Copy reference</div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- DC15 (2022-06) -->
-        <div class="paper-card">
-          <div class="paper-card-inner">
-            <div class="paper-top">
-              <ul class="paper-labels">
-                <li>Domestic Conference</li>
-                <li>KICS</li>
-              </ul>
-              <h3 class="paper-title">
-                분산 부호화 컴퓨팅 환경에서의 binary splitting 기반 비잔틴 공격 확인
-              </h3>
-              <ul class="paper-info">
-                <li>
-                  <span class="material-symbols-outlined">people_alt</span>
-                  홍상우,  양희철,  이정우
-                </li>
-                <li>
-                  <span class="material-symbols-outlined">calendar_today</span>
-                  Jun. 2022
-                </li>
-                <li>
-                  <span class="material-symbols-outlined">history_edu</span>
-                  한국통신학회 하계종합학술발표회
-                </li>
-              </ul>
-            </div>
-            <div class="paper-bottom">
-              <ul class="paper-tags">
-                <li><span>#</span><span>비잔틴 공격</span></li>
-                <li><span>#</span><span>binary splitting</span></li>
-              </ul>
-              <div class="paper-buttons">
-                <div class="copy-btn">Copy BibTeX</div>
-                <div class="copy-btn">Copy reference</div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- DC14 (2022-02) -->
-        <div class="paper-card">
-          <div class="paper-card-inner">
-            <div class="paper-top">
-              <ul class="paper-labels">
-                <li>Domestic Conference</li>
-                <li>KICS</li>
-              </ul>
-              <h3 class="paper-title">
-                그룹 테스트를 활용한 복호화 컴퓨팅에서의 비잔틴 공격 판별법
-              </h3>
-              <ul class="paper-info">
-                <li>
-                  <span class="material-symbols-outlined">people_alt</span>
-                  홍상우,  양희철,  신원재,  이정우
-                </li>
-                <li>
-                  <span class="material-symbols-outlined">calendar_today</span>
-                  Feb. 2022
-                </li>
-                <li>
-                  <span class="material-symbols-outlined">history_edu</span>
-                  한국통신학회 동계종합학술발표회
-                </li>
-              </ul>
-            </div>
-            <div class="paper-bottom">
-              <ul class="paper-tags">
-                <li><span>#</span><span>그룹 테스트</span></li>
-                <li><span>#</span><span>비잔틴 공격</span></li>
-              </ul>
-              <div class="paper-buttons">
-                <div class="copy-btn">Copy BibTeX</div>
-                <div class="copy-btn">Copy reference</div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- DC13 (2021-11) -->
-        <div class="paper-card">
-          <div class="paper-card-inner">
-            <div class="paper-top">
-              <ul class="paper-labels">
-                <li>Domestic Conference</li>
-                <li>KICS</li>
-              </ul>
-              <h3 class="paper-title">
-                정보 이론적 데이터 프라이버시를 보장하는 무선통신 기반 분산 컴퓨팅 기법
-              </h3>
-              <ul class="paper-info">
-                <li>
-                  <span class="material-symbols-outlined">people_alt</span>
-                  양희철,  홍상우,  이정우
-                </li>
-                <li>
-                  <span class="material-symbols-outlined">calendar_today</span>
-                  Nov. 2021
-                </li>
-                <li>
-                  <span class="material-symbols-outlined">history_edu</span>
-                  한국통신학회 추계종합학술발표회
-                </li>
-              </ul>
-            </div>
-            <div class="paper-bottom">
-              <ul class="paper-tags">
-                <li><span>#</span><span>무선통신</span></li>
-                <li><span>#</span><span>데이터 프라이버시</span></li>
-              </ul>
-              <div class="paper-buttons">
-                <div class="copy-btn">Copy BibTeX</div>
-                <div class="copy-btn">Copy reference</div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- DC12 (2021-06) -->
-        <div class="paper-card">
-          <div class="paper-card-inner">
-            <div class="paper-top">
-              <ul class="paper-labels">
-                <li>Domestic Conference</li>
-                <li>KICS</li>
-              </ul>
-              <h3 class="paper-title">
-                데이터 프라이버시를 보장하는 부호화 분산 컴퓨팅 기법
-              </h3>
-              <ul class="paper-info">
-                <li>
-                  <span class="material-symbols-outlined">people_alt</span>
-                  양희철,  홍상우,  이정우
-                </li>
-                <li>
-                  <span class="material-symbols-outlined">calendar_today</span>
-                  Jun. 2021
-                </li>
-                <li>
-                  <span class="material-symbols-outlined">history_edu</span>
-                  한국통신학회 하계종합학술발표회
-                </li>
-              </ul>
-            </div>
-            <div class="paper-bottom">
-              <ul class="paper-tags">
-                <li><span>#</span><span>부호화 분산 컴퓨팅</span></li>
-                <li><span>#</span><span>데이터 프라이버시</span></li>
-              </ul>
-              <div class="paper-buttons">
-                <div class="copy-btn">Copy BibTeX</div>
-                <div class="copy-btn">Copy reference</div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- DC11 (2021-02) -->
-        <div class="paper-card">
-          <div class="paper-card-inner">
-            <div class="paper-top">
-              <ul class="paper-labels">
-                <li>Domestic Conference</li>
-                <li>KICS</li>
-              </ul>
-              <h3 class="paper-title">
-                분산 컴퓨팅 시스템에서 데이터 보안과 통신량 감소를 위한 데이터 인코딩 기법
-              </h3>
-              <ul class="paper-info">
-                <li>
-                  <span class="material-symbols-outlined">people_alt</span>
-                  양희철,  홍상우,  이정우
-                </li>
-                <li>
-                  <span class="material-symbols-outlined">calendar_today</span>
-                  Feb. 2021
-                </li>
-                <li>
-                  <span class="material-symbols-outlined">history_edu</span>
-                  한국통신학회 동계종합학술발표회
-                </li>
-              </ul>
-            </div>
-            <div class="paper-bottom">
-              <ul class="paper-tags">
-                <li><span>#</span><span>데이터 인코딩</span></li>
-                <li><span>#</span><span>통신량 감소</span></li>
-              </ul>
-              <div class="paper-buttons">
-                <div class="copy-btn">Copy BibTeX</div>
-                <div class="copy-btn">Copy reference</div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- DC10 (2020-08) -->
-        <div class="paper-card">
-          <div class="paper-card-inner">
-            <div class="paper-top">
-              <ul class="paper-labels">
-                <li>Domestic Conference</li>
-                <li>KICS</li>
-              </ul>
-              <h3 class="paper-title">
-                무선 통신 기반 분산 컴퓨팅에서 낙오 효과를 고려한 연산 처리 속도 향상 기법
-              </h3>
-              <ul class="paper-info">
-                <li>
-                  <span class="material-symbols-outlined">people_alt</span>
-                  문용근,  양희철
-                </li>
-                <li>
-                  <span class="material-symbols-outlined">calendar_today</span>
-                  Aug. 2020
-                </li>
-                <li>
-                  <span class="material-symbols-outlined">history_edu</span>
-                  한국통신학회 하계종합학술발표회
-                </li>
-              </ul>
-            </div>
-            <div class="paper-bottom">
-              <ul class="paper-tags">
-                <li><span>#</span><span>낙오 효과</span></li>
-                <li><span>#</span><span>분산 컴퓨팅</span></li>
-              </ul>
-              <div class="paper-buttons">
-                <div class="copy-btn">Copy BibTeX</div>
-                <div class="copy-btn">Copy reference</div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- DC9 (2020-02) -->
-        <div class="paper-card">
-          <div class="paper-card-inner">
-            <div class="paper-top">
-              <ul class="paper-labels">
-                <li>Domestic Conference</li>
-                <li>KICS</li>
-              </ul>
-              <h3 class="paper-title">
-                데이터 보안을 보장하는 분산 컴퓨팅에서의 연산 처리 시간
-              </h3>
-              <ul class="paper-info">
-                <li>
-                  <span class="material-symbols-outlined">people_alt</span>
-                  양희철
-                </li>
-                <li>
-                  <span class="material-symbols-outlined">calendar_today</span>
-                  Feb. 2020
-                </li>
-                <li>
-                  <span class="material-symbols-outlined">history_edu</span>
-                  한국통신학회 동계종합학술발표회
-                </li>
-              </ul>
-            </div>
-            <div class="paper-bottom">
-              <ul class="paper-tags">
-                <li><span>#</span><span>분산 컴퓨팅</span></li>
-                <li><span>#</span><span>데이터 보안</span></li>
-              </ul>
-              <div class="paper-buttons">
-                <div class="copy-btn">Copy BibTeX</div>
-                <div class="copy-btn">Copy reference</div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- DC8 (2020-02) -->
-        <div class="paper-card">
-          <div class="paper-card-inner">
-            <div class="paper-top">
-              <ul class="paper-labels">
-                <li>Domestic Conference</li>
-                <li>KICS</li>
-              </ul>
-              <h3 class="paper-title">
-                데이터 보안을 보장하는 분산 컴퓨팅 시스템에서 통신량과 낙오효과 사이의 trade-off
-              </h3>
-              <ul class="paper-info">
-                <li>
-                  <span class="material-symbols-outlined">people_alt</span>
-                  양희철
-                </li>
-                <li>
-                  <span class="material-symbols-outlined">calendar_today</span>
-                  Feb. 2020
-                </li>
-                <li>
-                  <span class="material-symbols-outlined">history_edu</span>
-                  한국통신학회 동계종합학술발표회
-                </li>
-              </ul>
-            </div>
-            <div class="paper-bottom">
-              <ul class="paper-tags">
-                <li><span>#</span><span>낙오 효과</span></li>
-                <li><span>#</span><span>통신량 trade-off</span></li>
-              </ul>
-              <div class="paper-buttons">
-                <div class="copy-btn">Copy BibTeX</div>
-                <div class="copy-btn">Copy reference</div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- DC7 (2018-01) -->
-        <div class="paper-card">
-          <div class="paper-card-inner">
-            <div class="paper-top">
-              <ul class="paper-labels">
-                <li>Domestic Conference</li>
-                <li>KICS</li>
-              </ul>
-              <h3 class="paper-title">
-                2개의 spoofer를 활용한 협력 빔포밍 기반 물리 계층 spoofing 기법
-              </h3>
-              <ul class="paper-info">
-                <li>
-                  <span class="material-symbols-outlined">people_alt</span>
-                  양희철,  한승엽,  이정우
-                </li>
-                <li>
-                  <span class="material-symbols-outlined">calendar_today</span>
-                  Jan. 2018
-                </li>
-                <li>
-                  <span class="material-symbols-outlined">history_edu</span>
-                  한국통신학회 동계종합학술발표회
-                </li>
-              </ul>
-            </div>
-            <div class="paper-bottom">
-              <ul class="paper-tags">
-                <li><span>#</span><span>spoofer</span></li>
-                <li><span>#</span><span>협력 빔포밍</span></li>
-              </ul>
-              <div class="paper-buttons">
-                <div class="copy-btn">Copy BibTeX</div>
-                <div class="copy-btn">Copy reference</div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- DC6 (2016-11) -->
-        <div class="paper-card">
-          <div class="paper-card-inner">
-            <div class="paper-top">
-              <ul class="paper-labels">
-                <li>Domestic Conference</li>
-                <li>KICS</li>
-              </ul>
-              <h3 class="paper-title">
-                캐시를 접목한 Private Information Retrieval
-              </h3>
-              <ul class="paper-info">
-                <li>
-                  <span class="material-symbols-outlined">people_alt</span>
-                  김민철,  양희철,  이정우
-                </li>
-                <li>
-                  <span class="material-symbols-outlined">calendar_today</span>
-                  Nov. 2016
-                </li>
-                <li>
-                  <span class="material-symbols-outlined">history_edu</span>
-                  한국통신학회 추계종합학술발표회
-                </li>
-              </ul>
-            </div>
-            <div class="paper-bottom">
-              <ul class="paper-tags">
-                <li><span>#</span><span>캐시</span></li>
-                <li><span>#</span><span>Private Information Retrieval</span></li>
-              </ul>
-              <div class="paper-buttons">
-                <div class="copy-btn">Copy BibTeX</div>
-                <div class="copy-btn">Copy reference</div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- DC5 (2016-06) -->
-        <div class="paper-card">
-          <div class="paper-card-inner">
-            <div class="paper-top">
-              <ul class="paper-labels">
-                <li>Domestic Conference</li>
-                <li>KICS</li>
-              </ul>
-              <h3 class="paper-title">
-                전이중 셀룰러 망의 재구성 안테나를 통한 자유도 이득
-              </h3>
-              <ul class="paper-info">
-                <li>
-                  <span class="material-symbols-outlined">people_alt</span>
-                  양희철,  신원재,  이정우
-                </li>
-                <li>
-                  <span class="material-symbols-outlined">calendar_today</span>
-                  Jun. 2016
-                </li>
-                <li>
-                  <span class="material-symbols-outlined">history_edu</span>
-                  한국통신학회 하계종합학술발표회
-                </li>
-              </ul>
-            </div>
-            <div class="paper-bottom">
-              <ul class="paper-tags">
-                <li><span>#</span><span>전이중 셀룰러</span></li>
-                <li><span>#</span><span>재구성 안테나</span></li>
-              </ul>
-              <div class="paper-buttons">
-                <div class="copy-btn">Copy BibTeX</div>
-                <div class="copy-btn">Copy reference</div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- DC4 (2016-04) -->
-        <div class="paper-card">
-          <div class="paper-card-inner">
-            <div class="paper-top">
-              <ul class="paper-labels">
-                <li>Domestic Conference</li>
-                <li>JCCI 2016</li>
-              </ul>
-              <h3 class="paper-title">
-                재구성 안테나를 통한 K-사용자 간섭 채널의 최대 다중화 이득
-              </h3>
-              <ul class="paper-info">
-                <li>
-                  <span class="material-symbols-outlined">people_alt</span>
-                  양희철,  신원재,  이정우
-                </li>
-                <li>
-                  <span class="material-symbols-outlined">calendar_today</span>
-                  Apr. 2016
-                </li>
-                <li>
-                  <span class="material-symbols-outlined">history_edu</span>
-                  제 26회 통신정보 합동학술대회 (JCCI 2016)
-                </li>
-              </ul>
-            </div>
-            <div class="paper-bottom">
-              <ul class="paper-tags">
-                <li><span>#</span><span>간섭 채널</span></li>
-                <li><span>#</span><span>재구성 안테나</span></li>
-              </ul>
-              <div class="paper-buttons">
-                <div class="copy-btn">Copy BibTeX</div>
-                <div class="copy-btn">Copy reference</div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- DC3 (2015-04) -->
-        <div class="paper-card">
-          <div class="paper-card-inner">
-            <div class="paper-top">
-              <ul class="paper-labels">
-                <li>Domestic Conference</li>
-                <li>JCCI 2015</li>
-              </ul>
-              <h3 class="paper-title">
-                Hierarchical Blind Interference Alignment for K-user MISO Broadcast Channels
-              </h3>
-              <ul class="paper-info">
-                <li>
-                  <span class="material-symbols-outlined">people_alt</span>
-                  양희철,  신원재,  이정우
-                </li>
-                <li>
-                  <span class="material-symbols-outlined">calendar_today</span>
-                  Apr. 2015
-                </li>
-                <li>
-                  <span class="material-symbols-outlined">history_edu</span>
-                  제 25회 통신정보 합동학술대회 (JCCI 2015)
-                </li>
-              </ul>
-            </div>
-            <div class="paper-bottom">
-              <ul class="paper-tags">
-                <li><span>#</span><span>Blind IA</span></li>
-                <li><span>#</span><span>MISO Broadcast</span></li>
-              </ul>
-              <div class="paper-buttons">
-                <div class="copy-btn">Copy BibTeX</div>
-                <div class="copy-btn">Copy reference</div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- DC2 (2014-04) -->
-        <div class="paper-card">
-          <div class="paper-card-inner">
-            <div class="paper-top">
-              <ul class="paper-labels">
-                <li>Domestic Conference</li>
-                <li>JCCI 2014</li>
-              </ul>
-              <h3 class="paper-title">
-                간섭 정렬 기법을 위한 분산 알고리즘에서 시작 행렬 설정
-              </h3>
-              <ul class="paper-info">
-                <li>
-                  <span class="material-symbols-outlined">people_alt</span>
-                  양희철,  이정우
-                </li>
-                <li>
-                  <span class="material-symbols-outlined">calendar_today</span>
-                  Apr. 2014
-                </li>
-                <li>
-                  <span class="material-symbols-outlined">history_edu</span>
-                  제 24회 통신정보 합동학술대회 (JCCI 2014)
-                </li>
-              </ul>
-            </div>
-            <div class="paper-bottom">
-              <ul class="paper-tags">
-                <li><span>#</span><span>간섭 정렬</span></li>
-                <li><span>#</span><span>분산 알고리즘</span></li>
-              </ul>
-              <div class="paper-buttons">
-                <div class="copy-btn">Copy BibTeX</div>
-                <div class="copy-btn">Copy reference</div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- DC1 (2014-01) -->
-        <div class="paper-card">
-          <div class="paper-card-inner">
-            <div class="paper-top">
-              <ul class="paper-labels">
-                <li>Domestic Conference</li>
-                <li>KICS</li>
-              </ul>
-              <h3 class="paper-title">
-                주기적 전치 부호와 파일럿 부반송파의 단계적 이용을 통한 OFDM 신호 스펙트럼 센싱
-              </h3>
-              <ul class="paper-info">
-                <li>
-                  <span class="material-symbols-outlined">people_alt</span>
-                  조재학,  양희철,  이서현,  이정우
-                </li>
-                <li>
-                  <span class="material-symbols-outlined">calendar_today</span>
-                  Jan. 2014
-                </li>
-                <li>
-                  <span class="material-symbols-outlined">history_edu</span>
-                  한국통신학회 동계종합학술발표회
-                </li>
-              </ul>
-            </div>
-            <div class="paper-bottom">
-              <ul class="paper-tags">
-                <li><span>#</span><span>OFDM</span></li>
-                <li><span>#</span><span>스펙트럼 센싱</span></li>
-              </ul>
-              <div class="paper-buttons">
-                <div class="copy-btn">Copy BibTeX</div>
-                <div class="copy-btn">Copy reference</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div> <!-- end of Domestic Conference grid -->
-
-      <!-- 하단 페이지네이션 -->
-      <div class="pagination">
-        <button class="arrow">
-          <span class="material-symbols-outlined">first_page</span>
-        </button>
-        <button class="arrow" style="margin-right: 15px;">
-          <span class="material-symbols-outlined">chevron_left</span>
-        </button>
-        <button class="inYAuM">1</button>
-        <button>2</button>
-        <button>3</button>
-        <button>4</button>
-        <button class="arrow" style="margin-left: 15px;">
-          <span class="material-symbols-outlined">chevron_right</span>
-        </button>
-        <button class="arrow">
-          <span class="material-symbols-outlined">last_page</span>
-        </button>
       </div>
-
     </div>
   </div>
 </body>
