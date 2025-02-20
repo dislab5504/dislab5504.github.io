@@ -5,7 +5,8 @@
   <title>Lectures - Distributed Intelligence & Systems Laboratory</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- Google Fonts & Material Icons -->
-  <link href="https://fonts.googleapis.com/css2?family=Rethink+Sans:wght@300;600;700&family=Roboto:wght@300;400;500;700&family=Jua&display=swap" rel="stylesheet">
+  <!-- Rethink Sans, Roboto, + Noto Sans KR (본고딕) -->
+  <link href="https://fonts.googleapis.com/css2?family=Rethink+Sans:wght@300;600;700&family=Roboto:wght@300;400;500;700&family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
   
   <style>
     /* 기본 리셋 및 박스 모델 */
@@ -60,11 +61,12 @@
       margin-bottom: 2rem;
     }
 
-    /* 슬라이더 전체 컨테이너
-       - 폭을 600px 정도로 잡아서 좌우 슬라이드가 살짝 보이도록 */
+    /* 슬라이더 전체 컨테이너:
+       기존 600px -> 1200px (2배 정도)
+       => 카드 확대 시 상하단/좌우가 잘리지 않도록 충분히 넓게 */
     .slider-container {
       position: relative;
-      width: 600px;
+      width: 1200px;
       margin: 0 auto;
       overflow: hidden; /* 슬라이드 범위 밖은 숨김 */
     }
@@ -78,9 +80,10 @@
     /* 개별 슬라이드 */
     .slide {
       flex-shrink: 0;
-      width: 300px;      /* 카드 기본 폭 */
-      height: 330px;     /* 세로를 좀 더 늘려 정사각형-ish 느낌 */
-      margin: 0 15px;    /* 좌우 여백으로 일부 슬라이드가 보이도록 */
+      /* 카드 폭/높이 기존보다 크게 */
+      width: 350px;      /* 기존 300 -> 350 */
+      height: 400px;     /* 기존 330 -> 400 (정사각형-ish) */
+      margin: 0 30px;    /* 좌우 마진 기존 15 -> 30 (2배) */
       background: #f5f5f5;
       border-radius: 20px;  /* 라운드 효과 */
       box-shadow: 0 2px 8px rgba(0,0,0,0.15);
@@ -89,23 +92,25 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      align-items: center;   /* 내부 텍스트/리스트 모두 중앙 정렬 */
+      align-items: center;
       transform: scale(0.9); /* 기본 상태는 조금 작게 */
       transition: transform 0.4s;
     }
-    /* 중앙(active) 슬라이드만 크게 */
+    /* 가운데(active) 슬라이드만 더 크게 */
     .slide.active {
       transform: scale(1.1);
       z-index: 1; /* 겹쳤을 때 위로 */
     }
 
+    /* 연도(학기) 폰트: 더 굵고 크게 */
     .slide h2 {
       font-family: 'Rethink Sans', sans-serif;
       margin-bottom: 0.8rem;
-      font-size: 1.2rem;  /* 학기/연도 폰트 */
+      font-size: 1.5rem;  /* 기존보다 크게 */
+      font-weight: 700;   /* 굵게 */
     }
 
-    /* 교과목 목록 폰트 변경: Jua 폰트 사용 */
+    /* 과목명 폰트: 본고딕(Noto Sans KR) */
     .slide ul {
       margin: 0;
       padding: 0;
@@ -113,7 +118,7 @@
       width: 80%;
     }
     .slide ul li {
-      font-family: 'Jua', sans-serif; /* 교과목 폰트 */
+      font-family: 'Noto Sans KR', sans-serif; /* 본고딕 적용 */
       font-size: 1.1rem;
       margin: 0.4rem 0;
     }
@@ -153,9 +158,12 @@
         width: 90%;
       }
       .slide {
-        width: 250px;
-        height: 280px;
-        margin: 0 10px;
+        width: 280px;
+        height: 330px;
+        margin: 0 20px;
+      }
+      .slide h2 {
+        font-size: 1.3rem;
       }
     }
   </style>
@@ -228,64 +236,4 @@
             <ul>
               <li>이산수학 (Discrete Mathematics)</li>
             </ul>
-          </div>
-
-          <!-- Fall 2021 -->
-          <div class="slide">
-            <h2>Fall 2021</h2>
-            <ul>
-              <li>선형대수 (Linear Algebra)</li>
-              <li>분산시스템 (Distributed Systems)</li>
-            </ul>
-          </div>
-
-          <!-- Spring 2021 -->
-          <div class="slide">
-            <h2>Spring 2021</h2>
-            <ul>
-              <li>이산수학 (Discrete Mathematics)</li>
-              <li>논리회로 (Logic Circuits)</li>
-              <li>차세대컴퓨팅 (Next-Generation Computing Systems) [Grad.]</li>
-            </ul>
-          </div>
-
-          <!-- Fall 2020 (before CNU) -->
-          <div class="slide">
-            <h2>Fall 2020 (before CNU)</h2>
-            <ul>
-              <li>통신공학 2 (Communication Systems)</li>
-              <li>디지털 신호 처리 (Digital Signal Processing)</li>
-              <li>응용 소프트웨어 실습 (Practice on Applied Software)</li>
-            </ul>
-          </div>
-
-          <!-- Spring 2020 (before CNU) -->
-          <div class="slide">
-            <h2>Spring 2020 (before CNU)</h2>
-            <ul>
-              <li>통신공학 1 (Communication Systems)</li>
-              <li>마이크로프로세서 응용 설계 (Microprocessor and Its Applications)</li>
-              <li>공학수학 1 (Engineering Mathematics)</li>
-            </ul>
-          </div>
-
-          <!-- Fall 2019 (before CNU) -->
-          <div class="slide">
-            <h2>Fall 2019 (before CNU)</h2>
-            <ul>
-              <li>마이크로프로세서 및 실습 (Microprocessor)</li>
-              <li>HDL 설계 (Digital System Design w/ verilog HDL)</li>
-              <li>디지털 신호 처리 (Digital Signal Processing)</li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- 다음 버튼 -->
-        <button class="slide-arrow next">&gt;</button>
-      </div>
-    </div>
-  </div>
-  <!-- 별도 JS 파일 -->
-  <script src="script_lecture.js"></script>
-</body>
-</html>
+     
