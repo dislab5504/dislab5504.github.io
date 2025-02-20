@@ -4,9 +4,9 @@ const slides = Array.from(track.children);
 const prevButton = document.querySelector('.prev');
 const nextButton = document.querySelector('.next');
 
-// 카드 하나의 폭 + 마진 계산
-// (위 CSS에서 .slide { width: 250px; margin: 0 10px; } 이므로 총 270px)
-let slideWidth = slides[0].getBoundingClientRect().width + 20;
+// 카드 하나의 폭 + 좌우 마진 계산
+// (위 CSS에서 .slide { width: 300px; margin: 0 15px; } => 총 330px)
+let slideWidth = slides[0].getBoundingClientRect().width + 30;
 
 // 현재 보여줄 슬라이드 인덱스
 let currentIndex = 0;
@@ -73,7 +73,7 @@ track.addEventListener('transitionend', () => {
 });
 
 /* 
-  중앙 슬라이드(active) 표시:
+  가운데 슬라이드(active) 표시:
   1) 모든 슬라이드에서 active 제거
   2) currentIndex 위치 슬라이드에 active 부여
 */
