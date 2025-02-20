@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Research - Distributed Intelligence & Systems Laboratory</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Google Fonts & Material Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Rethink+Sans:wght@300;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    /* 기본 리셋 및 박스 모델 */
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      min-height: 100%;
+      background-color: #ffffff;
+      color: #000000;
+      box-sizing: border-box;
+      font-family: 'Roboto', sans-serif;
+    }
+    *, *::before, *::after {
+      box-sizing: inherit;
+    }
+
+    /* 전체 래퍼 */
+    .wrapper {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    /* 최상단 메뉴: 가로로 중앙 배치 */
+    .menu {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 2rem;
+      font-family: 'Rethink Sans', sans-serif;
+      margin-bottom: 2rem;
+    }
+    .menu a {
+      text-decoration: none;
+      color: #002554;
+      font-size: clamp(14px, 2vw, 20px);
+      font-weight: 400;
+      transition: color 0.3s;
+    }
+    .menu a:hover {
+      color: #666;
+    }
+
+    /* 내부 컨텐츠 */
+    .inner {
+      text-align: center;
+    }
+    .inner h1 {
+      margin-bottom: 2rem;
+    }
+
+    /* 2열 그리드 컨테이너 */
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    /* 연구 카드 스타일 */
+    .research-card {
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      overflow: hidden;
+      background-color: #fafafa;
+      transition: box-shadow 0.3s;
+      /* 카드 크기를 맞추기 위해 flex 사용 */
+      display: flex;
+      flex-direction: column;
+    }
+    .research-card:hover {
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    }
+
+    /* 이미지가 잘리지 않도록: width=100%, height=auto */
+    .research-card img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* 텍스트 영역 */
+    .research-content {
+      padding: 1rem;
+      flex: 1; /* 나머지 공간 사용 -> 카드 높이 통일 */
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+
+    /* 제목: 더 크고 굵게 */
+    .research-title {
+      font-family: 'Rethink Sans', sans-serif;
+      font-size: 1.6rem; /* 크게 */
+      font-weight: 700;  /* 굵게 */
+      margin-bottom: 0.8rem;
+      color: #333;
+    }
+
+    /* 설명 텍스트 */
+    .research-desc {
+      font-size: 1rem;
+      line-height: 1.4;
+      color: #555;
+      margin: 0;
+    }
+    .research-desc p {
+      margin: 0.4rem 0;
+    }
+
+    /* 반응형: 모바일에서 1열 */
+    @media (max-width: 768px) {
+      .grid-container {
+        grid-template-columns: 1fr;
+      }
+      .menu {
+        flex-wrap: wrap; /* 메뉴가 줄바꿈될 수 있도록 (선택사항) */
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <!-- 최상단 중앙 메뉴 -->
+    <nav class="menu">
+      <a href="index.html">Home</a>
+      <a href="members.html">Members</a>
+      <a href="publications.html">Publications</a>
+      <a href="research.html">Research</a>
+      <a href="projects.html">Projects</a>
+      <a href="lectures.html">Lecture</a>
+      <a href="news.html">News</a>
+    </nav>
+
+    <div class="inner">
+      <h1>Research</h1>
+
+      <div class="grid-container">
+        <!-- 카드 1 -->
+        <div class="research-card">
+          <img src="assets/research_1.jpg" alt="Distributed Computing">
+          <div class="research-content">
+            <h2 class="research-title">Distributed Computing Systems for Smart IoT Networks</h2>
+            <div class="research-desc">
+              <p>Straggler-resilient distributed computing</p>
+              <p>Privacy-preserving distributed computing</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 카드 2 -->
+        <div class="research-card">
+          <img src="assets/research_2.jpg" alt="Distributed Learning">
+          <div class="research-content">
+            <h2 class="research-title">Distributed Learning over Wireless Networks</h2>
+            <div class="research-desc">
+              <p>Federated learning</p>
+              <p>Split learning</p>
+              <p>Communication-Computing Convergence for AI</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
