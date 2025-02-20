@@ -116,7 +116,8 @@
       border-radius: 8px;
       padding: 1rem;
       text-align: center;
-      height: 100%;
+      /* 카드 세로 길이 크게 (예: 최소 300px) */
+      min-height: 300px;
       box-shadow: 2px 2px 5px rgba(0,0,0,0.05);
     }
     .card h2 {
@@ -172,24 +173,26 @@
       width: 25%;
       text-align: center;
     }
-    /* 학생 사진: 통일된 크기와 동일한 높이 */
+    /* 학생 사진: 기존 150px에서 20% 증가 -> 180px, 높이와 너비 통일 */
     .student-photo {
       display: block;
-      width: 150px;
-      height: 150px;
+      width: 180px;
+      height: 180px;
       object-fit: cover;
       margin: 0 auto 0.5rem auto;
       border-radius: 4px;
     }
-    /* 학생 이름 및 연락처 스타일 (석사, 학부 동일) */
+    /* 학생 이름 및 연락처 스타일 (석사, 학부 동일) - 텍스트 위치를 살짝 아래로 */
     .student-name {
-      font-size: 1.2em; /* 이름을 살짝 더 크게 */
+      font-size: 1.2em;
       font-weight: bold;
+      margin-top: 0.5rem;
       margin-bottom: 0.5rem;
     }
     .student-contact {
-      font-size: 0.9em; /* 연락처 정보를 살짝 더 작게 */
-      color: #555; /* 진한 회색 */
+      font-size: 0.9em;
+      color: #555;
+      margin-top: 0.3rem;
       margin-bottom: 0.3rem;
     }
     /* 숨김 처리 */
@@ -207,7 +210,7 @@
       <a href="publications.html">Publications</a>
       <a href="research.html">Research</a>
       <a href="projects.html">Projects</a>
-      <a href="lecture.html">Lecture</a>
+      <a href="lectures.html">Lecture</a>
       <a href="news.html">News</a>
     </nav>
     <!-- 메인 콘텐츠 -->
