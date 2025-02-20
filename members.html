@@ -5,9 +5,9 @@
   <title>Professor - Distributed Intelligence & Systems Laboratory</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- 폰트: Rethink Sans (메뉴 전용), Roboto (나머지 텍스트용) -->
+  <!-- 폰트: Rethink Sans (메뉴 전용), Roboto (나머지 텍스트용) 및 Material Symbols -->
   <link
-    href="https://fonts.googleapis.com/css2?family=Rethink+Sans:wght@300;600;700&family=Roboto:wght@300;400;500;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Rethink+Sans:wght@300;600;700&family=Roboto:wght@300;400;500;700&family=Material+Symbols+Outlined"
     rel="stylesheet"
   >
 
@@ -60,6 +60,14 @@
     }
     .menu a:hover {
       color: #666;
+    }
+
+    /* Material Symbols 아이콘 */
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 48;
+      font-size: 18px;
+      vertical-align: middle;
+      margin-right: 4px;
     }
 
     /* 메인 콘텐츠 영역 */
@@ -120,14 +128,6 @@
       font-weight: 400;
       line-height: 1.4;
     }
-    /* 전화번호는 더 작게 */
-    .prof-info .phone-line {
-      margin: 0.3rem 0;
-      font-size: clamp(12px, 1.5vw, 16px);
-      font-weight: 400;
-      line-height: 1.4;
-    }
-
     /* Education, Research Experience 등 소제목/내용 */
     .prof-section h2 {
       margin: 1.5rem 0 0.5rem 0;
@@ -216,12 +216,15 @@
               <h1>Heecheol Yang</h1>
               <div class="subtitle">Assistant Professor, Ph. D.</div>
               <div class="info-line">Division of Computer Convergence, Chungnam National University</div>
-              <div class="info-line">E-mail: hcyang@cnu.ac.kr</div>
-              <div class="phone-line">Tel.: 042-821-6656</div>
+              <div class="info-line">
+                E-mail: <a href="mailto:hcyang@cnu.ac.kr" style="text-decoration:none; color:inherit;">
+                  <span class="material-symbols-outlined">mail</span> hcyang@cnu.ac.kr
+                </a>
+              </div>
               <div class="info-line">
                 Address: Rm. 522, Engineering Unit 5 (W2),<br>
                 Chungnam National University,<br>
-                99 Daehak-ro, Yuseong-gu, Deajeon, Korea [34134]
+                99 Daehak-ro, Yuseong-gu, Daejeon, Korea [34134]
               </div>
 
               <!-- 추가 정보 (Education, Research Experience, Honors, etc.) -->
@@ -236,9 +239,9 @@
               <div class="prof-section">
                 <h2>Research Experience</h2>
                 <ul>
-                  <li>Assistant Professor School of Electrical Engineering, Kumoh National Institute of Technology</li>
-                  <li>Staff Engineer Standard Research Team, Samsung Research, Samsung Electronics</li>
-                  <li>Visiting Scholar University of Southern California</li>
+                  <li>Assistant Professor, School of Electrical Engineering, Kumoh National Institute of Technology</li>
+                  <li>Staff Engineer, Standard Research Team, Samsung Research, Samsung Electronics</li>
+                  <li>Visiting Scholar, University of Southern California</li>
                 </ul>
               </div>
 
@@ -265,35 +268,62 @@
         </tr>
       </table>
 
-      <!-- 석사 과정(Master Graduate Students) -->
+      <!-- 석사 과정 (Master Graduate Students) -->
       <div class="section-title">Master Graduate Students</div>
       <table class="student-table">
         <tr>
           <td>
-            <!-- 사진 동일하게 ryu_jihyun.jpg로 변경 -->
+            <!-- 사진 변경: ryu_jihyun.jpg 사용 -->
             <img src="assets/ryu_jihyun.jpg" alt="Seongyoon Kim" class="student-photo">
             <div><strong>Seongyoon Kim</strong></div>
-            <div>E-mail: seongyoon@example.com</div>
-            <div>Tel.: 010-1234-5678</div>
+            <div>
+              <a href="mailto:seongyoon@example.com" style="text-decoration:none; color:inherit;">
+                <span class="material-symbols-outlined">mail</span> seongyoon@example.com
+              </a>
+            </div>
+            <!-- GitHub 정보가 없으면 생략 -->
           </td>
           <td>
-            <!-- 사진 동일하게 ryu_jihyun.jpg로 변경 -->
+            <!-- 사진 변경: ryu_jihyun.jpg 사용 -->
             <img src="assets/ryu_jihyun.jpg" alt="Jihyun Ryu" class="student-photo">
             <div><strong>Jihyun Ryu</strong></div>
-            <div>E-mail: jihyun@example.com</div>
-            <div>Tel.: 010-1111-2222</div>
+            <div>
+              <a href="mailto:jihyun@example.com" style="text-decoration:none; color:inherit;">
+                <span class="material-symbols-outlined">mail</span> jihyun@example.com
+              </a>
+            </div>
           </td>
-          <!-- 나머지 칸 숨김 (석사생 2명만 표시) -->
-          <td class="hidden"></td>
-          <td class="hidden"></td>
-        </tr>
-        <tr class="hidden">
-          <td></td><td></td><td></td><td></td>
+          <!-- 나머지 칸은 공란 -->
+          <td></td>
+          <td></td>
         </tr>
       </table>
 
-      <!-- 학부 연구생 섹션 등도 동일하게 추가 가능 -->
-      <!-- ... -->
+      <!-- 학부 연구생 (Undergraduate Research Students) -->
+      <div class="section-title">Undergraduate Research Students</div>
+      <table class="student-table">
+        <tr>
+          <td>
+            <!-- Jeongeun Baek 정보 -->
+            <img src="https://github.com/dislab5504/dislab5504.github.io/blob/main/assets/baek_jeongeun.jpg" alt="Jeongeun Baek" class="student-photo">
+            <div><strong>Jeongeun Baek</strong></div>
+            <div>
+              <a href="mailto:bjo5029@o.cnu.ac.kr" style="text-decoration:none; color:inherit;">
+                <span class="material-symbols-outlined">mail</span> bjo5029@o.cnu.ac.kr
+              </a>
+            </div>
+            <div>
+              <a href="http://github.com/bjo5029" target="_blank" style="text-decoration:none; color:inherit;">
+                <span class="material-symbols-outlined">code</span> github.com/bjo5029
+              </a>
+            </div>
+          </td>
+          <!-- 나머지 3칸은 공란 -->
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+      </table>
 
     </div>
   </div>
