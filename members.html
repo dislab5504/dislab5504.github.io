@@ -116,7 +116,7 @@
       border-radius: 8px;
       padding: 1rem;
       text-align: center;
-      min-height: 225px; /* 25% 줄인 높이 */
+      min-height: 225px; /* 기존 높이의 25% 감소 */
       box-shadow: 2px 2px 5px rgba(0,0,0,0.05);
     }
     .card h2 {
@@ -137,26 +137,33 @@
       font-size: clamp(14px, 2vw, 16px);
       line-height: 1.4;
     }
-    /* 석사 및 학부 연구생 테이블 - 셀 높이 키움 */
-    .master-table, .student-table {
+    /* 석사 및 학부 연구생 테이블 - 셀 높이 키움 및 테이블 레이아웃 고정 */
+    .master-table {
       margin: 0 auto 2rem auto;
       border-collapse: separate;
       border-spacing: 1rem;
       width: 100%;
+      table-layout: fixed;
     }
-    .master-table td, .student-table td {
+    .master-table td {
       vertical-align: top;
       padding: 1rem;
       border: 1px solid #ccc;
       min-height: 300px;
       text-align: center;
     }
-    .section-title {
-      margin-top: 2rem;
-      margin-bottom: 1rem;
-      font-size: clamp(18px, 3vw, 24px);
-      font-weight: 700;
-      color: #002554;
+    .student-table {
+      margin: 0 auto 2rem auto;
+      border-collapse: separate;
+      border-spacing: 1rem;
+      width: 100%;
+      table-layout: fixed; /* 모든 셀 너비 동일하게 */
+    }
+    .student-table td {
+      vertical-align: top;
+      padding: 1rem;
+      border: 1px solid #ccc;
+      min-height: 300px;
       text-align: center;
     }
     /* 학생 사진: 기존 150px에서 20% 증가 -> 180px */
@@ -172,7 +179,7 @@
     .student-name {
       font-size: 1.2em;
       font-weight: bold;
-      margin-top: 1.2rem; /* 이전보다 더 아래로 */
+      margin-top: 1.2rem; /* 텍스트를 아래로 내림 */
       margin-bottom: 0.3rem;
     }
     .student-contact {
@@ -183,7 +190,7 @@
     }
     /* 별도 클래스: 이메일과 깃허브 연락처 간격 조정 */
     .email-contact {
-      margin-bottom: 0.1rem; /* 줄어든 간격 */
+      margin-bottom: 0.1rem;
     }
     .github-contact {
       margin-top: 0.1rem;
@@ -203,7 +210,7 @@
       <a href="publications.html">Publications</a>
       <a href="research.html">Research</a>
       <a href="projects.html">Projects</a>
-      <a href="lecture.html">Lecture</a>
+      <a href="lectures.html">Lecture</a>
       <a href="news.html">News</a>
     </nav>
     <!-- 메인 콘텐츠 -->
@@ -346,4 +353,5 @@
       </table>
     </div>
   </div>
-<
+</body>
+</html>
