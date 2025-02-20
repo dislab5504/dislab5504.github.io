@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Projects - Distributed Intelligence & Systems Laboratory</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Google Fonts & Material Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Rethink+Sans:wght@300;600;700&family=Roboto:wght@300;400;500;700&family=Material+Symbols+Outlined" rel="stylesheet">
+  <style>
+    /* 기본 리셋 및 박스 모델 */
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      min-height: 100%;
+      background-color: #ffffff;
+      color: #000000;
+      box-sizing: border-box;
+      font-family: 'Roboto', sans-serif;
+    }
+    *, *::before, *::after {
+      box-sizing: inherit;
+    }
+    .wrapper {
+      position: relative;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+    /* 오른쪽 메뉴 */
+    .menu {
+      position: absolute;
+      top: 2rem;
+      right: -6rem;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 1rem;
+      font-family: 'Rethink Sans', sans-serif;
+    }
+    .menu a {
+      text-decoration: none;
+      color: #002554;
+      font-size: clamp(14px, 2vw, 20px);
+      font-weight: 400;
+      transition: color 0.3s;
+    }
+    .menu a:hover {
+      color: #666;
+    }
+    .inner {
+      margin-top: 5rem;
+      text-align: center;
+    }
+    /* 테이블 스타일 */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 0 auto;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 1rem;
+      text-align: left;
+    }
+    th {
+      background-color: #f5f5f5;
+    }
+    /* 반응형 디자인 */
+    @media (max-width: 768px) {
+      .menu {
+        position: static;
+        flex-direction: row;
+        justify-content: center;
+        margin-bottom: 1rem;
+      }
+      .menu a {
+        font-size: 16px;
+      }
+      table, th, td {
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <!-- 오른쪽 메뉴 -->
+    <nav class="menu">
+      <a href="index.html">Home</a>
+      <a href="members.html">Members</a>
+      <a href="publications.html">Publications</a>
+      <a href="#">Research</a>
+      <a href="#">Projects</a>
+      <a href="#">Lecture</a>
+      <a href="#">News</a>
+    </nav>
+
+    <div class="inner">
+      <h1>Projects</h1>
+      <table>
+        <tr>
+          <th>Project Title</th>
+          <th>Duration</th>
+          <th>Funding / Organization</th>
+        </tr>
+        <tr>
+          <td>A Study on Wireless Distributed Computing and Learning over 6G</td>
+          <td>2022.03 - 2025.02</td>
+          <td>우수신진연구, National Research Foundation (NRF)</td>
+        </tr>
+        <tr>
+          <td>Development of Intelligent Wireless Access Technologies</td>
+          <td>2022.04 - 2025.12</td>
+          <td>Electronics and Telecommunications Research Institute (ETRI), Institute for Information &amp; Communication Technology Planning &amp; evaluation (IITP)</td>
+        </tr>
+        <tr>
+          <td>Research on Distributed Computing Techniques Based on Computational Verification</td>
+          <td>2024.01 - 2024.12</td>
+          <td>융합보안대학원사업, Institute for Information &amp; Communication Technology Planning &amp; evaluation (IITP)</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</body>
+</html>
