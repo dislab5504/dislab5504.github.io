@@ -94,24 +94,26 @@
       color: #333;
     }
     .searchBox {
-      display: flex;
-      align-items: center;
-      border: 1px solid #ccc;
-      border-radius: 30px;
-      padding: 12px 40px;
-    }
-    .searchBox input {
-      border: none;
-      outline: none;
-      font-size: 1rem;
-      padding: 4px;
-      width: 200%;
-    }
-    .searchBox button {
-      background: none;
-      border: none;
-      cursor: pointer;
-    }
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 30px;
+  padding: 12px 20px;  /* 좌우 패딩을 20px로 수정 */
+}
+.searchBox input {
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  padding: 4px;
+  width: 150%;  /* 가로 크기를 1.5배로 조정 */
+}
+.searchBox button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-right: 10px;  /* 아이콘과 텍스트가 적절하게 정렬되도록 보정 */
+}
+
     /* 논문 카드 그리드 */
     .grid-container {
       width: 100%;
