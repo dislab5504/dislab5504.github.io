@@ -97,7 +97,6 @@
     .prof-photo {
       display: block;
       margin: 0 auto;
-      /* 기존보다 작게 (최대 200px) */
       width: clamp(100px, 15vw, 200px);
       border-radius: 4px;
       margin-bottom: 1rem;
@@ -107,33 +106,30 @@
     .prof-info {
       text-align: left;
     }
-    /* 교수님 이름 (크게, Bold), 폰트 축소 */
     .prof-info h1 {
       margin: 0 0 1rem 0;
-      font-size: clamp(20px, 4vw, 40px); /* 기존보다 작게 */
+      font-size: clamp(20px, 4vw, 40px);
       font-weight: 700;
-      color: #002554; /* 강조 색상 */
+      color: #002554;
     }
-    /* 부제(직함 등), 폰트 축소 */
     .prof-info .subtitle {
       margin: 0 0 1rem 0;
       font-size: clamp(16px, 3vw, 28px);
       font-weight: 600;
       color: #333;
     }
-    /* 일반 텍스트 라인, 폰트 축소 */
     .prof-info .info-line {
       margin: 0.3rem 0;
       font-size: clamp(14px, 2vw, 18px);
       font-weight: 400;
       line-height: 1.4;
     }
-    /* Education, Research Experience 등 소제목/내용 */
+
     .prof-section h2 {
       margin: 1.5rem 0 0.5rem 0;
-      font-size: clamp(16px, 2vw, 20px); /* 더 작게 */
+      font-size: clamp(16px, 2vw, 20px);
       font-weight: 600;
-      color: #000;  /* 소제목은 검정색 */
+      color: #000;
     }
     .prof-section ul {
       margin: 0;
@@ -142,43 +138,60 @@
     }
     .prof-section li {
       margin: 0.3rem 0;
-      color: #777;  /* 내용은 회색 */
-      font-size: clamp(14px, 2vw, 16px); /* 더 작게 */
+      color: #777;
+      font-size: clamp(14px, 2vw, 16px);
       line-height: 1.4;
     }
 
-    /* 석사/학부생 테이블 */
+    /* 석사/학부 연구생 테이블 */
     .section-title {
       margin-top: 2rem;
       margin-bottom: 1rem;
-      font-size: clamp(18px, 3vw, 24px); /* 축소 */
+      font-size: clamp(18px, 3vw, 24px);
       font-weight: 700;
       color: #002554;
       text-align: center;
     }
+    /* 석사과정생은 2열 */
+    .master-table {
+      margin: 0 auto;
+      border-collapse: separate;
+      border-spacing: 1rem;
+      margin-bottom: 2rem;
+      width: 100%;
+    }
+    .master-table td {
+      vertical-align: top;
+      padding: 1rem;
+      border: 1px solid #ccc;
+      width: 50%; /* 2열: 각각 50% */
+      text-align: center;
+    }
+    /* 학부연구생은 4열 (기존 student-table) */
     .student-table {
       margin: 0 auto;
       border-collapse: separate;
       border-spacing: 1rem;
       margin-bottom: 2rem;
+      width: 100%;
     }
     .student-table td {
       vertical-align: top;
       padding: 1rem;
       border: 1px solid #ccc;
-      width: 25%; /* 4열 */
+      width: 25%; /* 4열: 각각 25% */
       text-align: center;
     }
-    /* 학생 사진 크기 축소 */
+    /* 학생 사진 크기 */
     .student-photo {
       display: block;
       width: 100%;
-      max-width: 150px; /* 최대 폭 150px로 축소 */
+      max-width: 150px;
       margin: 0 auto 0.5rem auto;
       border-radius: 4px;
     }
 
-    /* 숨김 처리 (석사 2명만 표시할 때 사용) */
+    /* 숨김 처리 */
     .hidden {
       display: none !important;
     }
@@ -205,19 +218,18 @@
         <tr>
           <!-- 왼쪽 열: 사진 + 정보 -->
           <td>
-            <!-- 사진 (가운데 정렬) -->
             <img
               src="assets/professor.png"
               alt="Professor Heecheol Yang"
               class="prof-photo"
             >
-            <!-- 텍스트 (왼쪽 정렬) -->
             <div class="prof-info">
               <h1>Heecheol Yang</h1>
               <div class="subtitle">Assistant Professor, Ph. D.</div>
               <div class="info-line">Division of Computer Convergence, Chungnam National University</div>
               <div class="info-line">
-                E-mail: <a href="mailto:hcyang@cnu.ac.kr" style="text-decoration:none; color:inherit;">
+                E-mail: 
+                <a href="mailto:hcyang@cnu.ac.kr" style="text-decoration:none; color:inherit;">
                   <span class="material-symbols-outlined">mail</span> hcyang@cnu.ac.kr
                 </a>
               </div>
@@ -227,7 +239,6 @@
                 99 Daehak-ro, Yuseong-gu, Daejeon, Korea [34134]
               </div>
 
-              <!-- 추가 정보 (Education, Research Experience, Honors, etc.) -->
               <div class="prof-section">
                 <h2>Education</h2>
                 <ul>
@@ -262,18 +273,16 @@
               </div>
             </div>
           </td>
-
-          <!-- 오른쪽 열: 비워둠 + 테두리 제거됨 -->
+          <!-- 오른쪽 열: 빈 칸 -->
           <td></td>
         </tr>
       </table>
 
-      <!-- 석사 과정 (Master Graduate Students) -->
+      <!-- 석사 과정 (Master Graduate Students) - 2열 테이블 -->
       <div class="section-title">Master Graduate Students</div>
-      <table class="student-table">
+      <table class="master-table">
         <tr>
           <td>
-            <!-- 사진 변경: ryu_jihyun.jpg 사용 -->
             <img src="assets/ryu_jihyun.jpg" alt="Seongyoon Kim" class="student-photo">
             <div><strong>Seongyoon Kim</strong></div>
             <div>
@@ -281,10 +290,8 @@
                 <span class="material-symbols-outlined">mail</span> seongyoon@example.com
               </a>
             </div>
-            <!-- GitHub 정보가 없으면 생략 -->
           </td>
           <td>
-            <!-- 사진 변경: ryu_jihyun.jpg 사용 -->
             <img src="assets/ryu_jihyun.jpg" alt="Jihyun Ryu" class="student-photo">
             <div><strong>Jihyun Ryu</strong></div>
             <div>
@@ -293,19 +300,15 @@
               </a>
             </div>
           </td>
-          <!-- 나머지 칸은 공란 -->
-          <td></td>
-          <td></td>
         </tr>
       </table>
 
-      <!-- 학부 연구생 (Undergraduate Research Students) -->
+      <!-- 학부 연구생 (Undergraduate Research Students) - 4열 테이블 -->
       <div class="section-title">Undergraduate Research Students</div>
       <table class="student-table">
         <tr>
           <td>
-            <!-- Jeongeun Baek 정보 -->
-            <img src="https://github.com/dislab5504/dislab5504.github.io/blob/main/assets/baek_jeongeun.jpg" alt="Jeongeun Baek" class="student-photo">
+            <img src="assets/baek_jeongeun.jpg" alt="Jeongeun Baek" class="student-photo">
             <div><strong>Jeongeun Baek</strong></div>
             <div>
               <a href="mailto:bjo5029@o.cnu.ac.kr" style="text-decoration:none; color:inherit;">
