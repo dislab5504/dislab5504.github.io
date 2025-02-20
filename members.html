@@ -192,6 +192,18 @@
       border-radius: 4px;
     }
 
+    /* 학생 이름 및 연락처 스타일 */
+    .student-name {
+      font-size: 1.2em; /* 이름을 살짝 더 크게 */
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+    .student-contact {
+      font-size: 0.9em; /* 연락처 정보를 살짝 더 작게 */
+      color: #555; /* 진한 회색 */
+      margin-bottom: 0.3rem;
+    }
+
     /* 숨김 처리 */
     .hidden {
       display: none !important;
@@ -280,13 +292,13 @@
           <td>
             <!-- 김성윤 학생 정보 수정 (이전 정보 유지) -->
             <img src="assets/kim_seongyoon.jpg" alt="Seongyoon Kim" class="student-photo">
-            <div><strong>Seongyoon Kim</strong></div>
-            <div>
+            <div class="student-name">Seongyoon Kim</div>
+            <div class="student-contact">
               <a href="mailto:201902664@o.cnu.ac.kr" style="text-decoration:none; color:inherit;">
                 <span class="material-symbols-outlined">mail</span> 201902664@o.cnu.ac.kr
               </a>
             </div>
-            <div>
+            <div class="student-contact">
               <a href="https://github.com/kimsy1106" target="_blank" style="text-decoration:none; color:inherit;">
                 <span class="material-symbols-outlined">code</span> github.com/kimsy1106
               </a>
@@ -294,14 +306,14 @@
           </td>
           <td>
             <!-- 류지현 학생 정보 수정 -->
-            <img src="assets/ryu_jihyun.jpg" alt="류지현" class="student-photo">
-            <div><strong>류지현</strong></div>
-            <div>
+            <img src="assets/ryu_jihyun.jpg" alt="Jihyun Ryu" class="student-photo">
+            <div class="student-name">Jihyun Ryu</div>
+            <div class="student-contact">
               <a href="mailto:ryujihyunmail@gmail.com" style="text-decoration:none; color:inherit;">
                 <span class="material-symbols-outlined">mail</span> ryujihyunmail@gmail.com
               </a>
             </div>
-            <div>
+            <div class="student-contact">
               <a href="https://github.com/Dolce-Latte" target="_blank" style="text-decoration:none; color:inherit;">
                 <span class="material-symbols-outlined">code</span> github.com/Dolce-Latte
               </a>
