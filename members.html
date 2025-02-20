@@ -4,13 +4,11 @@
   <meta charset="UTF-8">
   <title>Professor - Distributed Intelligence & Systems Laboratory</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <!-- 폰트: Rethink Sans (메뉴 전용), Roboto (나머지 텍스트용) 및 Material Symbols -->
   <link
     href="https://fonts.googleapis.com/css2?family=Rethink+Sans:wght@300;600;700&family=Roboto:wght@300;400;500;700&family=Material+Symbols+Outlined"
     rel="stylesheet"
   >
-
   <style>
     /* 전역 리셋 및 박스 모델 설정 */
     html, body {
@@ -25,19 +23,16 @@
     *, *::before, *::after {
       box-sizing: inherit;
     }
-
     /* body에 Roboto 폰트 적용 (메뉴 제외 전부) */
     body {
       font-family: 'Roboto', sans-serif;
     }
-
     /* 전체 래퍼 */
     .wrapper {
       max-width: 1200px;
       margin: 0 auto;
       padding: 2rem;
     }
-
     /* 메뉴: 최상단 중앙에 가로로 배치 */
     .menu {
       display: flex;
@@ -56,7 +51,6 @@
     .menu a:hover {
       color: #666;
     }
-
     /* Material Symbols 아이콘 */
     .material-symbols-outlined {
       font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 48;
@@ -64,12 +58,10 @@
       vertical-align: middle;
       margin-right: 4px;
     }
-
     /* 메인 콘텐츠 영역 */
     .content {
       width: 100%;
     }
-
     /* 교수님 테이블: 단일 셀로 구성 */
     .prof-table {
       width: 100%;
@@ -83,7 +75,6 @@
       border: 1px solid #ccc;
       padding: 1rem;
     }
-
     /* 교수님 사진: 크기 축소, 가운데 정렬 */
     .prof-photo {
       display: block;
@@ -91,7 +82,6 @@
       width: clamp(100px, 15vw, 200px);
       border-radius: 4px;
     }
-
     /* 교수님 기본 정보: 가운데 정렬 및 폰트 사이즈 줄임 */
     .prof-info {
       text-align: center;
@@ -114,7 +104,6 @@
       font-weight: 400;
       line-height: 1.4;
     }
-
     /* 2 x 2 카드 스타일 for 정보 섹션 */
     .info-cards {
       display: grid;
@@ -148,7 +137,6 @@
       font-size: clamp(14px, 2vw, 16px);
       line-height: 1.4;
     }
-
     /* 석사 및 학부 연구생 테이블 */
     .section-title {
       margin-top: 2rem;
@@ -184,15 +172,16 @@
       width: 25%;
       text-align: center;
     }
+    /* 학생 사진: 통일된 크기와 동일한 높이 */
     .student-photo {
       display: block;
-      width: 100%;
-      max-width: 150px;
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
       margin: 0 auto 0.5rem auto;
       border-radius: 4px;
     }
-
-    /* 학생 이름 및 연락처 스타일 */
+    /* 학생 이름 및 연락처 스타일 (석사, 학부 동일) */
     .student-name {
       font-size: 1.2em; /* 이름을 살짝 더 크게 */
       font-weight: bold;
@@ -203,7 +192,6 @@
       color: #555; /* 진한 회색 */
       margin-bottom: 0.3rem;
     }
-
     /* 숨김 처리 */
     .hidden {
       display: none !important;
@@ -211,7 +199,6 @@
   </style>
 </head>
 <body>
-
   <div class="wrapper">
     <!-- 메뉴: 최상단 중앙 가로 배치 -->
     <nav class="menu">
@@ -223,18 +210,13 @@
       <a href="lecture.html">Lecture</a>
       <a href="news.html">News</a>
     </nav>
-
     <!-- 메인 콘텐츠 -->
     <div class="content">
       <!-- 교수님 정보: 단일 셀 테이블 -->
       <table class="prof-table">
         <tr>
           <td>
-            <img
-              src="assets/professor.png"
-              alt="Professor Heecheol Yang"
-              class="prof-photo"
-            >
+            <img src="assets/professor.png" alt="Professor Heecheol Yang" class="prof-photo">
             <div class="prof-info">
               <h1>Heecheol Yang</h1>
               <div class="subtitle">Assistant Professor, Ph. D.</div>
@@ -248,7 +230,6 @@
                 <span class="material-symbols-outlined">location_on</span> Rm. 522, Engineering Unit 5 (W2), Chungnam National University, 99 Daehak-ro, Yuseong-gu, Daejeon, Korea [34134]
               </div>
             </div>
-
             <!-- 2 x 2 카드로 구성된 정보 섹션 -->
             <div class="info-cards">
               <div class="card">
@@ -284,7 +265,6 @@
           </td>
         </tr>
       </table>
-
       <!-- 석사 과정 (Master Graduate Students) - 2열 테이블 -->
       <div class="section-title">Master Graduate Students</div>
       <table class="master-table">
@@ -321,45 +301,43 @@
           </td>
         </tr>
       </table>
-
       <!-- 학부 연구생 (Undergraduate Research Students) - 4열 테이블 -->
       <div class="section-title">Undergraduate Research Students</div>
       <table class="student-table">
         <tr>
           <td>
             <img src="assets/baek_jeongeun.jpg" alt="Jeongeun Baek" class="student-photo">
-            <div><strong>Jeongeun Baek</strong></div>
-            <div>
+            <div class="student-name">Jeongeun Baek</div>
+            <div class="student-contact">
               <a href="mailto:bjo5029@o.cnu.ac.kr" style="text-decoration:none; color:inherit;">
                 <span class="material-symbols-outlined">mail</span> bjo5029@o.cnu.ac.kr
               </a>
             </div>
-            <div>
+            <div class="student-contact">
               <a href="http://github.com/bjo5029" target="_blank" style="text-decoration:none; color:inherit;">
                 <span class="material-symbols-outlined">code</span> github.com/bjo5029
               </a>
             </div>
           </td>
           <td>
-            <!-- 조찬영 학부연구생 추가 -->
             <img src="assets/cho_chanyeong.jpg" alt="Chanyeong Cho" class="student-photo">
-            <div><strong>Chanyeong Cho</strong></div>
-            <div>
+            <div class="student-name">Chanyeong Cho</div>
+            <div class="student-contact">
               <a href="mailto:oriental8@o.cnu.ac.kr" style="text-decoration:none; color:inherit;">
                 <span class="material-symbols-outlined">mail</span> oriental8@o.cnu.ac.kr
               </a>
             </div>
-            <div>
+            <div class="student-contact">
               <a href="https://github.com/ChanyeongCho" target="_blank" style="text-decoration:none; color:inherit;">
                 <span class="material-symbols-outlined">code</span> github.com/ChanyeongCho
               </a>
             </div>
           </td>
           <td>
-            <!-- 허재민 학부연구생 추가 (사진 없음) -->
-            <div style="height: 150px;"></div>
-            <div><strong>Jaemin Heo</strong></div>
-            <div>
+            <!-- 허재민 학부연구생 추가 (사진 없음; 동일한 레이아웃 위해 빈 사진 박스 사용) -->
+            <div class="student-photo" style="background-color: transparent;"></div>
+            <div class="student-name">Jaemin Heo</div>
+            <div class="student-contact">
               <a href="mailto:unknown@o.cnu.ac.kr" style="text-decoration:none; color:inherit;">
                 <span class="material-symbols-outlined">mail</span> unknown@o.cnu.ac.kr
               </a>
@@ -370,7 +348,6 @@
           </td>
         </tr>
       </table>
-
     </div>
   </div>
 </body>
