@@ -62,9 +62,9 @@
       max-width: 1200px;             /* 콘텐츠 폭 (필요 시 조정) */
       text-align: left;
     }
-    /* 로고 크기: 화면이 작아도 너무 작아지지 않도록 clamp */
+    /* 로고 크기: 더 크게 조정 */
     .logo {
-      width: clamp(80px, 10vh, 150px);
+      width: clamp(120px, 15vh, 200px);
       margin-bottom: 2vh;
     }
 
@@ -84,10 +84,10 @@
       display: block;
     }
 
-    /* 나머지 설명 텍스트: 더 얇게 (200) */
+    /* 설명 텍스트: 폰트 사이즈 줄임 */
     .desc {
-      font-size: clamp(20px, 3vw, 40px);
-      font-weight: 200;  /* 300보다 더 가늘게 설정 */
+      font-size: clamp(16px, 2.5vw, 32px);
+      font-weight: 200;
       line-height: 1.4;
       margin: 1rem 0 0 0;
     }
@@ -129,7 +129,7 @@
         <!-- @ChungNam National University -->
         <div class="semi-bold">@ChungNam National University</div>
         
-        <!-- 설명 (더 가는 폰트) -->
+        <!-- 설명 텍스트 -->
         <div class="desc">
           Welcome to our laboratory website.<br>
           Exploring cutting-edge research in artificial intelligence,<br>
