@@ -62,6 +62,13 @@
     .content {
       width: 100%;
     }
+    /* 공통 섹션 제목 스타일 */
+    .section-title {
+      text-align: center;
+      font-size: clamp(20px, 4vw, 32px); /* 반응형으로 글자 크기 조절 */
+      font-weight: 700;
+      margin: 2rem 0 1.5rem 0;
+    }
     /* 교수님 테이블: 단일 셀로 구성 */
     .prof-table {
       width: 100%;
@@ -202,12 +209,16 @@
       <a href="publications.html">Publications</a>
       <a href="research.html">Research</a>
       <a href="projects.html">Projects</a>
-     
       <a href="news.html">News</a>
       <a href="contact.html">Contact</a>
     </nav>
+
     <!-- 메인 콘텐츠 -->
     <div class="content">
+
+      <!-- 교수님 영역에 타이틀 추가 -->
+      <div class="section-title">Professor</div>
+
       <!-- 교수님 정보: 단일 셀 테이블 -->
       <table class="prof-table">
         <tr>
@@ -261,7 +272,8 @@
           </td>
         </tr>
       </table>
-      <!-- 석사 과정 (Master Graduate Students) - 2열 테이블 -->
+
+      <!-- 석사 과정 (Master Graduate Students) -->
       <div class="section-title">Master Graduate Students</div>
       <table class="master-table">
         <tr>
@@ -301,7 +313,8 @@
           </td>
         </tr>
       </table>
-      <!-- 학부 연구생 (Undergraduate Research Students) - 4열 테이블 -->
+
+      <!-- 학부 연구생 (Undergraduate Research Students) -->
       <div class="section-title">Undergraduate Research Students</div>
       <table class="student-table">
         <tr>
@@ -353,10 +366,8 @@
               </a>
             </div>
           </td>
-
-
           <td>
-            <!-- 공란 -->
+            <!-- 공란 (학생 정보 추가 시 사용) -->
           </td>
         </tr>
       </table>
