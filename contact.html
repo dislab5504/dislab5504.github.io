@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>Contact | DIS Lab</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- 필요한 경우 React 빌드 산출물에서 사용하는 CSS/JS 추가 -->
+  <!-- <link rel="stylesheet" href="/static/css/main.xxx.css" /> -->
+  <!-- <script src="/static/js/main.xxx.js" defer></script> -->
+
+  <!-- Material Icons 예시 -->
+  <link
+    href="https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined"
+    rel="stylesheet"
+  />
+</head>
+<body>
+  <noscript>You need to enable JavaScript to run this app.</noscript>
+  <div id="root">
+    <div class="App">
+      <!-- 상단 헤더/메뉴 (원본 코드에서 ISoft -> DIS Lab 로고 문구만 변경) -->
+      <header class="sc-gfbRpc eMsUIx">
+        <div class="sc-hbyLVd bLYQtv">
+          <div class="inner">
+            <!-- 로고 alt 수정 -->
+            <a href="/"><img src="/img/logo-vertical.png" alt="DIS Lab Logo"></a>
+            <div class="sc-kTGBUR imMWML mobileMenuBtn">
+              <span class="material-icons-outlined">menu</span>
+            </div>
+          </div>
+        </div>
+        <div class="inner">
+          <ul class="sc-oclUV bBwONI">
+            <!-- Members 메뉴 -->
+            <li>
+              <div class="sc-hLaujc cJUANp topMenu">
+                <a class="" href="/members">Members</a>
+                <div class="sc-cQwIYT cYvVGH topMenuLine"></div>
+              </div>
+              <div class="sc-knuRna fLFGmV subGnb">
+                <ul>
+                  <li><a class="" href="/members/professor">Professor</a></li>
+                  <li><a class="" href="/members/students">Students</a></li>
+                  <li><a class="" href="/members/alumni">Alumni</a></li>
+                </ul>
+              </div>
+            </li>
+            <!-- Research 메뉴 -->
+            <li>
+              <div class="sc-hLaujc cJUANp topMenu">
+                <a class="" href="/research/research_areas">Research</a>
+                <div class="sc-cQwIYT cYvVGH topMenuLine"></div>
+              </div>
+              <div class="sc-knuRna fLFGmV subGnb">
+                <ul>
+                  <li><a class="" href="/research/research_areas">Research Areas</a></li>
+                  <li><a class="" href="/research/projects?page=1">Projects</a></li>
+                  <li><a class="" href="/research/seminar?page=1">Seminar</a></li>
+                </ul>
+              </div>
+            </li>
+            <!-- Publications 메뉴 -->
+            <li>
+              <div class="sc-hLaujc cJUANp topMenu">
+                <a class="" href="/publications/selected_paper">Publications</a>
+                <div class="sc-cQwIYT cYvVGH topMenuLine"></div>
+              </div>
+              <div class="sc-knuRna fLFGmV subGnb">
+                <ul>
+                  <li><a class="" href="/publications/selected_paper">Selected Paper</a></li>
+                  <li><a class="" href="/publications/publications?page=1">Publications</a></li>
+                </ul>
+              </div>
+            </li>
+            <!-- Board 메뉴 -->
+            <li>
+              <div class="sc-hLaujc cJUANp topMenu">
+                <a class="" href="/board/news">Board</a>
+                <div class="sc-cQwIYT cYvVGH topMenuLine"></div>
+              </div>
+              <div class="sc-knuRna fLFGmV subGnb">
+                <ul>
+                  <li><a class="" href="/board/news?page=1">News</a></li>
+                  <li><a class="" href="/board/album?page=1">Album</a></li>
+                </ul>
+              </div>
+            </li>
+            <!-- Live Demo 메뉴 -->
+            <li>
+              <div class="sc-hLaujc cJUANp topMenu">
+                <a class="" href="/livedemo">Live Demo</a>
+                <div class="sc-cQwIYT cYvVGH topMenuLine"></div>
+              </div>
+            </li>
+            <!-- Resource 메뉴 -->
+            <li>
+              <div class="sc-hLaujc cJUANp topMenu">
+                <a class="" href="/resource">Resource</a>
+                <div class="sc-cQwIYT cYvVGH topMenuLine"></div>
+              </div>
+            </li>
+            <!-- Contact 메뉴 -->
+            <li>
+              <div class="sc-hLaujc cJUANp topMenu">
+                <a class="currentPath" href="/contact">Contact</a>
+                <div class="sc-cQwIYT czLZYb topMenuLine"></div>
+              </div>
+              <div class="sc-knuRna fLFGmV subGnb">
+                <ul>
+                  <li><a class="" href="/contact/apply">Apply</a></li>
+                  <li><a class="" href="/contact/FAQ">FAQ</a></li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- 모바일 버전 메뉴 -->
+        <div class="sc-hbjaKc laKEvb">
+          <ul class="sc-cgFpzT fgCmq">
+            <!-- 동일한 구조 반복 -->
+            <li>
+              <div class="sc-jDDxOa gcRlak">
+                <a class="topMenu" href="/members">Members</a>
+              </div>
+              <div class="sc-bKhNmF dzmtoK subGnb">
+                <ul>
+                  <li><a href="/members/professor">-&nbsp;Professor</a></li>
+                  <li><a href="/members/students">-&nbsp;Students</a></li>
+                  <li><a href="/members/alumni">-&nbsp;Alumni</a></li>
+                </ul>
+              </div>
+            </li>
+            <li>
+              <div class="sc-jDDxOa gcRlak">
+                <a class="topMenu" href="/research/research_areas">Research</a>
+              </div>
+              <div class="sc-bKhNmF dzmtoK subGnb">
+                <ul>
+                  <li><a href="/research/research_areas">-&nbsp;Research Areas</a></li>
+                  <li><a href="/research/projects?page=1">-&nbsp;Projects</a></li>
+                  <li><a href="/research/seminar?page=1">-&nbsp;Seminar</a></li>
+                </ul>
+              </div>
+            </li>
+            <li>
+              <div class="sc-jDDxOa gcRlak">
+                <a class="topMenu" href="/publications/selected_paper">Publications</a>
+              </div>
+              <div class="sc-bKhNmF dzmtoK subGnb">
+                <ul>
+                  <li><a href="/publications/selected_paper">-&nbsp;Selected Paper</a></li>
+                  <li><a href="/publications/publications?page=1">-&nbsp;Publications</a></li>
+                </ul>
+              </div>
+            </li>
+            <li>
+              <div class="sc-jDDxOa gcRlak">
+                <a class="topMenu" href="/board/news">Board</a>
+              </div>
+              <div class="sc-bKhNmF dzmtoK subGnb">
+                <ul>
+                  <li><a href="/board/news?page=1">-&nbsp;News</a></li>
+                  <li><a href="/board/album?page=1">-&nbsp;Album</a></li>
+                </ul>
+              </div>
+            </li>
+            <li>
+              <div class="sc-jDDxOa gcRlak">
+                <a class="" href="/livedemo">Live Demo</a>
+              </div>
+            </li>
+            <li>
+              <div class="sc-jDDxOa gcRlak">
+                <a class="" href="/resource">Resource</a>
+              </div>
+            </li>
+            <li>
+              <div class="sc-jDDxOa gcRlak">
+                <a class="topMenu" href="/contact">Contact</a>
+              </div>
+              <div class="sc-bKhNmF dzmtoK subGnb">
+                <ul>
+                  <li><a href="/contact/apply">-&nbsp;Apply</a></li>
+                  <li><a href="/contact/FAQ">-&nbsp;FAQ</a></li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </header>
+
+      <!-- 네비게이션 바 -->
+      <div class="sc-himrzO LDDKk">
+        <div class="sc-gXmSlM cuugNz">
+          <div class="inner">
+            <div class="sc-cCsOjp gUunQG">
+              <!-- 경로 표시 -->
+              <a href="/"><span class="material-icons navBarHome">home</span></a>
+              <a href="/"><span>Home</span></a>
+              <a class="currentPath" href="/contact">
+                <span class="material-icons-outlined navBarArrow">arrow_forward_ios</span>
+                <span class="sc-ciZhAO hywa-Dz">Contact</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 메인 콘텐트 영역 (Contact) -->
+        <div class="sc-jdAMXn gnCiWv">
+          <div class="shortInner">
+            <div>
+              <h2 class="sc-jQHtVU dqppyO">Contact</h2>
+              <p class="sc-fvNpTx ishqRW">
+                분산 지능 및 시스템 연구실(DIS LAB)에 문의하시려면 아래 정보를 참고하세요.
+              </p>
+            </div>
+
+            <div class="sc-eCOUaW iiGXBV">
+              <div class="sc-eIWpXs lotyxU"></div>
+
+              <!-- 교수님 연락처 예시 -->
+              <div class="sc-isuzjp eAnjIU">
+                <div class="sc-ezWXYA igLFhG">Professor</div>
+                <div>
+                  <div class="sc-kBjqcv ecFqqm">양희철 교수님</div>
+                  <div class="sc-gILORG gea-dDw">
+                    <p>Tel: 042-xxx-xxxx</p>
+                    <p>Email: <a href="mailto:someone@cnu.ac.kr">someone@cnu.ac.kr</a></p>
+                    <p>Office: 충남대학교 공과대학 5호관(W2) 5층 522호</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 연구실 연락처 예시 -->
+              <div class="sc-isuzjp eAnjIU">
+                <div class="sc-ezWXYA igLFhG">Lab</div>
+                <div>
+                  <div class="sc-kBjqcv ecFqqm">DIS Lab</div>
+                  <div class="sc-gILORG gea-dDw">
+                    <p>Tel: 042-xxx-yyyy</p>
+                    <p>Email: (공란)</p>
+                    <p>Address: 충남대학교 공과대학 5호관(W2) 5층 504호</p>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 푸터 영역 -->
+      <footer class="sc-jhfVAM giGAml">
+        <div class="inner">
+          <!-- 상단 타이틀 -->
+          <div class="sc-enyVUO kDsnkg">Contact Us</div>
+          <div class="sc-bwANAz ksrzjq">
+            <!-- 로고 / 연구실 명칭 -->
+            <div class="sc-ekGZSs dSlVJd">
+              <div class="sc-btIRyd OzlRQ">
+                <img src="/img/logo.png" alt="DIS Lab Logo" />
+              </div>
+              <p>
+                충남대학교 컴퓨터공학과<br>
+                분산 지능 및 시스템 연구실
+              </p>
+            </div>
+
+            <!-- 교수님 정보 -->
+            <div>
+              <div class="sc-kNjMHG dLTpGc">
+                <h4>양희철 교수님</h4>
+                <div>
+                  <p>Tel: 042-821-6656</p>
+                  <p>E-mail: <a href="mailto:hcyang@cnu.ac.kr">hcyang@cnu.ac.kr</a></p>
+                  <p>Address: 충남대학교 공과대학 5호관(W2) 5층 522호</p>
+                </div>
+              </div>
+
+              <!-- 연구실 정보 -->
+              <div class="sc-kNjMHG dLTpGc">
+                <h4>연구실</h4>
+                <div>
+                  <p>Tel: 042-821-7290</p>
+                  <p>E-mail: (공란)</p>
+                  <p>Address: 충남대학교 공과대학 5호관(W2) 5층 504호</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
+
+      <!-- 아래는 원본의 "click to copy" 등 기능 요소였으므로 필요 없다면 삭제 가능 -->
+      <input class="sc-hWlEnr bNKvpU clipBoard hide" type="text" />
+      <div class="sc-kKrQFk czowmu successBox" style="display: none;">
+        <div class="sc-hTtIkV otXeV">
+          <span class="material-icons-outlined">close</span>
+        </div>
+        <div class="sc-fJExmy dDIQQi">
+          <span class="material-icons">check_circle</span>
+          <span>Success!</span>
+        </div>
+      </div>
+      <div class="sc-cSGoSj fHpPgX" style="display: none;">
+        <div>
+          <span class="material-icons-outlined">north</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- React 빌드 JS (불필요하다면 주석 처리) -->
+  <!-- <script src="/static/js/2.xxxxxxx.chunk.js"></script> -->
+  <!-- <script src="/static/js/main.xxxxxxx.chunk.js"></script> -->
+</body>
+</html>
