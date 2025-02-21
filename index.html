@@ -8,7 +8,7 @@
   <meta property="og:image" content="https://github.com/dislab5504/dislab5504.github.io/blob/main/assets/thumb.JPG">
   <meta property="og:description" content="Welcome to our laboratory website. Exploring cutting-edge research in artificial intelligence, machine learning, and distributed systems.">
   <meta charset="UTF-8">
-  <title>Distributed Intelligence & Systems Laboratory</title>
+  <title>Distributed Intelligence &amp; Systems Laboratory</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- Rethink Sans 폰트 로드 (가중치 300, 600, 700 사용, Variable 포함) -->
@@ -39,7 +39,7 @@
     .vanta-container {
       position: relative;
       width: 100%;
-      height: 100vh;
+      height: 100vh;  /* 화면 전체 높이를 Vanta가 차지하도록 */
       overflow: hidden;
     }
     .vanta-bg {
@@ -115,9 +115,35 @@
     .menu a:hover {
       color: #ccc;
     }
+
+    /* About Us 섹션 스타일 */
+    .about-section {
+      background-color: #002554;  /* 전체 페이지와 동일한 배경색 */
+      color: #ffffff;
+      padding: 4rem 2rem;        /* 내용이 잘 보이도록 여백 추가 */
+      max-width: 2560px;         /* 상단 wrapper와 동일한 최대 폭 기준 */
+      margin: 0 auto;
+    }
+    .about-section h2 {
+      font-size: clamp(30px, 5vw, 50px);
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+    }
+    .about-section p {
+      font-size: clamp(16px, 2vw, 24px);
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+    .about-section h3 {
+      font-size: clamp(20px, 3vw, 32px);
+      font-weight: 600;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+    }
   </style>
 </head>
 <body>
+  <!-- 상단(첫 화면) 영역 -->
   <div class="vanta-container" id="vanta-area">
     <div class="vanta-bg"></div>
 
@@ -155,6 +181,34 @@
       </nav>
     </div>
   </div>
+  
+  <!-- 스크롤을 내려서 볼 수 있는 About Us 섹션 -->
+  <section class="about-section">
+    <h2>About Us</h2>
+    <p>
+      우리 연구실에서는 분산 네트워크 및 분산 컴퓨팅 시스템, 또는 무선 통신 시스템에 대한 전반적인 연구를 수행하고 있습니다.
+      특히 사물 인터넷 (IoT) 환경의 방대한 데이터 처리 수요에 발맞춰 분산형 데이터 네트워크에서의 데이터 통신, 저장, 계산을 위한 
+      새로운 분산형 네트워크 및 시스템 설계에 관한 원천 기술을 연구하고 있습니다.
+    </p>
+    <h3>주요 연구분야</h3>
+    <p>
+      - 분산 컴퓨팅 시스템의 성능 향상을 위한 데이터 인코딩 기법 및 업무 할당 알고리즘<br>
+      - 수많은 센서, 노드로 이루어진 IoT 네트워크에서의 무선 통신을 위한 간섭 처리, 다중 접속 기술<br>
+      - 데이터 분산 저장 시스템에서의 데이터 보안, 사용자 프라이버시를 보장하는 데이터 인코딩 기법
+    </p>
+    <p>
+      We are conducting an overall study of distributed networks, distributed computing systems, and wireless communication systems.
+      In particular, in response to the vast demands of data processing in the Internet of Things (IoT) environment, we are researching
+      fundamental technologies for designing wireless networks and systems for data communication, storage, and computation in
+      distributed networks.
+    </p>
+    <h3>Main research field</h3>
+    <p>
+      - Data encoding techniques and task allocation algorithms to improve the performance of distributed computing systems<br>
+      - Interference management and multiple access technologies for wireless communication in IoT networks consisting of numerous sensors and nodes<br>
+      - Data encoding techniques to ensure data security and user privacy in distributed data storage
+    </p>
+  </section>
 
   <!-- Vanta.js 초기화 스크립트 -->
   <script>
