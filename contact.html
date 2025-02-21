@@ -54,7 +54,7 @@
 
     /* 내부 컨텐츠 영역 */
     .inner {
-      /* 필요하면 상단 여백 추가 가능 */
+      /* 필요한 경우 상단 여백 추가 가능 */
     }
 
     /* 제목 스타일 */
@@ -112,10 +112,12 @@
       max-width: 180px;
       margin-bottom: 1rem;
     }
+
+    /* 오른쪽 정보를 가로로 나란히 배치 */
     .footer-right {
       display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
+      flex-direction: row; /* 가로 배치 */
+      gap: 2rem;
     }
     .footer-box h4 {
       margin: 0 0 0.5rem;
@@ -130,11 +132,14 @@
     /* 반응형: 모바일에서 메뉴, 본문, 푸터 레이아웃 조정 */
     @media (max-width: 768px) {
       .menu {
-        flex-wrap: wrap; /* 메뉴가 좁을 때 줄바꿈 가능 */
+        flex-wrap: wrap; /* 메뉴가 좁을 때 줄바꿈 */
         margin-bottom: 1rem;
       }
       .footer-inner {
         flex-direction: column;
+      }
+      .footer-right {
+        flex-direction: column; /* 모바일에서는 세로로 */
       }
     }
   </style>
@@ -177,7 +182,7 @@
         <div class="contact-details">
           <p><strong>연구실명:</strong> DIS LAB</p>
           <p><strong>전화번호:</strong> 042-821-7290</p>
-          <p><strong>이메일:</strong> (공란)</p>
+          <!-- 이메일 (공란) 삭제 -->
           <p><strong>주소:</strong> 충남대학교 공과대학 5호관(W2) 5층 504호</p>
         </div>
       </div>
@@ -186,6 +191,7 @@
     <!-- 하단 푸터 -->
     <footer>
       <div class="footer-inner">
+        <!-- 왼쪽 로고/연구실 명칭 -->
         <div class="footer-left">
           <!-- 예시 로고 이미지 경로 -->
           <img src="img/logo.png" alt="DIS LAB Logo">
@@ -194,6 +200,8 @@
             분산 지능 및 시스템 연구실
           </p>
         </div>
+
+        <!-- 오른쪽 정보를 가로로 배치 -->
         <div class="footer-right">
           <!-- 교수님 박스 -->
           <div class="footer-box">
@@ -206,7 +214,7 @@
           <div class="footer-box">
             <h4>연구실</h4>
             <p>Tel: 042-821-7290</p>
-            <p>E-mail: (공란)</p>
+            <!-- 이메일 (공란) 제거 -->
             <p>Address: 공과대학 5호관(W2) 5층 504호</p>
           </div>
         </div>
