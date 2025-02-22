@@ -294,7 +294,7 @@
   </div>
   <script>
     // 외부 API에서 논문 데이터를 가져와 동적으로 카드 생성
-    fetch('https://api.nameyee.me:8080/api/publications')
+    fetch('http://mc.nameyee.me:8080/api/publications')
       .then(response => response.json())
       .then(data => {
         const gridContainer = document.getElementById('grid-container');
