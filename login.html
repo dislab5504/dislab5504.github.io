@@ -20,7 +20,7 @@
       e.preventDefault();
       const username = document.getElementById('username').value;
       const password = document.getElementById('password').value;
-      fetch('https://api.nameyee.me/api/login', {
+      fetch('https://www.nameyee.me/api/login', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({username, password})
