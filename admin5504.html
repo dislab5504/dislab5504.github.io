@@ -6,45 +6,81 @@
 </head>
 <body>
   <h2>논문 등록 (관리자 전용)</h2>
-  <form method="POST" action="{{ url_for('admin') }}">
+  <form id="paperForm">
     <label for="url">논문 URL:</label>
-    <input type="text" name="url" id="url" required><br><br>
-
+    <input type="text" id="url" name="url" required><br><br>
+    
     <label for="category">카테고리:</label>
-    <input type="text" name="category" id="category" required placeholder="예: International Journal"><br><br>
-
+    <input type="text" id="category" name="category" required placeholder="예: International Journal"><br><br>
+    
     <label for="event">학회/학술대회명:</label>
-    <input type="text" name="event" id="event" required placeholder="예: IEEE TIFS"><br><br>
-
+    <input type="text" id="event" name="event" required placeholder="예: IEEE TIFS"><br><br>
+    
     <label for="title">논문 제목:</label>
-    <input type="text" name="title" id="title" required><br><br>
-
+    <input type="text" id="title" name="title" required><br><br>
+    
     <label for="authors">저자명:</label>
-    <input type="text" name="authors" id="authors" required><br><br>
-
-    <label for="date">발행일/월 (예: Mar. 2024):</label>
-    <input type="text" name="date" id="date" required><br><br>
-
+    <input type="text" id="authors" name="authors" required><br><br>
+    
+    <label for="date">발행일 (예: Mar. 2024):</label>
+    <input type="text" id="date" name="date" required><br><br>
+    
     <label for="publication">출판사/저널명:</label>
-    <input type="text" name="publication" id="publication" required><br><br>
-
-    <label for="tags">#태그 (쉼표로 구분):</label>
-    <input type="text" name="tags" id="tags"><br><br>
-
+    <input type="text" id="publication" name="publication" required><br><br>
+    
+    <label for="tags">#태그 (쉼표 구분):</label>
+    <input type="text" id="tags" name="tags"><br><br>
+    
     <input type="submit" value="등록">
   </form>
-
-  {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-      <ul>
-        {% for category, message in messages %}
-          <li style="color:green;">{{ message }}</li>
-        {% endfor %}
-      </ul>
-    {% endif %}
-  {% endwith %}
-
+  <div id="message"></div>
   <br>
-  <a href="{{ url_for('logout') }}">로그아웃</a>
+  <button id="logoutBtn">로그아웃</button>
+  
+  <script>
+    document.getElementById('logoutBtn').addEventListener('click', function(){
+      localStorage.removeItem('adminToken');
+      window.location.href = 'login.html';
+    });
+  
+    document.getElementById('paperForm').addEventListener('submit', function(e){
+      e.preventDefault();
+      const token = localStorage.getItem('adminToken');
+      if (!token) {
+        alert('로그인 후 이용해주세요.');
+        window.location.href = 'login.html';
+        return;
+      }
+      const paperData = {
+        url: document.getElementById('url').value,
+        category: document.getElementById('category').value,
+        event: document.getElementById('event').value,
+        title: document.getElementById('title').value,
+        authors: document.getElementById('authors').value,
+        date: document.getElementById('date').value,
+        publication: document.getElementById('publication').value,
+        tags: document.getElementById('tags').value
+      };
+      fetch('https://api.nameyee.me/api/add_paper', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + token
+        },
+        body: JSON.stringify(paperData)
+      })
+      .then(response => {
+        if (!response.ok) { throw new Error('등록 실패'); }
+        return response.json();
+      })
+      .then(data => {
+        document.getElementById('message').textContent = data.message;
+        document.getElementById('paperForm').reset();
+      })
+      .catch(error => {
+        document.getElementById('message').textContent = error.message;
+      });
+    });
+  </script>
 </body>
 </html>
