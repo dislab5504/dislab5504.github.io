@@ -179,52 +179,54 @@
   </div>
 
   <script>
-  // API에서 뉴스 데이터 가져와서 동적으로 생성하는 함수
-  function loadNews() {
-    fetch('https://www.nameyee.me/api/news')
-      .then(response => response.json())
-      .then(data => {
-        // 날짜를 내림차순으로 정렬 (최신순)
-        data.sort((a, b) => new Date(b.date) - new Date(a.date));
-        const container = document.getElementById('newsContainer');
-        container.innerHTML = '';  // 기존 내용 초기화
-        data.forEach(news => {
-          // 뉴스 항목 생성
-          const article = document.createElement('article');
-          article.className = 'news-item';
+    // 뉴스 데이터 불러오기 및 날짜 내림차순 정렬 함수
+    function loadNews() {
+      fetch('https://www.nameyee.me/api/news')
+        .then(response => response.json())
+        .then(data => {
+          // 날짜가 없는 항목은 빈 문자열 처리, 날짜가 있으면 Date 객체로 변환하여 비교
+          data.sort((a, b) => {
+            const dateA = a.date ? new Date(a.date) : new Date(0);
+            const dateB = b.date ? new Date(b.date) : new Date(0);
+            return dateB - dateA;
+          });
+          const container = document.getElementById('newsContainer');
+          container.innerHTML = '';  // 기존 내용 초기화
+          data.forEach(news => {
+            const article = document.createElement('article');
+            article.className = 'news-item';
 
-          const title = document.createElement('h2');
-          title.className = 'news-title';
-          title.textContent = news.title;
-          article.appendChild(title);
+            const title = document.createElement('h2');
+            title.className = 'news-title';
+            title.textContent = news.title;
+            article.appendChild(title);
 
-          if(news.date) {
-            const dateDiv = document.createElement('div');
-            dateDiv.className = 'news-date';
-            dateDiv.textContent = news.date;
-            article.appendChild(dateDiv);
-          }
+            if(news.date) {
+              const dateDiv = document.createElement('div');
+              dateDiv.className = 'news-date';
+              dateDiv.textContent = news.date;
+              article.appendChild(dateDiv);
+            }
 
-          const snippet = document.createElement('p');
-          snippet.className = 'news-snippet';
-          snippet.textContent = news.snippet;
-          article.appendChild(snippet);
+            const snippet = document.createElement('p');
+            snippet.className = 'news-snippet';
+            snippet.textContent = news.snippet;
+            article.appendChild(snippet);
 
-          const readMore = document.createElement('a');
-          readMore.href = news.url || '#';
-          readMore.className = 'read-more';
-          readMore.textContent = 'Read More';
-          article.appendChild(readMore);
+            const readMore = document.createElement('a');
+            readMore.href = news.url || '#';
+            readMore.className = 'read-more';
+            readMore.textContent = 'Read More';
+            article.appendChild(readMore);
 
-          container.appendChild(article);
-        });
-      })
-      .catch(err => console.error('Error loading news:', err));
-  }
+            container.appendChild(article);
+          });
+        })
+        .catch(err => console.error('Error loading news:', err));
+    }
 
-  // 페이지 로드 시 뉴스 데이터 불러오기
-  loadNews();
-</script>
-
+    // 페이지 로드 시 뉴스 데이터 불러오기
+    loadNews();
+  </script>
 </body>
 </html>
