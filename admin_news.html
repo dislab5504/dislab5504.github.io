@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>News Admin - Distributed Intelligence & Systems Laboratory</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Google Fonts & Material Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Rethink+Sans:wght@300;600;700&family=Roboto:wght@300;400;500;700&family=Material+Symbols+Outlined" rel="stylesheet">
+  <style>
+    /* 기본 리셋 및 스타일은 뉴스 페이지와 유사하게 적용 */
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      min-height: 100%;
+      background-color: #ffffff;
+      color: #000000;
+      font-family: 'Roboto', sans-serif;
+    }
+    .wrapper {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+    .menu {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-bottom: 2rem;
+      font-family: 'Rethink Sans', sans-serif;
+    }
+    .menu a {
+      text-decoration: none;
+      color: #002554;
+      font-size: clamp(14px, 2vw, 20px);
+      transition: color 0.3s;
+    }
+    .menu a:hover {
+      color: #666;
+    }
+    .inner { }
+    h1, h2 {
+      font-family: 'Rethink Sans', sans-serif;
+      color: #002554;
+    }
+    /* 관리자 등록 폼 스타일 */
+    form {
+      background-color: #f9f9f9;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      max-width: 600px;
+      margin: 0 auto 2rem auto;
+    }
+    form label {
+      display: block;
+      margin-bottom: 0.3rem;
+      font-weight: bold;
+    }
+    form input[type="text"],
+    form input[type="date"],
+    form textarea {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    form textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+    form input[type="submit"] {
+      background-color: #002554;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    form input[type="submit"]:hover {
+      background-color: #004a80;
+    }
+    .message {
+      text-align: center;
+      margin: 10px 0;
+      font-weight: bold;
+    }
+    /* 뉴스 목록 테이블 스타일 */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    table th, table td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: left;
+    }
+    table th {
+      background-color: #f2f2f2;
+    }
+    button {
+      background-color: #002554;
+      color: #fff;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #004a80;
+    }
+    #logoutBtn {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <!-- 상단 메뉴 -->
+    <nav class="menu">
+      <a href="index.html">Home</a>
+      <a href="members.html">Members</a>
+      <a href="publications.html">Publications</a>
+      <a href="research.html">Research</a>
+      <a href="projects.html">Projects</a>
+      <a href="news.html">News</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+
+    <div class="inner">
+      <h1 style="text-align:center;">News 관리자 페이지</h1>
+      
+      <!-- 뉴스 등록 폼 -->
+      <form id="newsForm">
+        <label for="title">뉴스 제목:</label>
+        <input type="text" id="title" name="title" required>
+
+        <label for="date">발행일:</label>
+        <input type="date" id="date" name="date" required>
+
+        <label for="snippet">뉴스 요약:</label>
+        <textarea id="snippet" name="snippet" placeholder="뉴스 내용을 요약하세요." required></textarea>
+
+        <label for="url">자세히 보기 URL:</label>
+        <input type="text" id="url" name="url" placeholder="(없으면 구글 스칼라 검색 링크 등)" required>
+
+        <input type="submit" value="등록">
+      </form>
+      <div id="addMessage" class="message"></div>
+
+      <hr>
+      <!-- 등록된 뉴스 리스트 (삭제용) -->
+      <h2 style="text-align:center;">등록된 뉴스 목록</h2>
+      <div style="text-align:center; margin-bottom:10px;">
+        <button id="refreshBtn">새로고침</button>
+        <button id="deleteBtn">선택 삭제</button>
+      </div>
+      <div id="deleteMessage" class="message"></div>
+      <table id="newsTable">
+        <thead>
+          <tr>
+            <th>선택</th>
+            <th>ID</th>
+            <th>뉴스 제목</th>
+            <th>발행일</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- JavaScript로 동적 생성 -->
+        </tbody>
+      </table>
+
+      <br>
+      <div style="text-align:center;">
+        <button id="logoutBtn">로그아웃</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // 관리자 토큰 확인 (GitHub Pages에서는 localStorage로 관리)
+    const token = localStorage.getItem('adminToken');
+    if (!token) {
+      alert('로그인 후 이용해주세요.');
+      window.location.href = 'login.html';
+    }
+    
+    // 뉴스 등록 처리
+    document.getElementById('newsForm').addEventListener('submit', function(e){
+      e.preventDefault();
+      const newsData = {
+        title: document.getElementById('title').value,
+        date: document.getElementById('date').value,
+        snippet: document.getElementById('snippet').value,
+        url: document.getElementById('url').value
+      };
+      fetch('https://www.nameyee.me/api/add_news', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + token
+        },
+        body: JSON.stringify(newsData)
+      })
+      .then(response => {
+        if (!response.ok) { throw new Error('뉴스 등록 실패'); }
+        return response.json();
+      })
+      .then(data => {
+        document.getElementById('addMessage').textContent = data.message;
+        document.getElementById('newsForm').reset();
+        loadNews();
+      })
+      .catch(error => {
+        document.getElementById('addMessage').textContent = error.message;
+      });
+    });
+    
+    // 뉴스 리스트 로드 함수
+    function loadNews(){
+      fetch('https://www.nameyee.me/api/news')
+      .then(response => response.json())
+      .then(data => {
+        const tbody = document.getElementById('newsTable').querySelector('tbody');
+        tbody.innerHTML = '';
+        data.forEach(news => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td><input type="checkbox" class="deleteCheckbox" value="${news.id}"></td>
+            <td>${news.id}</td>
+            <td>${news.title}</td>
+            <td>${news.date || ''}</td>
+          `;
+          tbody.appendChild(tr);
+        });
+      })
+      .catch(err => {
+        console.error('Error loading news:', err);
+      });
+    }
+    
+    // 새로고침 버튼
+    document.getElementById('refreshBtn').addEventListener('click', loadNews);
+    
+    // 선택 삭제 버튼
+    document.getElementById('deleteBtn').addEventListener('click', function(){
+      const checkboxes = document.querySelectorAll('.deleteCheckbox:checked');
+      const ids = Array.from(checkboxes).map(cb => parseInt(cb.value));
+      if(ids.length === 0){
+        alert('삭제할 뉴스를 선택하세요.');
+        return;
+      }
+      fetch('https://www.nameyee.me/api/delete_news', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + token
+        },
+        body: JSON.stringify({ ids })
+      })
+      .then(response => {
+        if(!response.ok) { throw new Error('뉴스 삭제 실패'); }
+        return response.json();
+      })
+      .then(data => {
+        document.getElementById('deleteMessage').textContent = data.message;
+        loadNews();
+      })
+      .catch(error => {
+        document.getElementById('deleteMessage').textContent = error.message;
+      });
+    });
+    
+    // 로그아웃 처리
+    document.getElementById('logoutBtn').addEventListener('click', function(){
+      localStorage.removeItem('adminToken');
+      window.location.href = 'login.html';
+    });
+    
+    // 페이지 로드 시 뉴스 리스트 불러오기
+    loadNews();
+  </script>
+</body>
+</html>
