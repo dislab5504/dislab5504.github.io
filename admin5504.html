@@ -55,7 +55,7 @@
     .inner {
       margin-top: 0;
     }
-    /* 필터 및 검색 영역 - publications 페이지와 동일 스타일 */
+    /* 필터 및 검색 영역 (publications 페이지와 동일) */
     .filter-container {
       display: flex;
       justify-content: center;
@@ -125,7 +125,8 @@
       font-weight: bold;
     }
     form input[type="text"],
-    form select {
+    form select,
+    form input[type="date"] {
       width: 100%;
       padding: 8px;
       margin-bottom: 1rem;
@@ -161,7 +162,7 @@
     table th {
       background-color: #f2f2f2;
     }
-    /* 페이지네이션 (공개 페이지와 동일) */
+    /* 페이지네이션 (publications 페이지와 동일) */
     .pagination {
       display: flex;
       justify-content: center;
@@ -189,7 +190,7 @@
 </head>
 <body>
   <div class="wrapper">
-    <!-- 메뉴 (공통) -->
+    <!-- 공통 메뉴 -->
     <nav class="menu">
       <a href="index.html">Home</a>
       <a href="members.html">Members</a>
@@ -224,8 +225,9 @@
         <label for="authors">저자명:</label>
         <input type="text" id="authors" name="authors" required>
 
-        <label for="date">발행일 (예: Mar. 2024):</label>
-        <input type="text" id="date" name="date" required>
+        <label for="date">발행일:</label>
+        <input type="date" id="date" name="date" required>
+        <!-- HTML5 date input는 달력 선택 기능을 제공합니다. -->
 
         <label for="publication">출판사/저널명:</label>
         <input type="text" id="publication" name="publication" required>
@@ -265,7 +267,7 @@
   </div>
   
   <script>
-    // 로그인 토큰 확인 (GitHub Pages에서는 localStorage로 관리)
+    // 관리자 토큰 확인 (GitHub Pages에서는 localStorage로 관리)
     const token = localStorage.getItem('adminToken');
     if (!token) {
       alert('로그인 후 이용해주세요.');
@@ -285,7 +287,7 @@
         publication: document.getElementById('publication').value,
         tags: document.getElementById('tags').value
       };
-      fetch('https://api.nameyee.me/api/add_paper', {
+      fetch('https://www.nameyee.me/api/add_paper', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -309,7 +311,7 @@
     
     // 논문 리스트 로드 함수
     function loadPapers(){
-      fetch('https://api.nameyee.me/api/publications')
+      fetch('https://www.nameyee.me/api/publications')
       .then(response => response.json())
       .then(data => {
         const tbody = document.getElementById('papersTable').querySelector('tbody');
