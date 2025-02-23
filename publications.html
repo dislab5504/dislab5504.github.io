@@ -279,103 +279,162 @@
         <!-- API에서 받아온 데이터를 기반으로 카드들이 삽입됩니다. -->
       </div>
 
-      <!-- 페이지네이션 (추후 동적 구현 가능) -->
-      <div class="pagination">
-        <button class="arrow"><span class="material-symbols-outlined">first_page</span></button>
-        <button class="arrow" style="margin-right: 15px;"><span class="material-symbols-outlined">chevron_left</span></button>
-        <button class="current">1</button>
-        <button>2</button>
-        <button>3</button>
-        <button>4</button>
-        <button class="arrow" style="margin-left: 15px;"><span class="material-symbols-outlined">chevron_right</span></button>
-        <button class="arrow"><span class="material-symbols-outlined">last_page</span></button>
+      <!-- 페이지네이션 (아래 버튼은 동적 업데이트 예정) -->
+      <div class="pagination" id="pagination">
+        <!-- 페이지 버튼들이 여기에 생성됩니다. -->
       </div>
     </div>
   </div>
   <script>
-    // 외부 API에서 논문 데이터를 가져와 동적으로 카드 생성
+    let allPapers = [];
+    let currentPage = 1;
+    const itemsPerPage = 10;
+
+    // 카드 렌더링 함수
+    function renderPapers(papers) {
+      const gridContainer = document.getElementById('grid-container');
+      gridContainer.innerHTML = ''; // 기존 내용 초기화
+      papers.forEach(paper => {
+        const card = document.createElement('a');
+        card.href = paper.url;
+        card.target = '_blank';
+        card.className = 'paper-card';
+        card.setAttribute('data-category', paper.category);
+
+        const innerDiv = document.createElement('div');
+        innerDiv.className = 'paper-card-inner';
+
+        // 논문 레이블
+        const labelsUl = document.createElement('ul');
+        labelsUl.className = 'paper-labels';
+        const labelLi1 = document.createElement('li');
+        labelLi1.textContent = paper.category;
+        labelsUl.appendChild(labelLi1);
+        const labelLi2 = document.createElement('li');
+        labelLi2.textContent = paper.event;
+        labelsUl.appendChild(labelLi2);
+        innerDiv.appendChild(labelsUl);
+
+        // 논문 제목
+        const titleEl = document.createElement('h3');
+        titleEl.className = 'paper-title';
+        titleEl.textContent = paper.title;
+        innerDiv.appendChild(titleEl);
+
+        // 하단 영역
+        const bottomDiv = document.createElement('div');
+        bottomDiv.className = 'paper-bottom';
+
+        // 논문 정보
+        const infoUl = document.createElement('ul');
+        infoUl.className = 'paper-info';
+        const infoLi1 = document.createElement('li');
+        infoLi1.innerHTML = '<span class="material-symbols-outlined">people_alt</span>' + paper.authors;
+        infoUl.appendChild(infoLi1);
+        const infoLi2 = document.createElement('li');
+        infoLi2.innerHTML = '<span class="material-symbols-outlined">calendar_today</span>' + paper.date;
+        infoUl.appendChild(infoLi2);
+        const infoLi3 = document.createElement('li');
+        infoLi3.innerHTML = '<span class="material-symbols-outlined">history_edu</span>' + paper.publication;
+        infoUl.appendChild(infoLi3);
+        bottomDiv.appendChild(infoUl);
+
+        // 태그 목록
+        const tagsUl = document.createElement('ul');
+        tagsUl.className = 'paper-tags';
+        if (paper.tags) {
+          paper.tags.split(',').forEach(tag => {
+            const tagLi = document.createElement('li');
+            tagLi.innerHTML = '<span>#</span>' + tag.trim();
+            tagsUl.appendChild(tagLi);
+          });
+        }
+        bottomDiv.appendChild(tagsUl);
+
+        // 버튼들 (기능 구현은 추후)
+        const buttonsDiv = document.createElement('div');
+        buttonsDiv.className = 'paper-buttons';
+        const copyBibBtn = document.createElement('div');
+        copyBibBtn.className = 'copy-btn';
+        copyBibBtn.textContent = 'Copy BibTeX';
+        buttonsDiv.appendChild(copyBibBtn);
+        const copyRefBtn = document.createElement('div');
+        copyRefBtn.className = 'copy-btn';
+        copyRefBtn.textContent = 'Copy reference';
+        buttonsDiv.appendChild(copyRefBtn);
+        bottomDiv.appendChild(buttonsDiv);
+
+        innerDiv.appendChild(bottomDiv);
+        card.appendChild(innerDiv);
+        gridContainer.appendChild(card);
+      });
+    }
+
+    // 필터링 함수: 검색어와 카테고리에 따라 데이터를 필터링
+    function filterPapers() {
+      const query = document.querySelector('.searchInput').value.toLowerCase();
+      const currentCategory = document.querySelector('.categoryBox ul li.current').getAttribute('data-category');
+      return allPapers.filter(paper => {
+        const matchesSearch = paper.title.toLowerCase().includes(query) || paper.authors.toLowerCase().includes(query);
+        const matchesCategory = (currentCategory === 'All Papers' || paper.category === currentCategory);
+        return matchesSearch && matchesCategory;
+      });
+    }
+
+    // 페이지네이션 렌더링 함수
+    function renderPagination(filteredPapers) {
+      const paginationContainer = document.getElementById('pagination');
+      paginationContainer.innerHTML = '';
+      const totalPages = Math.ceil(filteredPapers.length / itemsPerPage);
+      for (let i = 1; i <= totalPages; i++) {
+        const btn = document.createElement('button');
+        btn.textContent = i;
+        if (i === currentPage) {
+          btn.classList.add('current');
+        }
+        btn.addEventListener('click', () => {
+          currentPage = i;
+          updateView();
+        });
+        paginationContainer.appendChild(btn);
+      }
+    }
+
+    // 화면 업데이트 함수
+    function updateView() {
+      const filtered = filterPapers();
+      document.getElementById('paper-count').textContent = 'Total: ' + filtered.length + ' Papers';
+      // 페이징 처리
+      const start = (currentPage - 1) * itemsPerPage;
+      const pagedData = filtered.slice(start, start + itemsPerPage);
+      renderPapers(pagedData);
+      renderPagination(filtered);
+    }
+
+    // API로부터 데이터 받아오기
     fetch('https://www.nameyee.me/api/publications')
       .then(response => response.json())
       .then(data => {
-        const gridContainer = document.getElementById('grid-container');
-        const paperCountEl = document.getElementById('paper-count');
-        paperCountEl.textContent = 'Total: ' + data.length + ' Papers';
-        data.forEach(paper => {
-          const card = document.createElement('a');
-          card.href = paper.url;
-          card.target = '_blank';
-          card.className = 'paper-card';
-          card.setAttribute('data-category', paper.category);
-
-          const innerDiv = document.createElement('div');
-          innerDiv.className = 'paper-card-inner';
-
-          // 논문 레이블
-          const labelsUl = document.createElement('ul');
-          labelsUl.className = 'paper-labels';
-          const labelLi1 = document.createElement('li');
-          labelLi1.textContent = paper.category;
-          labelsUl.appendChild(labelLi1);
-          const labelLi2 = document.createElement('li');
-          labelLi2.textContent = paper.event;
-          labelsUl.appendChild(labelLi2);
-          innerDiv.appendChild(labelsUl);
-
-          // 논문 제목
-          const titleEl = document.createElement('h3');
-          titleEl.className = 'paper-title';
-          titleEl.textContent = paper.title;
-          innerDiv.appendChild(titleEl);
-
-          // 하단 영역
-          const bottomDiv = document.createElement('div');
-          bottomDiv.className = 'paper-bottom';
-
-          // 논문 정보
-          const infoUl = document.createElement('ul');
-          infoUl.className = 'paper-info';
-          const infoLi1 = document.createElement('li');
-          infoLi1.innerHTML = '<span class="material-symbols-outlined">people_alt</span>' + paper.authors;
-          infoUl.appendChild(infoLi1);
-          const infoLi2 = document.createElement('li');
-          infoLi2.innerHTML = '<span class="material-symbols-outlined">calendar_today</span>' + paper.date;
-          infoUl.appendChild(infoLi2);
-          const infoLi3 = document.createElement('li');
-          infoLi3.innerHTML = '<span class="material-symbols-outlined">history_edu</span>' + paper.publication;
-          infoUl.appendChild(infoLi3);
-          bottomDiv.appendChild(infoUl);
-
-          // 태그 목록
-          const tagsUl = document.createElement('ul');
-          tagsUl.className = 'paper-tags';
-          if (paper.tags) {
-            paper.tags.split(',').forEach(tag => {
-              const tagLi = document.createElement('li');
-              tagLi.innerHTML = '<span>#</span>' + tag.trim();
-              tagsUl.appendChild(tagLi);
-            });
-          }
-          bottomDiv.appendChild(tagsUl);
-
-          // 버튼들 (기능 구현은 추후)
-          const buttonsDiv = document.createElement('div');
-          buttonsDiv.className = 'paper-buttons';
-          const copyBibBtn = document.createElement('div');
-          copyBibBtn.className = 'copy-btn';
-          copyBibBtn.textContent = 'Copy BibTeX';
-          buttonsDiv.appendChild(copyBibBtn);
-          const copyRefBtn = document.createElement('div');
-          copyRefBtn.className = 'copy-btn';
-          copyRefBtn.textContent = 'Copy reference';
-          buttonsDiv.appendChild(copyRefBtn);
-          bottomDiv.appendChild(buttonsDiv);
-
-          innerDiv.appendChild(bottomDiv);
-          card.appendChild(innerDiv);
-          gridContainer.appendChild(card);
-        });
+        allPapers = data;
+        updateView();
       })
       .catch(err => console.error('Error fetching publications:', err));
+
+    // 검색 입력 이벤트
+    document.querySelector('.searchInput').addEventListener('input', () => {
+      currentPage = 1;
+      updateView();
+    });
+
+    // 카테고리 클릭 이벤트
+    document.querySelectorAll('.categoryBox ul li').forEach(li => {
+      li.addEventListener('click', function() {
+        document.querySelectorAll('.categoryBox ul li').forEach(item => item.classList.remove('current'));
+        this.classList.add('current');
+        currentPage = 1;
+        updateView();
+      });
+    });
   </script>
 </body>
 </html>
