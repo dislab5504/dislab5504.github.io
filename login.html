@@ -6,22 +6,37 @@
 </head>
 <body>
   <h2>관리자 로그인</h2>
-  <form method="POST" action="{{ url_for('login') }}">
+  <form id="loginForm">
     <label for="username">아이디:</label>
-    <input type="text" name="username" id="username" required><br><br>
+    <input type="text" id="username" name="username" required><br><br>
     <label for="password">비밀번호:</label>
-    <input type="password" name="password" id="password" required><br><br>
+    <input type="password" id="password" name="password" required><br><br>
     <input type="submit" value="로그인">
   </form>
+  <div id="message"></div>
 
-  {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-      <ul>
-        {% for category, message in messages %}
-          <li style="color:red;">{{ message }}</li>
-        {% endfor %}
-      </ul>
-    {% endif %}
-  {% endwith %}
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+      fetch('https://api.nameyee.me/api/login', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({username, password})
+      })
+      .then(response => {
+        if (!response.ok) { throw new Error('로그인 실패'); }
+        return response.json();
+      })
+      .then(data => {
+        localStorage.setItem('adminToken', data.token);
+        window.location.href = 'admin5504.html';
+      })
+      .catch(error => {
+        document.getElementById('message').textContent = error.message;
+      });
+    });
+  </script>
 </body>
 </html>
