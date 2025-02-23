@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
   <meta charset="UTF-8">
   <title>Admin - Distributed Intelligence & Systems Laboratory</title>
@@ -52,64 +52,10 @@
     .menu a:hover {
       color: #666;
     }
+    /* 관리자 전용 메뉴 링크에 admin-link 클래스 부여 */
+    /* inner 영역 */
     .inner {
       margin-top: 0;
-    }
-    /* 필터 및 검색 영역 (publications 페이지와 동일) */
-    .filter-container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-bottom: 2rem;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
-    .categoryBox {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      font-family: 'Rethink Sans', sans-serif;
-    }
-    .categoryBox ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      display: flex;
-      gap: 10px;
-    }
-    .categoryBox ul li {
-      cursor: pointer;
-      padding: 4px 8px;
-      border-radius: 20px;
-      background-color: #e0e0e0;
-    }
-    .categoryBox ul li.current {
-      font-weight: bold;
-      background-color: #ccc;
-    }
-    .paper-count {
-      font-size: 1rem;
-      color: #333;
-    }
-    .searchBox {
-      display: flex;
-      align-items: center;
-      border: 1px solid #ccc;
-      border-radius: 30px;
-      padding: 12px 20px;
-    }
-    .searchBox input {
-      border: none;
-      outline: none;
-      font-size: 1rem;
-      padding: 4px;
-      width: 150%;
-    }
-    .searchBox button {
-      background: none;
-      border: none;
-      cursor: pointer;
-      margin-right: 10px;
     }
     /* 등록 폼 스타일 */
     form {
@@ -162,7 +108,7 @@
     table th {
       background-color: #f2f2f2;
     }
-    /* 페이지네이션 (publications 페이지와 동일) */
+    /* 페이지네이션 (공개 페이지와 동일) */
     .pagination {
       display: flex;
       justify-content: center;
@@ -190,19 +136,18 @@
 </head>
 <body>
   <div class="wrapper">
-    <!-- 공통 메뉴 -->
+    <!-- 관리자 전용 메뉴: Home는 public, 나머지는 관리자 페이지로 -->
     <nav class="menu">
       <a href="index.html">Home</a>
-      <a href="members.html">Members</a>
-      <a href="publications.html">Publications</a>
-      <a href="research.html">Research</a>
-      <a href="projects.html">Projects</a>
-      <a href="news.html">News</a>
-      <a href="contact.html">Contact</a>
+      <a href="admin_members.html" id="menu-members" class="admin-link">Members</a>
+      <a href="admin5504.html" id="menu-publications" class="admin-link">Publications</a>
+      <a href="admin_research.html" id="menu-research" class="admin-link">Research</a>
+      <a href="admin_projects.html" id="menu-projects" class="admin-link">Projects</a>
+      <a href="admin_news.html" id="menu-news" class="admin-link">News</a>
+      <a href="admin_contact.html" id="menu-contact" class="admin-link">Contact</a>
     </nav>
 
     <div class="inner">
-      <!-- 논문 등록 폼 -->
       <h2>논문 등록 (관리자 전용)</h2>
       <form id="paperForm">
         <label for="url">논문 URL:</label>
@@ -227,7 +172,6 @@
 
         <label for="date">발행일:</label>
         <input type="date" id="date" name="date" required>
-        <!-- HTML5 date input는 달력 선택 기능을 제공합니다. -->
 
         <label for="publication">출판사/저널명:</label>
         <input type="text" id="publication" name="publication" required>
@@ -267,13 +211,18 @@
   </div>
   
   <script>
-    // 관리자 토큰 확인 (GitHub Pages에서는 localStorage로 관리)
+    // 관리자 토큰 확인
     const token = localStorage.getItem('adminToken');
     if (!token) {
-      alert('로그인 후 이용해주세요.');
+      alert('관리자 로그인이 필요합니다.');
       window.location.href = 'login.html';
     }
-    
+
+    // 메뉴 링크 업데이트 (관리자 전용 페이지로 연결)
+    document.addEventListener('DOMContentLoaded', function(){
+      // 이미 관리자 페이지라면 링크가 올바르게 설정되어 있다고 가정하거나, 필요 시 추가 수정 가능
+    });
+
     // 논문 등록 처리
     document.getElementById('paperForm').addEventListener('submit', function(e){
       e.preventDefault();
