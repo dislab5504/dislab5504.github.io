@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <title>Admin - Distributed Intelligence & Systems Laboratory</title>
+  <title>Admin - Publications Management</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- Google Fonts & Material Icons -->
   <link href="https://fonts.googleapis.com/css2?family=Rethink+Sans:wght@300;600;700&family=Roboto:wght@300;400;500;700&family=Material+Symbols+Outlined" rel="stylesheet">
@@ -16,17 +16,10 @@
       background-color: #ffffff;
       color: #000000;
       box-sizing: border-box;
+      font-family: 'Roboto', sans-serif;
     }
     *, *::before, *::after {
       box-sizing: inherit;
-    }
-    body {
-      font-family: 'Roboto', sans-serif;
-    }
-    .material-symbols-outlined {
-      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 48;
-      font-size: 18px;
-      vertical-align: middle;
     }
     .wrapper {
       max-width: 1200px;
@@ -52,8 +45,6 @@
     .menu a:hover {
       color: #666;
     }
-    /* 관리자 전용 메뉴 링크에 admin-link 클래스 부여 */
-    /* inner 영역 */
     .inner {
       margin-top: 0;
     }
@@ -94,7 +85,7 @@
       margin: 10px 0;
       font-weight: bold;
     }
-    /* 테이블 스타일 (삭제용 리스트) */
+    /* 테이블 스타일 (삭제 및 수정용 리스트) */
     table {
       width: 100%;
       border-collapse: collapse;
@@ -107,6 +98,18 @@
     }
     table th {
       background-color: #f2f2f2;
+    }
+    /* 수정 버튼 스타일 */
+    button.editBtn {
+      background-color: #004a80;
+      color: #fff;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button.editBtn:hover {
+      background-color: #002554;
     }
     /* 페이지네이션 (공개 페이지와 동일) */
     .pagination {
@@ -136,20 +139,23 @@
 </head>
 <body>
   <div class="wrapper">
-    <!-- 관리자 전용 메뉴: Home는 public, 나머지는 관리자 페이지로 -->
+    <!-- 공통 메뉴 -->
     <nav class="menu">
       <a href="index.html">Home</a>
-      <a href="admin_members.html" id="menu-members" class="admin-link">Members</a>
-      <a href="admin5504.html" id="menu-publications" class="admin-link">Publications</a>
-      <a href="admin_research.html" id="menu-research" class="admin-link">Research</a>
-      <a href="admin_projects.html" id="menu-projects" class="admin-link">Projects</a>
-      <a href="admin_news.html" id="menu-news" class="admin-link">News</a>
-      <a href="admin_contact.html" id="menu-contact" class="admin-link">Contact</a>
+      <a href="admin_members.html">Members</a>
+      <a href="admin5504.html">Publications</a>
+      <a href="admin_research.html">Research</a>
+      <a href="admin_projects.html">Projects</a>
+      <a href="admin_news.html">News</a>
+      <a href="admin_contact.html">Contact</a>
     </nav>
 
     <div class="inner">
-      <h2>논문 등록 (관리자 전용)</h2>
+      <h2>논문 등록/수정 (관리자 전용)</h2>
       <form id="paperForm">
+        <!-- 수정 시 사용되는 숨겨진 필드 -->
+        <input type="hidden" id="paperId" name="paperId" value="">
+        
         <label for="url">논문 URL:</label>
         <input type="text" id="url" name="url" required>
 
@@ -179,13 +185,13 @@
         <label for="tags">#태그 (쉼표 구분):</label>
         <input type="text" id="tags" name="tags">
 
-        <input type="submit" value="등록">
+        <input type="submit" value="등록/수정">
       </form>
       <div id="addMessage" class="message"></div>
 
       <hr>
-      <!-- 등록된 논문 리스트 (삭제용) -->
-      <h3>등록된 논문 리스트 (삭제 가능)</h3>
+      <!-- 등록된 논문 리스트 (삭제 및 수정용) -->
+      <h3>등록된 논문 리스트 (삭제/수정 가능)</h3>
       <button id="refreshBtn">새로고침</button>
       <button id="deleteBtn">선택 삭제</button>
       <div id="deleteMessage" class="message"></div>
@@ -198,6 +204,7 @@
             <th>카테고리</th>
             <th>학회/학술대회명</th>
             <th>발행일</th>
+            <th>수정</th>
           </tr>
         </thead>
         <tbody>
@@ -218,14 +225,10 @@
       window.location.href = 'login.html';
     }
 
-    // 메뉴 링크 업데이트 (관리자 전용 페이지로 연결)
-    document.addEventListener('DOMContentLoaded', function(){
-      // 이미 관리자 페이지라면 링크가 올바르게 설정되어 있다고 가정하거나, 필요 시 추가 수정 가능
-    });
-
-    // 논문 등록 처리
+    // 논문 등록/수정 처리
     document.getElementById('paperForm').addEventListener('submit', function(e){
       e.preventDefault();
+      const paperId = document.getElementById('paperId').value;
       const paperData = {
         url: document.getElementById('url').value,
         category: document.getElementById('category').value,
@@ -236,7 +239,12 @@
         publication: document.getElementById('publication').value,
         tags: document.getElementById('tags').value
       };
-      fetch('https://www.nameyee.me/api/add_paper', {
+      let endpoint = 'https://www.nameyee.me/api/add_paper';
+      if(paperId){ // update mode
+        paperData.id = parseInt(paperId);
+        endpoint = 'https://www.nameyee.me/api/update_paper';
+      }
+      fetch(endpoint, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -245,12 +253,13 @@
         body: JSON.stringify(paperData)
       })
       .then(response => {
-        if (!response.ok) { throw new Error('등록 실패'); }
+        if (!response.ok) { throw new Error('등록/수정 실패'); }
         return response.json();
       })
       .then(data => {
         document.getElementById('addMessage').textContent = data.message;
         document.getElementById('paperForm').reset();
+        document.getElementById('paperId').value = ''; // 수정모드 초기화
         loadPapers();
       })
       .catch(error => {
@@ -274,8 +283,32 @@
             <td>${paper.category}</td>
             <td>${paper.event}</td>
             <td>${paper.date}</td>
+            <td><button class="editBtn" data-id="${paper.id}">수정</button></td>
           `;
           tbody.appendChild(tr);
+        });
+        // 수정 버튼 이벤트 추가
+        document.querySelectorAll('.editBtn').forEach(button => {
+          button.addEventListener('click', function(){
+            const id = this.getAttribute('data-id');
+            fetch('https://www.nameyee.me/api/publications')
+              .then(response => response.json())
+              .then(data => {
+                const paper = data.find(item => item.id == id);
+                if(paper){
+                  document.getElementById('paperId').value = paper.id;
+                  document.getElementById('url').value = paper.url;
+                  document.getElementById('category').value = paper.category;
+                  document.getElementById('event').value = paper.event;
+                  document.getElementById('title').value = paper.title;
+                  document.getElementById('authors').value = paper.authors;
+                  document.getElementById('date').value = paper.date;
+                  document.getElementById('publication').value = paper.publication;
+                  document.getElementById('tags').value = paper.tags;
+                }
+              })
+              .catch(err => console.error('Error fetching paper for edit:', err));
+          });
         });
       })
       .catch(err => {
