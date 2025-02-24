@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Professor - Distributed Intelligence & Systems Laboratory</title>
+  <title>Members - Distributed Intelligence &amp; Systems Laboratory</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- 폰트: Rethink Sans (메뉴 전용), Roboto (본문용), Material Symbols -->
+  <!-- 폰트: Rethink Sans (메뉴 전용), Roboto (본문용) 및 Material Symbols -->
   <link href="https://fonts.googleapis.com/css2?family=Rethink+Sans:wght@300;600;700&family=Roboto:wght@300;400;500;700&family=Material+Symbols+Outlined" rel="stylesheet">
   <style>
     /* 전역 리셋 및 박스 모델 설정 */
@@ -20,15 +20,17 @@
     *, *::before, *::after {
       box-sizing: inherit;
     }
+    /* body에 Roboto 폰트 적용 (메뉴 제외 전부) */
     body {
       font-family: 'Roboto', sans-serif;
     }
+    /* 전체 래퍼 */
     .wrapper {
       max-width: 1200px;
       margin: 0 auto;
       padding: 2rem;
     }
-    /* 메뉴 */
+    /* 메뉴: 최상단 중앙에 가로로 배치 */
     .menu {
       display: flex;
       justify-content: center;
@@ -46,6 +48,13 @@
     .menu a:hover {
       color: #666;
     }
+    /* Material Symbols 아이콘 */
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 48;
+      font-size: 18px;
+      vertical-align: middle;
+      margin-right: 4px;
+    }
     /* 메인 콘텐츠 영역 */
     .content {
       width: 100%;
@@ -58,7 +67,7 @@
       margin: 2rem 0 1.5rem 0;
       color: #002554;
     }
-    /* 교수님 정보 카드 */
+    /* 교수님 테이블: 단일 셀로 구성 */
     .prof-table {
       width: 100%;
       border-collapse: separate;
@@ -67,15 +76,18 @@
     }
     .prof-table td {
       vertical-align: top;
+      width: 100%;
       border: 1px solid #ccc;
       padding: 1rem;
     }
+    /* 교수님 사진: 크기 축소, 가운데 정렬 */
     .prof-photo {
       display: block;
       margin: 0 auto 1rem auto;
       width: clamp(100px, 15vw, 200px);
       border-radius: 4px;
     }
+    /* 교수님 기본 정보: 가운데 정렬 및 폰트 사이즈 줄임 */
     .prof-info {
       text-align: center;
     }
@@ -94,8 +106,10 @@
     .prof-info .info-line {
       margin: 0.3rem 0;
       font-size: clamp(12px, 2vw, 16px);
+      font-weight: 400;
       line-height: 1.4;
     }
+    /* 2 x 2 카드 스타일 for 정보 섹션 (교수 소개 카드 높이: 225px) */
     .info-cards {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -173,6 +187,12 @@
       margin-top: 0.2rem;
       margin-bottom: 0.1rem;
     }
+    .email-contact {
+      margin-bottom: 0.1rem;
+    }
+    .github-contact {
+      margin-top: 0.1rem;
+    }
   </style>
 </head>
 <body>
@@ -180,19 +200,19 @@
     <!-- 상단 메뉴 -->
     <nav class="menu">
       <a href="index.html">Home</a>
-      <a href="admin_members.html">Members</a>
-      <a href="admin5504.html">Publications</a>
-      <a href="admin_research.html">Research</a>
-      <a href="admin_projects.html">Projects</a>
-      <a href="admin_news.html">News</a>
-      <a href="admin_contact.html">Contact</a>
+      <a href="members.html">Members</a>
+      <a href="publications.html">Publications</a>
+      <a href="research.html">Research</a>
+      <a href="projects.html">Projects</a>
+      <a href="news.html">News</a>
+      <a href="contact.html">Contact</a>
     </nav>
 
     <div class="content">
       <!-- 교수 정보 섹션 -->
       <div class="section-title">Professor</div>
       <div id="professorContainer">
-        <!-- 교수 정보 카드가 API로부터 불러와져 동적으로 생성됩니다. -->
+        <!-- 교수 정보가 API에서 동적으로 불러와집니다. -->
       </div>
 
       <!-- 석사과정 학생 섹션 (2열) -->
@@ -210,7 +230,7 @@
   </div>
 
   <script>
-    // 교수 정보 불러오기
+    // 교수 정보 로드
     function loadProfessor(){
       fetch('https://www.nameyee.me/api/professor')
         .then(response => response.json())
@@ -224,11 +244,13 @@
                   <div class="prof-info">
                     <h1>${data.name}</h1>
                     <div class="subtitle">${data.title}</div>
-                    <div class="info-line">${data.info || ''}</div>
                     <div class="info-line">
                       <a href="mailto:${data.email}" style="text-decoration:none; color:inherit;">
                         <span class="material-symbols-outlined">mail</span> ${data.email}
                       </a>
+                    </div>
+                    <div class="info-line">
+                      ${data.info || ''}
                     </div>
                   </div>
                 </td>
@@ -238,30 +260,25 @@
               <div class="card">
                 <h2>Education</h2>
                 <ul>
-                  <li>Ph.D. Dept. of Electrical and Computer Engineering, Seoul National University</li>
-                  <li>B.S. Dept. of Electrical and Computer Engineering, Seoul National University</li>
+                  ${data.education ? data.education.split(';').map(item => `<li>${item.trim()}</li>`).join('') : ''}
                 </ul>
               </div>
               <div class="card">
                 <h2>Research Experience</h2>
                 <ul>
-                  <li>Assistant Professor, School of Electrical Engineering, Kumoh National Institute of Technology</li>
-                  <li>Staff Engineer, Standard Research Team, Samsung Research, Samsung Electronics</li>
-                  <li>Visiting Scholar, University of Southern California</li>
+                  ${data.research_experience ? data.research_experience.split(';').map(item => `<li>${item.trim()}</li>`).join('') : ''}
                 </ul>
               </div>
               <div class="card">
                 <h2>Honors and Awards</h2>
                 <ul>
-                  <li>Distinguished Ph.D. Dissertation Award at Seoul National University</li>
-                  <li>Gold Prize at 2017 IEEE Seoul Section Student Paper Contest</li>
-                  <li>Bronze Prize at the 23rd Samsung Electronics HumanTech Paper Contest</li>
+                  ${data.honors ? data.honors.split(';').map(item => `<li>${item.trim()}</li>`).join('') : ''}
                 </ul>
               </div>
               <div class="card">
                 <h2>Academic Activities</h2>
                 <ul>
-                  <li>TPC member @ IEEE Wireless Communications and Networking Conference (2020, 2021)</li>
+                  ${data.academic_activities ? data.academic_activities.split(';').map(item => `<li>${item.trim()}</li>`).join('') : ''}
                 </ul>
               </div>
             </div>
@@ -270,7 +287,7 @@
         .catch(err => console.error('Error loading professor info:', err));
     }
 
-    // 학생 정보 불러오기 (모든 학생 데이터를 받아 level에 따라 분리)
+    // 학생 정보 로드 (전체 학생 데이터를 받아 level에 따라 석사, 학부로 분리)
     function loadStudents(){
       fetch('https://www.nameyee.me/api/students')
         .then(response => response.json())
@@ -308,7 +325,7 @@
         .catch(err => console.error('Error loading students:', err));
     }
 
-    // 페이지 로드 시 교수 정보와 학생 정보 불러오기
+    // 페이지 로드 시 교수 및 학생 정보 불러오기
     loadProfessor();
     loadStudents();
   </script>
