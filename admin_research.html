@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin - Research Management</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Google Fonts & Material Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Rethink+Sans:wght@300;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    /* 기본 리셋 및 박스 모델 */
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      min-height: 100%;
+      background-color: #ffffff;
+      color: #000000;
+      box-sizing: border-box;
+      font-family: 'Roboto', sans-serif;
+    }
+    *, *::before, *::after {
+      box-sizing: inherit;
+    }
+    .wrapper {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+    /* 관리자 메뉴 */
+    .menu {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 2rem;
+      margin-bottom: 2rem;
+      font-family: 'Rethink Sans', sans-serif;
+    }
+    .menu a {
+      text-decoration: none;
+      color: #002554;
+      font-size: clamp(14px, 2vw, 20px);
+      font-weight: 400;
+      transition: color 0.3s;
+    }
+    .menu a:hover {
+      color: #666;
+    }
+    .inner {
+      margin-top: 0;
+    }
+    /* 등록/수정 폼 스타일 */
+    form {
+      background-color: #f9f9f9;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    form label {
+      display: block;
+      margin-bottom: 0.3rem;
+      font-weight: bold;
+    }
+    form input[type="text"],
+    form input[type="date"],
+    form textarea,
+    form select {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    form textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+    form input[type="submit"] {
+      background-color: #002554;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    form input[type="submit"]:hover {
+      background-color: #004a80;
+    }
+    .message {
+      margin: 10px 0;
+      font-weight: bold;
+      text-align: center;
+    }
+    /* 테이블 스타일 (연구 리스트) */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    table th, table td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: left;
+    }
+    table th {
+      background-color: #f2f2f2;
+    }
+    button.editBtn {
+      background-color: #004a80;
+      color: #fff;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button.editBtn:hover {
+      background-color: #002554;
+    }
+    .pagination {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      margin-top: 2rem;
+    }
+    .pagination button {
+      background: none;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      padding: 1.2rem 1.5rem;
+      cursor: pointer;
+    }
+    .pagination button.arrow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .pagination button.current {
+      font-weight: bold;
+      background-color: #ddd;
+    }
+    #logoutBtn {
+      display: block;
+      margin: 20px auto 0 auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <!-- 관리자 메뉴 (관리자 전용 링크) -->
+    <nav class="menu">
+      <a href="index.html">Home</a>
+      <a href="admin_members.html" class="admin-link">Members</a>
+      <a href="admin5504.html" class="admin-link">Publications</a>
+      <a href="admin_research.html" class="admin-link">Research</a>
+      <a href="admin_projects.html" class="admin-link">Projects</a>
+      <a href="admin_news.html" class="admin-link">News</a>
+      <a href="admin_contact.html" class="admin-link">Contact</a>
+    </nav>
+
+    <div class="inner">
+      <h2>Research Registration / Modification (Admin)</h2>
+      <!-- 수정 시 사용되는 숨겨진 필드 -->
+      <form id="researchForm">
+        <input type="hidden" id="researchId" name="researchId" value="">
+        
+        <label for="image">이미지 URL:</label>
+        <input type="text" id="image" name="image" required placeholder="예: assets/research_1.jpg">
+        
+        <label for="title">연구 제목:</label>
+        <input type="text" id="title" name="title" required>
+        
+        <label for="description">설명 (여러 줄은 줄바꿈으로 구분):</label>
+        <textarea id="description" name="description" required></textarea>
+        
+        <input type="submit" value="등록/수정">
+      </form>
+      <div id="addMessage" class="message"></div>
+      
+      <hr>
+      <h3 style="text-align:center;">등록된 연구 항목 목록 (삭제/수정 가능)</h3>
+      <button id="refreshBtn">새로고침</button>
+      <button id="deleteBtn">선택 삭제</button>
+      <div id="deleteMessage" class="message"></div>
+      <table id="researchTable">
+        <thead>
+          <tr>
+            <th>선택</th>
+            <th>ID</th>
+            <th>연구 제목</th>
+            <th>발행일 (표시용)</th>
+            <th>수정</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- JavaScript로 동적 생성 -->
+        </tbody>
+      </table>
+      <br>
+      <button id="logoutBtn">로그아웃</button>
+    </div>
+  </div>
+  
+  <script>
+    // 관리자 토큰 확인
+    const token = localStorage.getItem('adminToken');
+    if (!token) {
+      alert('관리자 로그인이 필요합니다.');
+      window.location.href = 'login.html';
+    }
+    
+    // 연구 항목 등록/수정 처리
+    document.getElementById('researchForm').addEventListener('submit', function(e){
+      e.preventDefault();
+      const researchId = document.getElementById('researchId').value;
+      const researchData = {
+        image: document.getElementById('image').value,
+        title: document.getElementById('title').value,
+        description: document.getElementById('description').value
+      };
+      let endpoint = 'https://www.nameyee.me/api/add_research';
+      if(researchId) {
+        researchData.id = parseInt(researchId);
+        endpoint = 'https://www.nameyee.me/api/update_research';
+      }
+      fetch(endpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + token
+        },
+        body: JSON.stringify(researchData)
+      })
+      .then(response => {
+        if(!response.ok) { throw new Error('등록/수정 실패'); }
+        return response.json();
+      })
+      .then(data => {
+        document.getElementById('addMessage').textContent = data.message;
+        document.getElementById('researchForm').reset();
+        document.getElementById('researchId').value = '';
+        loadResearch();
+      })
+      .catch(error => {
+        document.getElementById('addMessage').textContent = error.message;
+      });
+    });
+    
+    // 연구 항목 리스트 로드 함수
+    function loadResearch(){
+      fetch('https://www.nameyee.me/api/research')
+      .then(response => response.json())
+      .then(data => {
+        const tbody = document.getElementById('researchTable').querySelector('tbody');
+        tbody.innerHTML = '';
+        data.forEach(item => {
+          // 수정 버튼 클릭 시 폼에 데이터 채우기 (description은 그대로 채워짐)
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td><input type="checkbox" class="deleteCheckbox" value="${item.id}"></td>
+            <td>${item.id}</td>
+            <td>${item.title}</td>
+            <td>${item.date || ''}</td>
+            <td><button class="editBtn" data-id="${item.id}">수정</button></td>
+          `;
+          tbody.appendChild(tr);
+        });
+        // 수정 버튼 이벤트 설정
+        document.querySelectorAll('.editBtn').forEach(button => {
+          button.addEventListener('click', function(){
+            const id = this.getAttribute('data-id');
+            fetch('https://www.nameyee.me/api/research')
+              .then(response => response.json())
+              .then(data => {
+                const item = data.find(x => x.id == id);
+                if(item){
+                  document.getElementById('researchId').value = item.id;
+                  document.getElementById('image').value = item.image;
+                  document.getElementById('title').value = item.title;
+                  document.getElementById('description').value = item.description;
+                }
+              })
+              .catch(err => console.error('Error fetching research for edit:', err));
+          });
+        });
+      })
+      .catch(err => console.error('Error loading research items:', err));
+    }
+    
+    // 새로고침 버튼 (연구 리스트)
+    document.getElementById('refreshBtn').addEventListener('click', loadResearch);
+    
+    // 선택 삭제 버튼 (연구 삭제)
+    document.getElementById('deleteBtn').addEventListener('click', function(){
+      const checkboxes = document.querySelectorAll('.deleteCheckbox:checked');
+      const ids = Array.from(checkboxes).map(cb => parseInt(cb.value));
+      if(ids.length === 0){
+        alert('삭제할 연구 항목을 선택하세요.');
+        return;
+      }
+      fetch('https://www.nameyee.me/api/delete_research', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + token
+        },
+        body: JSON.stringify({ ids })
+      })
+      .then(response => {
+        if(!response.ok) { throw new Error('삭제 실패'); }
+        return response.json();
+      })
+      .then(data => {
+        document.getElementById('deleteMessage').textContent = data.message;
+        loadResearch();
+      })
+      .catch(error => {
+        document.getElementById('deleteMessage').textContent = error.message;
+      });
+    });
+    
+    // 로그아웃 처리
+    document.getElementById('logoutBtn').addEventListener('click', function(){
+      localStorage.removeItem('adminToken');
+      window.location.href = 'login.html';
+    });
+    
+    // 페이지 로드 시 연구 리스트 불러오기
+    loadResearch();
+  </script>
+</body>
+</html>
