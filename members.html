@@ -1,4 +1,235 @@
-<script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Members - Distributed Intelligence &amp; Systems Laboratory</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- 폰트: Rethink Sans (메뉴 전용), Roboto (본문용) 및 Material Symbols -->
+  <link href="https://fonts.googleapis.com/css2?family=Rethink+Sans:wght@300;600;700&family=Roboto:wght@300;400;500;700&family=Material+Symbols+Outlined" rel="stylesheet">
+  <style>
+    /* 전역 리셋 및 박스 모델 설정 */
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      min-height: 100%;
+      background-color: #ffffff;
+      color: #000000;
+      box-sizing: border-box;
+    }
+    *, *::before, *::after {
+      box-sizing: inherit;
+    }
+    /* body에 Roboto 폰트 적용 (메뉴 제외 전부) */
+    body {
+      font-family: 'Roboto', sans-serif;
+    }
+    /* 전체 래퍼 */
+    .wrapper {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+    /* 메뉴: 최상단 중앙에 가로로 배치 */
+    .menu {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .menu a {
+      font-family: 'Rethink Sans', sans-serif;
+      text-decoration: none;
+      color: #002554;
+      font-size: clamp(14px, 2vw, 20px);
+      font-weight: 400;
+      transition: color 0.3s;
+    }
+    .menu a:hover {
+      color: #666;
+    }
+    /* Material Symbols 아이콘 */
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 48;
+      font-size: 18px;
+      vertical-align: middle;
+      margin-right: 4px;
+    }
+    /* 메인 콘텐츠 영역 */
+    .content {
+      width: 100%;
+    }
+    /* 섹션 제목 스타일 */
+    .section-title {
+      text-align: center;
+      font-size: clamp(20px, 4vw, 32px);
+      font-weight: 700;
+      margin: 2rem 0 1.5rem 0;
+      color: #002554;
+    }
+    /* 교수님 테이블: 단일 셀로 구성 */
+    .prof-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 1rem;
+      margin-bottom: 2rem;
+    }
+    .prof-table td {
+      vertical-align: top;
+      width: 100%;
+      border: 1px solid #ccc;
+      padding: 1rem;
+    }
+    /* 교수님 사진: 크기 축소, 가운데 정렬 */
+    .prof-photo {
+      display: block;
+      margin: 0 auto 1rem auto;
+      width: clamp(100px, 15vw, 200px);
+      border-radius: 4px;
+    }
+    /* 교수님 기본 정보: 가운데 정렬 및 폰트 사이즈 줄임 */
+    .prof-info {
+      text-align: center;
+    }
+    .prof-info h1 {
+      margin: 0 0 1rem 0;
+      font-size: clamp(16px, 3vw, 30px);
+      font-weight: 700;
+      color: #002554;
+    }
+    .prof-info .subtitle {
+      margin: 0 0 1rem 0;
+      font-size: clamp(14px, 2.5vw, 24px);
+      font-weight: 600;
+      color: #333;
+    }
+    .prof-info .info-line {
+      margin: 0.3rem 0;
+      font-size: clamp(12px, 2vw, 16px);
+      font-weight: 400;
+      line-height: 1.4;
+    }
+    /* 2 x 2 카드 스타일 for 정보 섹션 (교수 소개 카드 높이: 225px) */
+    .info-cards {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin: 1rem 0 2rem 0;
+    }
+    .card {
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 1rem;
+      text-align: center;
+      min-height: 225px;
+      box-shadow: 2px 2px 5px rgba(0,0,0,0.05);
+    }
+    .card h2 {
+      margin: 0 0 1rem 0;
+      font-size: clamp(16px, 2vw, 20px);
+      font-weight: 600;
+      color: #000;
+    }
+    .card ul {
+      margin: 0;
+      padding-left: 1.2rem;
+      list-style-type: disc;
+      text-align: left;
+    }
+    .card li {
+      margin: 0.3rem 0;
+      color: #777;
+      font-size: clamp(14px, 2vw, 16px);
+      line-height: 1.4;
+    }
+    /* 석사과정 학생 카드: 2열 그리드 */
+    .master-students {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    /* 학부 연구생 카드: 4열 그리드 */
+    .undergrad-students {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .student-card {
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 1rem;
+      text-align: center;
+      box-shadow: 2px 2px 5px rgba(0,0,0,0.05);
+    }
+    .student-photo-container {
+      height: 220px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 0.5rem;
+    }
+    .student-photo {
+      max-height: 100%;
+      width: auto;
+      object-fit: contain;
+    }
+    .student-name {
+      font-size: 1.2em;
+      font-weight: bold;
+      margin-top: 0.5rem;
+      margin-bottom: 0.3rem;
+    }
+    .student-contact {
+      font-size: 0.9em;
+      color: #555;
+      margin-top: 0.2rem;
+      margin-bottom: 0.1rem;
+    }
+    .email-contact {
+      margin-bottom: 0.1rem;
+    }
+    .github-contact {
+      margin-top: 0.1rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <!-- 상단 메뉴 -->
+    <nav class="menu">
+      <a href="index.html">Home</a>
+      <a href="members.html">Members</a>
+      <a href="publications.html">Publications</a>
+      <a href="research.html">Research</a>
+      <a href="projects.html">Projects</a>
+      <a href="news.html">News</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+
+    <div class="content">
+      <!-- 교수 정보 섹션 -->
+      <div class="section-title">Professor</div>
+      <div id="professorContainer">
+        <!-- 교수 정보가 API에서 동적으로 불러와집니다. -->
+      </div>
+
+      <!-- 석사과정 학생 섹션 (2열) -->
+      <div class="section-title">Master Graduate Students</div>
+      <div id="masterContainer" class="master-students">
+        <!-- 석사 학생 카드들이 동적으로 생성됩니다. -->
+      </div>
+
+      <!-- 학부 연구생 섹션 (4열) -->
+      <div class="section-title">Undergraduate Research Students</div>
+      <div id="undergradContainer" class="undergrad-students">
+        <!-- 학부 학생 카드들이 동적으로 생성됩니다. -->
+      </div>
+    </div>
+  </div>
+
+  <script>
   // 교수 정보 로드
   function loadProfessor(){
     fetch('https://www.nameyee.me/api/professor')
@@ -98,3 +329,6 @@
   loadProfessor();
   loadStudents();
 </script>
+
+</body>
+</html>
