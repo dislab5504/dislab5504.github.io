@@ -1,14 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <title>Professor - Distributed Intelligence & Systems Laboratory</title>
+  <title>Professor - Distributed Intelligence &amp; Systems Laboratory</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- 폰트: Rethink Sans (메뉴 전용), Roboto (나머지 텍스트용) 및 Material Symbols -->
-  <link
-    href="https://fonts.googleapis.com/css2?family=Rethink+Sans:wght@300;600;700&family=Roboto:wght@300;400;500;700&family=Material+Symbols+Outlined"
-    rel="stylesheet"
-  >
+  <!-- 폰트: Rethink Sans (메뉴 전용), Roboto (본문용), Material Symbols -->
+  <link href="https://fonts.googleapis.com/css2?family=Rethink+Sans:wght@300;600;700&family=Roboto:wght@300;400;500;700&family=Material+Symbols+Outlined" rel="stylesheet">
   <style>
     /* 전역 리셋 및 박스 모델 설정 */
     html, body {
@@ -23,7 +20,6 @@
     *, *::before, *::after {
       box-sizing: inherit;
     }
-    /* body에 Roboto 폰트 적용 (메뉴 제외 전부) */
     body {
       font-family: 'Roboto', sans-serif;
     }
@@ -33,7 +29,7 @@
       margin: 0 auto;
       padding: 2rem;
     }
-    /* 메뉴: 최상단 중앙에 가로로 배치 */
+    /* 메뉴: 최상단 중앙 가로 배치 */
     .menu {
       display: flex;
       justify-content: center;
@@ -62,14 +58,15 @@
     .content {
       width: 100%;
     }
-    /* 공통 섹션 제목 스타일 */
+    /* 섹션 제목 스타일 */
     .section-title {
       text-align: center;
-      font-size: clamp(20px, 4vw, 32px); /* 반응형으로 글자 크기 조절 */
+      font-size: clamp(20px, 4vw, 32px);
       font-weight: 700;
       margin: 2rem 0 1.5rem 0;
+      color: #002554;
     }
-    /* 교수님 테이블: 단일 셀로 구성 */
+    /* 교수님 테이블: 단일 셀 구성 */
     .prof-table {
       width: 100%;
       border-collapse: separate;
@@ -82,14 +79,14 @@
       border: 1px solid #ccc;
       padding: 1rem;
     }
-    /* 교수님 사진: 크기 축소, 가운데 정렬 */
+    /* 교수님 사진 */
     .prof-photo {
       display: block;
       margin: 0 auto 1rem auto;
       width: clamp(100px, 15vw, 200px);
       border-radius: 4px;
     }
-    /* 교수님 기본 정보: 가운데 정렬 및 폰트 사이즈 줄임 */
+    /* 교수님 기본 정보 */
     .prof-info {
       text-align: center;
     }
@@ -111,7 +108,7 @@
       font-weight: 400;
       line-height: 1.4;
     }
-    /* 2 x 2 카드 스타일 for 정보 섹션 (교수 소개 카드 높이: 225px) */
+    /* 2 x 2 카드 스타일 for 정보 섹션 */
     .info-cards {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -123,7 +120,7 @@
       border-radius: 8px;
       padding: 1rem;
       text-align: center;
-      min-height: 225px; /* 기존 높이의 25% 감소 */
+      min-height: 225px;
       box-shadow: 2px 2px 5px rgba(0,0,0,0.05);
     }
     .card h2 {
@@ -144,8 +141,7 @@
       font-size: clamp(14px, 2vw, 16px);
       line-height: 1.4;
     }
-    /* 석사 및 학부 연구생 테이블 - 테이블 레이아웃 고정, 셀 높이 키움 */
-    .master-table,
+    /* 학생 테이블 (석사, 학부 각각) */
     .student-table {
       margin: 0 auto 2rem auto;
       border-collapse: separate;
@@ -153,7 +149,6 @@
       width: 100%;
       table-layout: fixed;
     }
-    .master-table td,
     .student-table td {
       vertical-align: top;
       padding: 1rem;
@@ -161,9 +156,8 @@
       min-height: 300px;
       text-align: center;
     }
-    /* 학생 사진 컨테이너: 모든 사진의 세로 높이를 동일하게 (자르지 않고 비율 유지) */
     .student-photo-container {
-      height: 220px; /* 이 컨테이너 높이를 기준으로 가장 세로가 긴 이미지에 맞춤 */
+      height: 220px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -174,7 +168,6 @@
       width: auto;
       object-fit: contain;
     }
-    /* 학생 이름 및 연락처 스타일 (석사, 학부 동일) - 텍스트 위치 고정 */
     .student-name {
       font-size: 1.2em;
       font-weight: bold;
@@ -187,191 +180,121 @@
       margin-top: 0.2rem;
       margin-bottom: 0.1rem;
     }
-    /* 별도 클래스: 이메일과 깃허브 연락처 간격 조정 */
     .email-contact {
       margin-bottom: 0.1rem;
     }
     .github-contact {
       margin-top: 0.1rem;
     }
-    /* 숨김 처리 */
-    .hidden {
-      display: none !important;
-    }
   </style>
 </head>
 <body>
   <div class="wrapper">
-    <!-- 메뉴: 최상단 중앙 가로 배치 -->
+    <!-- 상단 메뉴 (공용) -->
     <nav class="menu">
       <a href="index.html">Home</a>
-      <a href="members.html">Members</a>
-      <a href="publications.html">Publications</a>
-      <a href="research.html">Research</a>
-      <a href="projects.html">Projects</a>
-      <a href="news.html">News</a>
-      <a href="contact.html">Contact</a>
+      <a href="admin_members.html">Members</a>
+      <a href="admin5504.html">Publications</a>
+      <a href="admin_research.html">Research</a>
+      <a href="admin_projects.html">Projects</a>
+      <a href="admin_news.html">News</a>
+      <a href="admin_contact.html">Contact</a>
     </nav>
 
-    <!-- 메인 콘텐츠 -->
     <div class="content">
-
-      <!-- 교수님 영역에 타이틀 추가 -->
+      <!-- 교수 정보 섹션 -->
       <div class="section-title">Professor</div>
+      <div id="professorContainer">
+        <!-- API에서 불러온 교수 정보가 여기에 동적으로 삽입됩니다. -->
+      </div>
 
-      <!-- 교수님 정보: 단일 셀 테이블 -->
-      <table class="prof-table">
-        <tr>
-          <td>
-            <img src="assets/professor.png" alt="Professor Heecheol Yang" class="prof-photo">
-            <div class="prof-info">
-              <h1>Heecheol Yang</h1>
-              <div class="subtitle">Assistant Professor, Ph. D.</div>
-              <div class="info-line">Division of Computer Convergence, Chungnam National University</div>
-              <div class="info-line">
-                <a href="mailto:hcyang@cnu.ac.kr" style="text-decoration:none; color:inherit;">
-                  <span class="material-symbols-outlined">mail</span> hcyang@cnu.ac.kr
-                </a>
-              </div>
-              <div class="info-line">
-                <span class="material-symbols-outlined">location_on</span> Rm. 522, Engineering Unit 5 (W2), Chungnam National University, 99 Daehak-ro, Yuseong-gu, Daejeon, Korea [34134]
-              </div>
-            </div>
-            <!-- 2 x 2 카드로 구성된 정보 섹션 (교수 소개 카드 높이: 225px) -->
-            <div class="info-cards">
-              <div class="card">
-                <h2>Education</h2>
-                <ul>
-                  <li>Ph.D. Dept. of Electrical and Computer Engineering, Seoul National University</li>
-                  <li>B.S. Dept. of Electrical and Computer Engineering, Seoul National University</li>
-                </ul>
-              </div>
-              <div class="card">
-                <h2>Research Experience</h2>
-                <ul>
-                  <li>Assistant Professor, School of Electrical Engineering, Kumoh National Institute of Technology</li>
-                  <li>Staff Engineer, Standard Research Team, Samsung Research, Samsung Electronics</li>
-                  <li>Visiting Scholar, University of Southern California</li>
-                </ul>
-              </div>
-              <div class="card">
-                <h2>Honors and Awards</h2>
-                <ul>
-                  <li>Distinguished Ph.D. Dissertation Award, Dept. of Electrical and Computer Engineering at Seoul National University</li>
-                  <li>Gold Prize at 2017 IEEE Seoul Section Student Paper Contest, IEEE Seoul Section</li>
-                  <li>Bronze Prize at the 23rd Samsung Electronics HumanTech Paper Contest, Samsung Electronics</li>
-                </ul>
-              </div>
-              <div class="card">
-                <h2>Academic Activities</h2>
-                <ul>
-                  <li>TPC member @ IEEE Wireless Communications and Networking Conference (2020, 2021)</li>
-                </ul>
-              </div>
-            </div>
-          </td>
-        </tr>
-      </table>
-
-      <!-- 석사 과정 (Master Graduate Students) -->
+      <!-- 석사과정 학생 섹션 -->
       <div class="section-title">Master Graduate Students</div>
-      <table class="master-table">
-        <tr>
-          <td>
-            <!-- 김성윤 학생 정보 -->
-            <div class="student-photo-container">
-              <img src="assets/kim_seongyoon.jpg" alt="Seongyoon Kim" class="student-photo">
-            </div>
-            <div class="student-name">Seongyoon Kim</div>
-            <div class="student-contact email-contact">
-              <a href="mailto:201902664@o.cnu.ac.kr" style="text-decoration:none; color:inherit;">
-                <span class="material-symbols-outlined">mail</span> 201902664@o.cnu.ac.kr
-              </a>
-            </div>
-            <div class="student-contact github-contact">
-              <a href="https://github.com/kimsy1106" target="_blank" style="text-decoration:none; color:inherit;">
-                <span class="material-symbols-outlined">code</span> github.com/kimsy1106
-              </a>
-            </div>
-          </td>
-          <td>
-            <!-- 류지현 학생 정보 -->
-            <div class="student-photo-container">
-              <img src="assets/ryu_jihyun.jpg" alt="Jihyun Ryu" class="student-photo">
-            </div>
-            <div class="student-name">Jihyun Ryu</div>
-            <div class="student-contact email-contact">
-              <a href="mailto:ryujihyunmail@gmail.com" style="text-decoration:none; color:inherit;">
-                <span class="material-symbols-outlined">mail</span> ryujihyunmail@gmail.com
-              </a>
-            </div>
-            <div class="student-contact github-contact">
-              <a href="https://github.com/Dolce-Latte" target="_blank" style="text-decoration:none; color:inherit;">
-                <span class="material-symbols-outlined">code</span> github.com/Dolce-Latte
-              </a>
-            </div>
-          </td>
-        </tr>
-      </table>
+      <div id="masterContainer">
+        <!-- API에서 불러온 석사과정 학생 카드들이 동적으로 생성됩니다. -->
+      </div>
 
-      <!-- 학부 연구생 (Undergraduate Research Students) -->
+      <!-- 학부 연구생 섹션 -->
       <div class="section-title">Undergraduate Research Students</div>
-      <table class="student-table">
-        <tr>
-          <td>
-            <div class="student-photo-container">
-              <img src="assets/baek_jeongeun.jpg" alt="Jeongeun Baek" class="student-photo">
-            </div>
-            <div class="student-name">Jeongeun Baek</div>
-            <div class="student-contact email-contact">
-              <a href="mailto:bjo5029@o.cnu.ac.kr" style="text-decoration:none; color:inherit;">
-                <span class="material-symbols-outlined">mail</span> bjo5029@o.cnu.ac.kr
-              </a>
-            </div>
-            <div class="student-contact github-contact">
-              <a href="http://github.com/bjo5029" target="_blank" style="text-decoration:none; color:inherit;">
-                <span class="material-symbols-outlined">code</span> github.com/bjo5029
-              </a>
-            </div>
-          </td>
-          <td>
-            <div class="student-photo-container">
-              <img src="assets/cho_chanyeong.jpg" alt="Chanyeong Cho" class="student-photo">
-            </div>
-            <div class="student-name">Chanyeong Cho</div>
-            <div class="student-contact email-contact">
-              <a href="mailto:oriental8@o.cnu.ac.kr" style="text-decoration:none; color:inherit;">
-                <span class="material-symbols-outlined">mail</span> oriental8@o.cnu.ac.kr
-              </a>
-            </div>
-            <div class="student-contact github-contact">
-              <a href="https://github.com/ChanyeongCho" target="_blank" style="text-decoration:none; color:inherit;">
-                <span class="material-symbols-outlined">code</span> github.com/ChanyeongCho
-              </a>
-            </div>
-          </td>
-          <td>
-            <div class="student-photo-container">
-              <img src="assets/heo_jaemin.jpg" alt="Jaemin Heo" class="student-photo">
-            </div>
-            <div class="student-name">Jaemin Heo</div>
-            <div class="student-contact email-contact">
-              <a href="mailto:hjm000720@o.cnu.ac.kr" style="text-decoration:none; color:inherit;">
-                <span class="material-symbols-outlined">mail</span> hjm000720@o.cnu.ac.kr
-              </a>
-            </div>
-            <div class="student-contact github-contact">
-              <a href="https://github.com/jaemin720" target="_blank" style="text-decoration:none; color:inherit;">
-                <span class="material-symbols-outlined">code</span> github.com/jaemin720
-              </a>
-            </div>
-          </td>
-          <td>
-            <!-- 공란 (학생 정보 추가 시 사용) -->
-          </td>
-        </tr>
-      </table>
+      <div id="undergradContainer">
+        <!-- API에서 불러온 학부 학생 카드들이 동적으로 생성됩니다. -->
+      </div>
     </div>
   </div>
+
+  <script>
+    // 교수 정보 로드
+    function loadProfessor(){
+      fetch('https://www.nameyee.me/api/professor')
+        .then(response => response.json())
+        .then(data => {
+          const container = document.getElementById('professorContainer');
+          // 교수 정보 카드 생성
+          container.innerHTML = `
+            <table class="prof-table">
+              <tr>
+                <td>
+                  <img src="${data.photo}" alt="Professor ${data.name}" class="prof-photo">
+                  <div class="prof-info">
+                    <h1>${data.name}</h1>
+                    <div class="subtitle">${data.title}</div>
+                    <div class="info-line">${data.info || ''}</div>
+                    <div class="info-line">
+                      <a href="mailto:${data.email}" style="text-decoration:none; color:inherit;">
+                        <span class="material-symbols-outlined">mail</span> ${data.email}
+                      </a>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </table>
+          `;
+        })
+        .catch(err => console.error('Error loading professor info:', err));
+    }
+
+    // 학생 정보 로드 (전체 학생 정보를 불러온 후, level에 따라 분리)
+    function loadStudents(){
+      fetch('https://www.nameyee.me/api/students')
+        .then(response => response.json())
+        .then(data => {
+          const masterContainer = document.getElementById('masterContainer');
+          const undergradContainer = document.getElementById('undergradContainer');
+          masterContainer.innerHTML = '';
+          undergradContainer.innerHTML = '';
+          // 각 학생에 대해 카드 생성
+          data.forEach(student => {
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.innerHTML = `
+              <div class="student-photo-container">
+                <img src="${student.photo}" alt="${student.name}" class="student-photo">
+              </div>
+              <div class="student-name">${student.name}</div>
+              <div class="student-contact email-contact">
+                <a href="mailto:${student.email}" style="text-decoration:none; color:inherit;">
+                  <span class="material-symbols-outlined">mail</span> ${student.email}
+                </a>
+              </div>
+              <div class="student-contact github-contact">
+                <a href="${student.github}" target="_blank" style="text-decoration:none; color:inherit;">
+                  <span class="material-symbols-outlined">code</span> ${student.github}
+                </a>
+              </div>
+            `;
+            if(student.level === "Master"){
+              masterContainer.appendChild(card);
+            } else if(student.level === "Undergraduate"){
+              undergradContainer.appendChild(card);
+            }
+          });
+        })
+        .catch(err => console.error('Error loading students:', err));
+    }
+
+    // 페이지 로드 시 데이터 불러오기
+    loadProfessor();
+    loadStudents();
+  </script>
 </body>
 </html>
