@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Distributed Intelligence &amp; Systems Laboratory</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Open Graph meta tags -->
+  <meta property="og:url" content="https://dislab5504.github.io/index.html">
+  <meta property="og:title" content="CNU DIS LAB">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://github.com/dislab5504/dislab5504.github.io/blob/main/assets/thumb.JPG">
+  <meta property="og:description" content="Welcome to our laboratory website. Exploring cutting-edge research in artificial intelligence, machine learning, and distributed systems.">
+  <meta charset="UTF-8">
+  <!-- Rethink Sans 폰트 로드 -->
+  <link href="https://fonts.googleapis.com/css2?family=Rethink+Sans:wght@300;600;700&display=swap" rel="stylesheet">
+  <!-- three.js, Vanta.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+  <!-- Vanta.js (경로는 실제 환경에 맞게 수정) -->
+  <script src="./dist/vanta.net.min.js"></script>
+  <style>
+    /* 기본 리셋 및 폰트 적용 */
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      font-family: 'Rethink Sans', sans-serif;
+      background-color: #002554; /* Pantone 655C 근사값 */
+      color: #ffffff;
+      box-sizing: border-box;
+    }
+    *, *::before, *::after {
+      box-sizing: inherit;
+    }
+    
+    /* Vanta 전체 화면 컨테이너 */
+    .vanta-container {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+    }
+    .vanta-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+    
+    /* 메인 래퍼: 기본적으로 가로 중앙 배치, 데스크탑에서는 가로 정렬, 모바일에서는 세로 정렬 */
+    .wrapper {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      max-width: 2560px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+    
+    /* 콘텐츠 영역 */
+    .content {
+      max-width: 60%;
+      text-align: left;
+    }
+    .logo {
+      width: clamp(120px, 15vh, 200px);
+      margin-bottom: 2vh;
+    }
+    h1 {
+      margin: 0;
+      font-size: clamp(40px, 7vw, 80px);
+      font-weight: 700;
+      line-height: 1.2;
+    }
+    .semi-bold {
+      font-size: clamp(20px, 3vw, 40px);
+      font-weight: 600;
+      margin-top: 1rem;
+      display: block;
+    }
+    .desc {
+      font-size: clamp(16px, 2.5vw, 32px);
+      font-weight: 200;
+      line-height: 1.4;
+      margin-top: 1rem;
+    }
+    
+    /* 메뉴 영역 */
+    .menu {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 1.5rem;
+    }
+    .menu a {
+      color: #ffffff;
+      text-decoration: none;
+      font-size: clamp(18px, 3vw, 32px);
+      font-weight: 400;
+      transition: color 0.3s;
+    }
+    .menu a:hover {
+      color: #ccc;
+    }
+    
+    /* About Us 섹션 */
+    .about-section {
+      background-color: #002554;
+      color: #ffffff;
+      padding: 4rem 2rem;
+      max-width: 2560px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .about-section h2 {
+      font-size: clamp(30px, 5vw, 50px);
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+    }
+    .about-section p {
+      font-size: clamp(16px, 2vw, 24px);
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+    .about-section h3 {
+      font-size: clamp(20px, 3vw, 32px);
+      font-weight: 600;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+    }
+    
+    /* 미디어 쿼리: 모바일 (최대 폭 768px) */
+    @media (max-width: 768px) {
+      .wrapper {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 1rem;
+      }
+      .content {
+        max-width: 100%;
+        text-align: center;
+      }
+      h1 {
+        font-size: clamp(30px, 8vw, 60px);
+      }
+      .semi-bold {
+        font-size: clamp(16px, 4vw, 30px);
+      }
+      .desc {
+        font-size: clamp(14px, 3vw, 24px);
+      }
+      .menu {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
+      }
+      .menu a {
+        font-size: clamp(16px, 4vw, 24px);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="vanta-container" id="vanta-area">
+    <div class="vanta-bg"></div>
+    <div class="wrapper">
+      <!-- 콘텐츠 영역 -->
+      <div class="content">
+        <img src="https://raw.githubusercontent.com/dislab5504/dislab5504.github.io/main/src/img/cnu_logo.png" alt="CNU Logo" class="logo">
+        <h1>Distributed Intelligence &amp; Systems Laboratory</h1>
+        <div class="semi-bold">@Chungnam National University</div>
+        <div class="desc">
+          Welcome to our laboratory website.<br>
+          Exploring cutting-edge research in artificial intelligence,<br>
+          machine learning, and distributed systems.
+        </div>
+      </div>
+      <!-- 메뉴 영역 -->
+      <nav class="menu">
+        <a href="#">Home</a>
+        <a href="members.html">Members</a>
+        <a href="publications.html">Publications</a>
+        <a href="research.html">Research</a>
+        <a href="projects.html">Projects</a>
+        <a href="news.html">News</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </div>
+  </div>
+  
+  <!-- About Us 섹션 -->
+  <section class="about-section">
+    <h2>About Us</h2>
+    <p>
+      우리 연구실에서는 분산 네트워크 및 분산 컴퓨팅 시스템, 또는 무선 통신 시스템에 대한 전반적인 연구를 수행하고 있습니다.
+      특히 사물 인터넷 (IoT) 환경의 방대한 데이터 처리 수요에 발맞춰 분산형 데이터 네트워크에서의 데이터 통신, 저장, 계산을 위한 
+      새로운 분산형 네트워크 및 시스템 설계에 관한 원천 기술을 연구하고 있습니다.
+    </p>
+    <h3>주요 연구분야</h3>
+    <p>
+      - 분산 컴퓨팅 시스템의 성능 향상을 위한 데이터 인코딩 기법 및 업무 할당 알고리즘<br>
+      - 수많은 센서, 노드로 이루어진 IoT 네트워크에서의 무선 통신을 위한 간섭 처리, 다중 접속 기술<br>
+      - 데이터 분산 저장 시스템에서의 데이터 보안, 사용자 프라이버시를 보장하는 데이터 인코딩 기법
+    </p>
+    <p>
+      We are conducting an overall study of distributed networks, distributed computing systems, and wireless communication systems.
+      In particular, in response to the vast demands of data processing in the Internet of Things (IoT) environment, we are researching
+      fundamental technologies for designing wireless networks and systems for data communication, storage, and computation in
+      distributed networks.
+    </p>
+    <h3>Main research field</h3>
+    <p>
+      - Data encoding techniques and task allocation algorithms to improve the performance of distributed computing systems<br>
+      - Interference management and multiple access technologies for wireless communication in IoT networks consisting of numerous sensors and nodes<br>
+      - Data encoding techniques to ensure data security and user privacy in distributed data storage
+    </p>
+  </section>
+  
+  <script>
+    // Vanta.js 초기화 (모바일에서도 올바르게 동작하도록 scaleMobile 값 유지)
+    VANTA.NET({
+      el: "#vanta-area",
+      mouseControls: true,
+      touchControls: true,
+      gyroControls: false,
+      minHeight: 200.00,
+      minWidth: 200.00,
+      scale: 1.00,
+      scaleMobile: 1.00,
+      color: 0xffffff,
+      backgroundColor: 0x002554,
+      points: 20
+    });
+  </script>
+</body>
+</html>
