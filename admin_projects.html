@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin - Projects Management</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Google Fonts & Material Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Rethink+Sans:wght@300;600;700&family=Roboto:wght@300;400;500;700&family=Material+Symbols+Outlined" rel="stylesheet">
+  <style>
+    /* 기본 리셋 및 박스 모델 */
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      min-height: 100%;
+      background-color: #ffffff;
+      color: #000000;
+      box-sizing: border-box;
+      font-family: 'Roboto', sans-serif;
+    }
+    *, *::before, *::after {
+      box-sizing: inherit;
+    }
+    .wrapper {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+    /* 관리자 메뉴 */
+    .menu {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 2rem;
+      margin-bottom: 2rem;
+      font-family: 'Rethink Sans', sans-serif;
+    }
+    .menu a {
+      text-decoration: none;
+      color: #002554;
+      font-size: clamp(14px, 2vw, 20px);
+      font-weight: 400;
+      transition: color 0.3s;
+    }
+    .menu a:hover {
+      color: #666;
+    }
+    .inner {
+      margin-top: 0;
+    }
+    /* 섹션 제목 */
+    .section-title {
+      text-align: center;
+      font-size: clamp(20px, 4vw, 32px);
+      font-weight: 700;
+      margin: 2rem 0 1.5rem;
+      color: #002554;
+    }
+    /* 폼 스타일 */
+    form {
+      background-color: #f9f9f9;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    form label {
+      display: block;
+      margin-bottom: 0.3rem;
+      font-weight: bold;
+    }
+    form input[type="text"],
+    form input[type="month"],
+    form select,
+    form textarea {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    form textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+    form input[type="submit"] {
+      background-color: #002554;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    form input[type="submit"]:hover {
+      background-color: #004a80;
+    }
+    .message {
+      margin: 10px 0;
+      font-weight: bold;
+      text-align: center;
+    }
+    /* 테이블 스타일 (프로젝트 리스트) */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    table th, table td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: left;
+    }
+    table th {
+      background-color: #f2f2f2;
+    }
+    button.editBtn {
+      background-color: #004a80;
+      color: #fff;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button.editBtn:hover {
+      background-color: #002554;
+    }
+    #logoutBtn {
+      display: block;
+      margin: 20px auto 0 auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <!-- 관리자 메뉴 -->
+    <nav class="menu">
+      <a href="index.html">Home</a>
+      <a href="admin_members.html" class="admin-link">Members</a>
+      <a href="admin5504.html" class="admin-link">Publications</a>
+      <a href="admin_research.html" class="admin-link">Research</a>
+      <a href="admin_projects.html" class="admin-link">Projects</a>
+      <a href="admin_news.html" class="admin-link">News</a>
+      <a href="admin_contact.html" class="admin-link">Contact</a>
+    </nav>
+    
+    <div class="inner">
+      <h2>Project Registration / Modification (Admin)</h2>
+      <!-- 수정 시 사용되는 숨겨진 필드 -->
+      <form id="projectForm">
+        <input type="hidden" id="projectId" name="projectId" value="">
+        
+        <label for="image">이미지 URL:</label>
+        <input type="text" id="image" name="image" placeholder="예: assets/project_1.jpg">
+        
+        <label for="title">프로젝트 제목:</label>
+        <input type="text" id="title" name="title" required>
+        
+        <label for="start_month">시작 연월:</label>
+        <input type="month" id="start_month" name="start_month" required>
+        
+        <label for="end_month">종료 연월:</label>
+        <input type="month" id="end_month" name="end_month" required>
+        
+        <label for="funding">연구비/지원 정보:</label>
+        <input type="text" id="funding" name="funding" required placeholder="예: NRF, ETRI, IITP 등">
+        
+        <input type="submit" value="등록/수정">
+      </form>
+      <div id="addMessage" class="message"></div>
+      
+      <hr>
+      <h3 style="text-align:center;">등록된 프로젝트 목록 (삭제/수정 가능)</h3>
+      <button id="refreshBtn">새로고침</button>
+      <button id="deleteBtn">선택 삭제</button>
+      <div id="deleteMessage" class="message"></div>
+      <table id="projectTable">
+        <thead>
+          <tr>
+            <th>선택</th>
+            <th>ID</th>
+            <th>제목</th>
+            <th>시작 연월</th>
+            <th>종료 연월</th>
+            <th>연구비/지원 정보</th>
+            <th>수정</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- JavaScript로 동적 생성 -->
+        </tbody>
+      </table>
+      <br>
+      <button id="logoutBtn">로그아웃</button>
+    </div>
+  </div>
+  
+  <script>
+    // 관리자 토큰 확인
+    const token = localStorage.getItem('adminToken');
+    if (!token) {
+      alert('관리자 로그인이 필요합니다.');
+      window.location.href = 'login.html';
+    }
+    
+    // 프로젝트 등록/수정 처리
+    document.getElementById('projectForm').addEventListener('submit', function(e){
+      e.preventDefault();
+      const projectId = document.getElementById('projectId').value;
+      const projectData = {
+        image: document.getElementById('image').value,
+        title: document.getElementById('title').value,
+        start_month: document.getElementById('start_month').value,
+        end_month: document.getElementById('end_month').value,
+        funding: document.getElementById('funding').value
+      };
+      let endpoint = 'https://www.nameyee.me/api/add_project';
+      if(projectId) {
+        projectData.id = parseInt(projectId);
+        endpoint = 'https://www.nameyee.me/api/update_project';
+      }
+      fetch(endpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + token
+        },
+        body: JSON.stringify(projectData)
+      })
+      .then(response => {
+        if(!response.ok) { throw new Error('등록/수정 실패'); }
+        return response.json();
+      })
+      .then(data => {
+        document.getElementById('addMessage').textContent = data.message;
+        document.getElementById('projectForm').reset();
+        document.getElementById('projectId').value = '';
+        loadProjects();
+      })
+      .catch(error => {
+        document.getElementById('addMessage').textContent = error.message;
+      });
+    });
+    
+    // 프로젝트 리스트 로드 함수
+    function loadProjects(){
+      fetch('https://www.nameyee.me/api/projects')
+      .then(response => response.json())
+      .then(data => {
+        const tbody = document.getElementById('projectTable').querySelector('tbody');
+        tbody.innerHTML = '';
+        data.forEach(item => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td><input type="checkbox" class="deleteCheckbox" value="${item.id}"></td>
+            <td>${item.id}</td>
+            <td>${item.title}</td>
+            <td>${item.start_month}</td>
+            <td>${item.end_month}</td>
+            <td>${item.funding}</td>
+            <td><button class="editBtn" data-id="${item.id}">수정</button></td>
+          `;
+          tbody.appendChild(tr);
+        });
+        // 수정 버튼 이벤트 설정
+        document.querySelectorAll('.editBtn').forEach(button => {
+          button.addEventListener('click', function(){
+            const id = this.getAttribute('data-id');
+            fetch('https://www.nameyee.me/api/projects')
+              .then(response => response.json())
+              .then(data => {
+                const project = data.find(x => x.id == id);
+                if(project){
+                  document.getElementById('projectId').value = project.id;
+                  document.getElementById('image').value = project.image || '';
+                  document.getElementById('title').value = project.title;
+                  document.getElementById('start_month').value = project.start_month;
+                  document.getElementById('end_month').value = project.end_month;
+                  document.getElementById('funding').value = project.funding;
+                }
+              })
+              .catch(err => console.error('Error fetching project for edit:', err));
+          });
+        });
+      })
+      .catch(err => console.error('Error loading projects:', err));
+    }
+    
+    // 새로고침 버튼
+    document.getElementById('refreshBtn').addEventListener('click', loadProjects);
+    
+    // 선택 삭제 버튼
+    document.getElementById('deleteBtn').addEventListener('click', function(){
+      const checkboxes = document.querySelectorAll('.deleteCheckbox:checked');
+      const ids = Array.from(checkboxes).map(cb => parseInt(cb.value));
+      if(ids.length === 0){
+        alert('삭제할 프로젝트를 선택하세요.');
+        return;
+      }
+      fetch('https://www.nameyee.me/api/delete_projects', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + token
+        },
+        body: JSON.stringify({ ids })
+      })
+      .then(response => {
+        if(!response.ok) { throw new Error('삭제 실패'); }
+        return response.json();
+      })
+      .then(data => {
+        document.getElementById('deleteMessage').textContent = data.message;
+        loadProjects();
+      })
+      .catch(error => {
+        document.getElementById('deleteMessage').textContent = error.message;
+      });
+    });
+    
+    // 로그아웃 처리
+    document.getElementById('logoutBtn').addEventListener('click', function(){
+      localStorage.removeItem('adminToken');
+      window.location.href = 'login.html';
+    });
+    
+    // 페이지 로드 시 프로젝트 리스트 불러오기
+    loadProjects();
+  </script>
+</body>
+</html>
