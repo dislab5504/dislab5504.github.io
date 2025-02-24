@@ -20,17 +20,15 @@
     *, *::before, *::after {
       box-sizing: inherit;
     }
-    /* body에 Roboto 폰트 적용 (메뉴 제외 전부) */
     body {
       font-family: 'Roboto', sans-serif;
     }
-    /* 전체 래퍼 */
     .wrapper {
       max-width: 1200px;
       margin: 0 auto;
       padding: 2rem;
     }
-    /* 메뉴: 최상단 중앙에 가로로 배치 */
+    /* 메뉴 */
     .menu {
       display: flex;
       justify-content: center;
@@ -67,7 +65,7 @@
       margin: 2rem 0 1.5rem 0;
       color: #002554;
     }
-    /* 교수님 테이블: 단일 셀로 구성 */
+    /* 교수 정보 테이블 */
     .prof-table {
       width: 100%;
       border-collapse: separate;
@@ -76,18 +74,15 @@
     }
     .prof-table td {
       vertical-align: top;
-      width: 100%;
       border: 1px solid #ccc;
       padding: 1rem;
     }
-    /* 교수님 사진: 크기 축소, 가운데 정렬 */
     .prof-photo {
       display: block;
       margin: 0 auto 1rem auto;
       width: clamp(100px, 15vw, 200px);
       border-radius: 4px;
     }
-    /* 교수님 기본 정보: 가운데 정렬 및 폰트 사이즈 줄임 */
     .prof-info {
       text-align: center;
     }
@@ -109,7 +104,7 @@
       font-weight: 400;
       line-height: 1.4;
     }
-    /* 2 x 2 카드 스타일 for 정보 섹션 (교수 소개 카드 높이: 225px) */
+    /* 정보 카드 (교수 세부 정보) */
     .info-cards {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -142,14 +137,14 @@
       font-size: clamp(14px, 2vw, 16px);
       line-height: 1.4;
     }
-    /* 석사과정 학생 카드: 2열 그리드 */
+    /* 석사 학생 카드: 2열 그리드 */
     .master-students {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 1rem;
       margin-bottom: 2rem;
     }
-    /* 학부 연구생 카드: 4열 그리드 */
+    /* 학부 학생 카드: 4열 그리드 */
     .undergrad-students {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -215,7 +210,7 @@
         <!-- 교수 정보가 API에서 동적으로 불러와집니다. -->
       </div>
 
-      <!-- 석사과정 학생 섹션 (2열) -->
+      <!-- 석사 과정 학생 섹션 (2열) -->
       <div class="section-title">Master Graduate Students</div>
       <div id="masterContainer" class="master-students">
         <!-- 석사 학생 카드들이 동적으로 생성됩니다. -->
@@ -230,105 +225,108 @@
   </div>
 
   <script>
-  // 교수 정보 로드
-  function loadProfessor(){
-    fetch('https://www.nameyee.me/api/professor')
-      .then(response => response.json())
-      .then(data => {
-        console.log("Professor data:", data);
-        const container = document.getElementById('professorContainer');
-        container.innerHTML = `
-          <table class="prof-table">
-            <tr>
-              <td>
-                <img src="${data.photo}" alt="Professor ${data.name}" class="prof-photo">
-                <div class="prof-info">
-                  <h1>${data.name}</h1>
-                  <div class="subtitle">${data.title}</div>
-                  <div class="info-line">
-                    <a href="mailto:${data.email}" style="text-decoration:none; color:inherit;">
-                      <span class="material-symbols-outlined">mail</span> ${data.email}
-                    </a>
+    // 교수 정보 로드
+    function loadProfessor(){
+      fetch('https://www.nameyee.me/api/professor')
+        .then(response => response.json())
+        .then(data => {
+          console.log("Professor data:", data);
+          const container = document.getElementById('professorContainer');
+          container.innerHTML = `
+            <table class="prof-table">
+              <tr>
+                <td>
+                  <img src="${data.photo}" alt="Professor ${data.name}" class="prof-photo">
+                  <div class="prof-info">
+                    <h1>${data.name}</h1>
+                    <div class="subtitle">${data.position}</div>
+                    <div class="info-line">
+                      <a href="mailto:${data.email}" style="text-decoration:none; color:inherit;">
+                        <span class="material-symbols-outlined">mail</span> ${data.email}
+                      </a>
+                    </div>
+                    <div class="info-line">
+                      <span class="material-symbols-outlined">phone</span> ${data.phone || 'Not provided'}
+                    </div>
+                    <div class="info-line">
+                      <span class="material-symbols-outlined">location_on</span> ${data.address || 'Not provided'}
+                    </div>
                   </div>
-                  <div class="info-line">
-                    ${data.info || ''}
-                  </div>
-                </div>
-              </td>
-            </tr>
-          </table>
-          <div class="info-cards">
-            <div class="card">
-              <h2>Education</h2>
-              <ul>
-                ${data.education ? data.education.split(';').map(item => `<li>${item.trim()}</li>`).join('') : ''}
-              </ul>
-            </div>
-            <div class="card">
-              <h2>Research Experience</h2>
-              <ul>
-                ${data.research_experience ? data.research_experience.split(';').map(item => `<li>${item.trim()}</li>`).join('') : ''}
-              </ul>
-            </div>
-            <div class="card">
-              <h2>Honors and Awards</h2>
-              <ul>
-                ${data.honors ? data.honors.split(';').map(item => `<li>${item.trim()}</li>`).join('') : ''}
-              </ul>
-            </div>
-            <div class="card">
-              <h2>Academic Activities</h2>
-              <ul>
-                ${data.academic_activities ? data.academic_activities.split(';').map(item => `<li>${item.trim()}</li>`).join('') : ''}
-              </ul>
-            </div>
-          </div>
-        `;
-      })
-      .catch(err => console.error('Error loading professor info:', err));
-  }
-
-  // 학생 정보 로드 (동일)
-  function loadStudents(){
-    fetch('https://www.nameyee.me/api/students')
-      .then(response => response.json())
-      .then(data => {
-        const masterContainer = document.getElementById('masterContainer');
-        const undergradContainer = document.getElementById('undergradContainer');
-        masterContainer.innerHTML = '';
-        undergradContainer.innerHTML = '';
-        data.forEach(student => {
-          const card = document.createElement('div');
-          card.className = 'student-card';
-          card.innerHTML = `
-            <div class="student-photo-container">
-              <img src="${student.photo}" alt="${student.name}" class="student-photo">
-            </div>
-            <div class="student-name">${student.name}</div>
-            <div class="student-contact email-contact">
-              <a href="mailto:${student.email}" style="text-decoration:none; color:inherit;">
-                <span class="material-symbols-outlined">mail</span> ${student.email}
-              </a>
-            </div>
-            <div class="student-contact github-contact">
-              <a href="${student.github}" target="_blank" style="text-decoration:none; color:inherit;">
-                <span class="material-symbols-outlined">code</span> ${student.github}
-              </a>
+                </td>
+              </tr>
+            </table>
+            <div class="info-cards">
+              <div class="card">
+                <h2>Education</h2>
+                <ul>
+                  ${data.education ? data.education.split(';').map(item => `<li>${item.trim()}</li>`).join('') : '<li>No data</li>'}
+                </ul>
+              </div>
+              <div class="card">
+                <h2>Research Experience</h2>
+                <ul>
+                  ${data.research_experience ? data.research_experience.split(';').map(item => `<li>${item.trim()}</li>`).join('') : '<li>No data</li>'}
+                </ul>
+              </div>
+              <div class="card">
+                <h2>Honors and Awards</h2>
+                <ul>
+                  ${data.honors ? data.honors.split(';').map(item => `<li>${item.trim()}</li>`).join('') : '<li>No data</li>'}
+                </ul>
+              </div>
+              <div class="card">
+                <h2>Academic Activities</h2>
+                <ul>
+                  ${data.academic_activities ? data.academic_activities.split(';').map(item => `<li>${item.trim()}</li>`).join('') : '<li>No data</li>'}
+                </ul>
+              </div>
             </div>
           `;
-          if(student.level === "Master"){
-            masterContainer.appendChild(card);
-          } else if(student.level === "Undergraduate"){
-            undergradContainer.appendChild(card);
-          }
-        });
-      })
-      .catch(err => console.error('Error loading students:', err));
-  }
+        })
+        .catch(err => console.error('Error loading professor info:', err));
+    }
 
-  loadProfessor();
-  loadStudents();
-</script>
+    // 학생 정보 로드 (전체 학생 데이터를 받아 level에 따라 석사, 학부로 분리)
+    function loadStudents(){
+      fetch('https://www.nameyee.me/api/students')
+        .then(response => response.json())
+        .then(data => {
+          const masterContainer = document.getElementById('masterContainer');
+          const undergradContainer = document.getElementById('undergradContainer');
+          masterContainer.innerHTML = '';
+          undergradContainer.innerHTML = '';
+          data.forEach(student => {
+            const card = document.createElement('div');
+            card.className = 'student-card';
+            card.innerHTML = `
+              <div class="student-photo-container">
+                <img src="${student.photo}" alt="${student.name}" class="student-photo">
+              </div>
+              <div class="student-name">${student.name}</div>
+              <div class="student-contact email-contact">
+                <a href="mailto:${student.email}" style="text-decoration:none; color:inherit;">
+                  <span class="material-symbols-outlined">mail</span> ${student.email}
+                </a>
+              </div>
+              <div class="student-contact github-contact">
+                <a href="${student.github}" target="_blank" style="text-decoration:none; color:inherit;">
+                  <span class="material-symbols-outlined">code</span> ${student.github}
+                </a>
+              </div>
+            `;
+            if(student.level === "Master"){
+              masterContainer.appendChild(card);
+            } else if(student.level === "Undergraduate"){
+              undergradContainer.appendChild(card);
+            }
+          });
+        })
+        .catch(err => console.error('Error loading students:', err));
+    }
 
+    // 페이지 로드 시 교수 및 학생 정보 불러오기
+    loadProfessor();
+    loadStudents();
+  </script>
 </body>
 </html>
