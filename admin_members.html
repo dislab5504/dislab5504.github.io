@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <title>Admin - Distributed Intelligence & Systems Laboratory</title>
+  <title>Admin - Members Management</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- Google Fonts & Material Icons -->
   <link href="https://fonts.googleapis.com/css2?family=Rethink+Sans:wght@300;600;700&family=Roboto:wght@300;400;500;700&family=Material+Symbols+Outlined" rel="stylesheet">
@@ -14,19 +14,12 @@
       width: 100%;
       min-height: 100%;
       background-color: #ffffff;
-      color: #000000;
+      color: #000;
       box-sizing: border-box;
+      font-family: 'Roboto', sans-serif;
     }
     *, *::before, *::after {
       box-sizing: inherit;
-    }
-    body {
-      font-family: 'Roboto', sans-serif;
-    }
-    .material-symbols-outlined {
-      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 48;
-      font-size: 18px;
-      vertical-align: middle;
     }
     .wrapper {
       max-width: 1200px;
@@ -52,7 +45,6 @@
     .menu a:hover {
       color: #666;
     }
-    /* inner 영역 */
     .inner {
       margin-top: 0;
     }
@@ -64,8 +56,8 @@
       margin: 2rem 0 1.5rem;
       color: #002554;
     }
-    /* 폼 스타일 */
-    form {
+    /* 교수 정보 수정 폼 */
+    form.prof-form {
       background-color: #f9f9f9;
       border: 1px solid #ddd;
       border-radius: 6px;
@@ -75,26 +67,21 @@
       margin-left: auto;
       margin-right: auto;
     }
-    form label {
+    form.prof-form label {
       display: block;
       margin-bottom: 0.3rem;
       font-weight: bold;
     }
-    form input[type="text"],
-    form input[type="date"],
-    form textarea,
-    form select {
+    form.prof-form input[type="text"],
+    form.prof-form select,
+    form.prof-form textarea {
       width: 100%;
       padding: 8px;
       margin-bottom: 1rem;
       border: 1px solid #ccc;
       border-radius: 4px;
     }
-    form textarea {
-      resize: vertical;
-      min-height: 80px;
-    }
-    form input[type="submit"] {
+    form.prof-form input[type="submit"] {
       background-color: #002554;
       color: #fff;
       border: none;
@@ -102,7 +89,7 @@
       border-radius: 4px;
       cursor: pointer;
     }
-    form input[type="submit"]:hover {
+    form.prof-form input[type="submit"]:hover {
       background-color: #004a80;
     }
     .message {
@@ -110,7 +97,42 @@
       font-weight: bold;
       text-align: center;
     }
-    /* 테이블 스타일 (학생 리스트) */
+    /* 학생 추가 폼 */
+    form.student-form {
+      background-color: #f9f9f9;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    form.student-form label {
+      display: block;
+      margin-bottom: 0.3rem;
+      font-weight: bold;
+    }
+    form.student-form input[type="text"],
+    form.student-form select {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    form.student-form input[type="submit"] {
+      background-color: #002554;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    form.student-form input[type="submit"]:hover {
+      background-color: #004a80;
+    }
+    /* 학생 리스트 테이블 */
     table {
       width: 100%;
       border-collapse: collapse;
@@ -145,36 +167,59 @@
 </head>
 <body>
   <div class="wrapper">
-    <!-- 관리자 메뉴: Home는 public, 나머지는 관리자 페이지 -->
+    <!-- 관리자 전용 메뉴 -->
     <nav class="menu">
       <a href="index.html">Home</a>
-      <a href="admin_members.html" id="menu-members" class="admin-link">Members</a>
-      <a href="admin5504.html" id="menu-publications" class="admin-link">Publications</a>
-      <a href="admin_research.html" id="menu-research" class="admin-link">Research</a>
-      <a href="admin_projects.html" id="menu-projects" class="admin-link">Projects</a>
-      <a href="admin_news.html" id="menu-news" class="admin-link">News</a>
-      <a href="admin_contact.html" id="menu-contact" class="admin-link">Contact</a>
+      <a href="admin_members.html" class="admin-link">Members</a>
+      <a href="admin5504.html" class="admin-link">Publications</a>
+      <a href="admin_research.html" class="admin-link">Research</a>
+      <a href="admin_projects.html" class="admin-link">Projects</a>
+      <a href="admin_news.html" class="admin-link">News</a>
+      <a href="admin_contact.html" class="admin-link">Contact</a>
     </nav>
 
     <div class="inner">
       <!-- 교수 정보 수정 섹션 -->
       <div class="section-title">Professor Information</div>
-      <form id="profForm">
+      <form id="profForm" class="prof-form">
+        <!-- 교수 정보 수정 시 기존 레코드 ID (숨김) -->
+        <input type="hidden" id="profId" name="profId" value="">
+        
         <label for="profName">이름:</label>
         <input type="text" id="profName" name="profName" required>
-        
-        <label for="profTitle">직위/학력:</label>
-        <input type="text" id="profTitle" name="profTitle" required>
-        
-        <label for="profPhoto">사진 URL:</label>
-        <input type="text" id="profPhoto" name="profPhoto" required>
-        
+
+        <label for="profPosition">직위:</label>
+        <select id="profPosition" name="profPosition" required>
+          <option value="Assistant Professor">Assistant Professor</option>
+          <option value="Associate Professor">Associate Professor</option>
+          <option value="Professor">Professor</option>
+        </select>
+
+        <label for="profPhoto">사진 URL (또는 파일 업로드):</label>
+        <!-- 파일 업로드는 별도 처리 필요 – 여기서는 URL 입력 필드로 대체 -->
+        <input type="text" id="profPhoto" name="profPhoto" required placeholder="예: assets/professor.png">
+
         <label for="profEmail">이메일:</label>
         <input type="text" id="profEmail" name="profEmail" required>
-        
-        <label for="profInfo">추가 소개 (카드 내용):</label>
-        <textarea id="profInfo" name="profInfo" required></textarea>
-        
+
+        <label for="profPhone">전화번호:</label>
+        <input type="text" id="profPhone" name="profPhone" placeholder="예: 010-1234-5678">
+
+        <label for="profAddress">주소:</label>
+        <input type="text" id="profAddress" name="profAddress" placeholder="예: Rm. 522, Engineering Unit 5 (W2), Chungnam National University...">
+
+        <label for="profEducation">교육 (Education):</label>
+        <textarea id="profEducation" name="profEducation" placeholder="예: Ph.D. in ..."></textarea>
+
+        <label for="profResearch">연구 경험 (Research Experience):</label>
+        <textarea id="profResearch" name="profResearch" placeholder="예: Assistant Professor, ..."></textarea>
+
+        <label for="profHonors">수상 내역 (Honors and Awards):</label>
+        <textarea id="profHonors" name="profHonors" placeholder="예: Distinguished Ph.D. Dissertation Award, ..."></textarea>
+
+        <label for="profActivities">학술 활동 (Academic Activities):</label>
+        <textarea id="profActivities" name="profActivities" placeholder="예: TPC member at ..."></textarea>
+
         <input type="submit" value="수정">
       </form>
       <div id="profMessage" class="message"></div>
@@ -184,7 +229,7 @@
       <!-- 학생 관리 섹션 -->
       <div class="section-title">Student Management</div>
       <!-- 학생 추가 폼 -->
-      <form id="studentForm">
+      <form id="studentForm" class="student-form">
         <label for="studentName">이름:</label>
         <input type="text" id="studentName" name="studentName" required>
         
@@ -241,17 +286,23 @@
       window.location.href = 'login.html';
     }
 
-    // 교수 정보 불러오기 및 폼에 채우기
+    // 교수 정보 불러오기
     function loadProfessor(){
       fetch('https://www.nameyee.me/api/professor')
       .then(response => response.json())
       .then(data => {
-        if(data){
+        if(data && Object.keys(data).length > 0){
+          document.getElementById('profId').value = data.id;
           document.getElementById('profName').value = data.name;
-          document.getElementById('profTitle').value = data.title;
+          document.getElementById('profPosition').value = data.position;
           document.getElementById('profPhoto').value = data.photo;
           document.getElementById('profEmail').value = data.email;
-          document.getElementById('profInfo').value = data.info;
+          document.getElementById('profPhone').value = data.phone || '';
+          document.getElementById('profAddress').value = data.address || '';
+          document.getElementById('profEducation').value = data.education || '';
+          document.getElementById('profResearch').value = data.research_experience || '';
+          document.getElementById('profHonors').value = data.honors || '';
+          document.getElementById('profActivities').value = data.academic_activities || '';
         }
       })
       .catch(err => console.error('Error loading professor info:', err));
@@ -262,10 +313,15 @@
       e.preventDefault();
       const profData = {
         name: document.getElementById('profName').value,
-        title: document.getElementById('profTitle').value,
+        position: document.getElementById('profPosition').value,
         photo: document.getElementById('profPhoto').value,
         email: document.getElementById('profEmail').value,
-        info: document.getElementById('profInfo').value
+        phone: document.getElementById('profPhone').value,
+        address: document.getElementById('profAddress').value,
+        education: document.getElementById('profEducation').value,
+        research_experience: document.getElementById('profResearch').value,
+        honors: document.getElementById('profHonors').value,
+        academic_activities: document.getElementById('profActivities').value
       };
       fetch('https://www.nameyee.me/api/professor', {
         method: 'POST',
