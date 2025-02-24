@@ -1,67 +1,316 @@
--- 교수님 테이블 생성
-CREATE TABLE IF NOT EXISTS professor (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT NOT NULL,
-    title TEXT NOT NULL,
-    photo TEXT NOT NULL,
-    email TEXT NOT NULL,
-    info TEXT
-);
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>Professor - Distributed Intelligence & Systems Laboratory</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- 폰트: Rethink Sans (메뉴 전용), Roboto (본문용), Material Symbols -->
+  <link href="https://fonts.googleapis.com/css2?family=Rethink+Sans:wght@300;600;700&family=Roboto:wght@300;400;500;700&family=Material+Symbols+Outlined" rel="stylesheet">
+  <style>
+    /* 전역 리셋 및 박스 모델 설정 */
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      min-height: 100%;
+      background-color: #ffffff;
+      color: #000000;
+      box-sizing: border-box;
+    }
+    *, *::before, *::after {
+      box-sizing: inherit;
+    }
+    body {
+      font-family: 'Roboto', sans-serif;
+    }
+    .wrapper {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+    /* 메뉴 */
+    .menu {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .menu a {
+      font-family: 'Rethink Sans', sans-serif;
+      text-decoration: none;
+      color: #002554;
+      font-size: clamp(14px, 2vw, 20px);
+      font-weight: 400;
+      transition: color 0.3s;
+    }
+    .menu a:hover {
+      color: #666;
+    }
+    /* 메인 콘텐츠 영역 */
+    .content {
+      width: 100%;
+    }
+    /* 섹션 제목 스타일 */
+    .section-title {
+      text-align: center;
+      font-size: clamp(20px, 4vw, 32px);
+      font-weight: 700;
+      margin: 2rem 0 1.5rem 0;
+      color: #002554;
+    }
+    /* 교수님 정보 카드 */
+    .prof-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 1rem;
+      margin-bottom: 2rem;
+    }
+    .prof-table td {
+      vertical-align: top;
+      border: 1px solid #ccc;
+      padding: 1rem;
+    }
+    .prof-photo {
+      display: block;
+      margin: 0 auto 1rem auto;
+      width: clamp(100px, 15vw, 200px);
+      border-radius: 4px;
+    }
+    .prof-info {
+      text-align: center;
+    }
+    .prof-info h1 {
+      margin: 0 0 1rem 0;
+      font-size: clamp(16px, 3vw, 30px);
+      font-weight: 700;
+      color: #002554;
+    }
+    .prof-info .subtitle {
+      margin: 0 0 1rem 0;
+      font-size: clamp(14px, 2.5vw, 24px);
+      font-weight: 600;
+      color: #333;
+    }
+    .prof-info .info-line {
+      margin: 0.3rem 0;
+      font-size: clamp(12px, 2vw, 16px);
+      line-height: 1.4;
+    }
+    .info-cards {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin: 1rem 0 2rem 0;
+    }
+    .card {
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 1rem;
+      text-align: center;
+      min-height: 225px;
+      box-shadow: 2px 2px 5px rgba(0,0,0,0.05);
+    }
+    .card h2 {
+      margin: 0 0 1rem 0;
+      font-size: clamp(16px, 2vw, 20px);
+      font-weight: 600;
+      color: #000;
+    }
+    .card ul {
+      margin: 0;
+      padding-left: 1.2rem;
+      list-style-type: disc;
+      text-align: left;
+    }
+    .card li {
+      margin: 0.3rem 0;
+      color: #777;
+      font-size: clamp(14px, 2vw, 16px);
+      line-height: 1.4;
+    }
+    /* 석사과정 학생 카드: 2열 그리드 */
+    .master-students {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    /* 학부 연구생 카드: 4열 그리드 */
+    .undergrad-students {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .student-card {
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 1rem;
+      text-align: center;
+      box-shadow: 2px 2px 5px rgba(0,0,0,0.05);
+    }
+    .student-photo-container {
+      height: 220px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 0.5rem;
+    }
+    .student-photo {
+      max-height: 100%;
+      width: auto;
+      object-fit: contain;
+    }
+    .student-name {
+      font-size: 1.2em;
+      font-weight: bold;
+      margin-top: 0.5rem;
+      margin-bottom: 0.3rem;
+    }
+    .student-contact {
+      font-size: 0.9em;
+      color: #555;
+      margin-top: 0.2rem;
+      margin-bottom: 0.1rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <!-- 상단 메뉴 -->
+    <nav class="menu">
+      <a href="index.html">Home</a>
+      <a href="admin_members.html">Members</a>
+      <a href="admin5504.html">Publications</a>
+      <a href="admin_research.html">Research</a>
+      <a href="admin_projects.html">Projects</a>
+      <a href="admin_news.html">News</a>
+      <a href="admin_contact.html">Contact</a>
+    </nav>
 
--- 학생 테이블 생성
-CREATE TABLE IF NOT EXISTS student (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT NOT NULL,
-    photo TEXT NOT NULL,
-    email TEXT NOT NULL,
-    github TEXT NOT NULL,
-    level TEXT NOT NULL  -- "Master" 또는 "Undergraduate"
-);
+    <div class="content">
+      <!-- 교수 정보 섹션 -->
+      <div class="section-title">Professor</div>
+      <div id="professorContainer">
+        <!-- 교수 정보 카드가 API로부터 불러와져 동적으로 생성됩니다. -->
+      </div>
 
--- 교수님 초기 데이터 (예시)
-INSERT INTO professor (name, title, photo, email, info) VALUES (
-    'Heecheol Yang',
-    'Assistant Professor, Ph. D.',
-    'assets/professor.png',
-    'hcyang@cnu.ac.kr',
-    'Division of Computer Convergence, Chungnam National University. Rm. 522, Engineering Unit 5 (W2), Chungnam National University, 99 Daehak-ro, Yuseong-gu, Daejeon, Korea [34134].'
-);
+      <!-- 석사과정 학생 섹션 (2열) -->
+      <div class="section-title">Master Graduate Students</div>
+      <div id="masterContainer" class="master-students">
+        <!-- 석사 학생 카드들이 동적으로 생성됩니다. -->
+      </div>
 
--- 석사과정 학생 초기 데이터 (예시)
-INSERT INTO student (name, photo, email, github, level) VALUES (
-    'Seongyoon Kim',
-    'assets/kim_seongyoon.jpg',
-    '201902664@o.cnu.ac.kr',
-    'https://github.com/kimsy1106',
-    'Master'
-);
-INSERT INTO student (name, photo, email, github, level) VALUES (
-    'Jihyun Ryu',
-    'assets/ryu_jihyun.jpg',
-    'ryujihyunmail@gmail.com',
-    'https://github.com/Dolce-Latte',
-    'Master'
-);
+      <!-- 학부 연구생 섹션 (4열) -->
+      <div class="section-title">Undergraduate Research Students</div>
+      <div id="undergradContainer" class="undergrad-students">
+        <!-- 학부 학생 카드들이 동적으로 생성됩니다. -->
+      </div>
+    </div>
+  </div>
 
--- 학부 연구생 초기 데이터 (예시)
-INSERT INTO student (name, photo, email, github, level) VALUES (
-    'Jeongeun Baek',
-    'assets/baek_jeongeun.jpg',
-    'bjo5029@o.cnu.ac.kr',
-    'http://github.com/bjo5029',
-    'Undergraduate'
-);
-INSERT INTO student (name, photo, email, github, level) VALUES (
-    'Chanyeong Cho',
-    'assets/cho_chanyeong.jpg',
-    'oriental8@o.cnu.ac.kr',
-    'https://github.com/ChanyeongCho',
-    'Undergraduate'
-);
-INSERT INTO student (name, photo, email, github, level) VALUES (
-    'Jaemin Heo',
-    'assets/heo_jaemin.jpg',
-    'hjm000720@o.cnu.ac.kr',
-    'https://github.com/jaemin720',
-    'Undergraduate'
-);
+  <script>
+    // 교수 정보 불러오기
+    function loadProfessor(){
+      fetch('https://www.nameyee.me/api/professor')
+        .then(response => response.json())
+        .then(data => {
+          const container = document.getElementById('professorContainer');
+          container.innerHTML = `
+            <table class="prof-table">
+              <tr>
+                <td>
+                  <img src="${data.photo}" alt="Professor ${data.name}" class="prof-photo">
+                  <div class="prof-info">
+                    <h1>${data.name}</h1>
+                    <div class="subtitle">${data.title}</div>
+                    <div class="info-line">${data.info || ''}</div>
+                    <div class="info-line">
+                      <a href="mailto:${data.email}" style="text-decoration:none; color:inherit;">
+                        <span class="material-symbols-outlined">mail</span> ${data.email}
+                      </a>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </table>
+            <div class="info-cards">
+              <div class="card">
+                <h2>Education</h2>
+                <ul>
+                  <li>Ph.D. Dept. of Electrical and Computer Engineering, Seoul National University</li>
+                  <li>B.S. Dept. of Electrical and Computer Engineering, Seoul National University</li>
+                </ul>
+              </div>
+              <div class="card">
+                <h2>Research Experience</h2>
+                <ul>
+                  <li>Assistant Professor, School of Electrical Engineering, Kumoh National Institute of Technology</li>
+                  <li>Staff Engineer, Standard Research Team, Samsung Research, Samsung Electronics</li>
+                  <li>Visiting Scholar, University of Southern California</li>
+                </ul>
+              </div>
+              <div class="card">
+                <h2>Honors and Awards</h2>
+                <ul>
+                  <li>Distinguished Ph.D. Dissertation Award at Seoul National University</li>
+                  <li>Gold Prize at 2017 IEEE Seoul Section Student Paper Contest</li>
+                  <li>Bronze Prize at the 23rd Samsung Electronics HumanTech Paper Contest</li>
+                </ul>
+              </div>
+              <div class="card">
+                <h2>Academic Activities</h2>
+                <ul>
+                  <li>TPC member @ IEEE Wireless Communications and Networking Conference (2020, 2021)</li>
+                </ul>
+              </div>
+            </div>
+          `;
+        })
+        .catch(err => console.error('Error loading professor info:', err));
+    }
+
+    // 학생 정보 불러오기 (모든 학생 데이터를 받아 level에 따라 분리)
+    function loadStudents(){
+      fetch('https://www.nameyee.me/api/students')
+        .then(response => response.json())
+        .then(data => {
+          const masterContainer = document.getElementById('masterContainer');
+          const undergradContainer = document.getElementById('undergradContainer');
+          masterContainer.innerHTML = '';
+          undergradContainer.innerHTML = '';
+          data.forEach(student => {
+            const card = document.createElement('div');
+            card.className = 'student-card';
+            card.innerHTML = `
+              <div class="student-photo-container">
+                <img src="${student.photo}" alt="${student.name}" class="student-photo">
+              </div>
+              <div class="student-name">${student.name}</div>
+              <div class="student-contact email-contact">
+                <a href="mailto:${student.email}" style="text-decoration:none; color:inherit;">
+                  <span class="material-symbols-outlined">mail</span> ${student.email}
+                </a>
+              </div>
+              <div class="student-contact github-contact">
+                <a href="${student.github}" target="_blank" style="text-decoration:none; color:inherit;">
+                  <span class="material-symbols-outlined">code</span> ${student.github}
+                </a>
+              </div>
+            `;
+            if(student.level === "Master"){
+              masterContainer.appendChild(card);
+            } else if(student.level === "Undergraduate"){
+              undergradContainer.appendChild(card);
+            }
+          });
+        })
+        .catch(err => console.error('Error loading students:', err));
+    }
+
+    // 페이지 로드 시 교수 정보와 학생 정보 불러오기
+    loadProfessor();
+    loadStudents();
+  </script>
+</body>
+</html>
