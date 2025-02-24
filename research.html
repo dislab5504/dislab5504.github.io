@@ -21,15 +21,13 @@
     *, *::before, *::after {
       box-sizing: inherit;
     }
-
     /* 전체 래퍼 */
     .wrapper {
       max-width: 1200px;
       margin: 0 auto;
       padding: 2rem;
     }
-
-    /* 최상단 메뉴: 가로로 중앙 배치 */
+    /* 최상단 메뉴 */
     .menu {
       display: flex;
       justify-content: center;
@@ -48,7 +46,6 @@
     .menu a:hover {
       color: #666;
     }
-
     /* 내부 컨텐츠 */
     .inner {
       text-align: center;
@@ -56,14 +53,12 @@
     .inner h1 {
       margin-bottom: 2rem;
     }
-
     /* 2열 그리드 컨테이너 */
     .grid-container {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 20px;
     }
-
     /* 연구 카드 스타일 */
     .research-card {
       display: flex;
@@ -77,31 +72,23 @@
     .research-card:hover {
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
     }
-
-    /* 2:1 비율로 이미지 고정 & 잘리지 않도록 cover 적용 */
     .research-card img {
       width: 100%;
-      aspect-ratio: 2 / 1;  /* 가로 2 : 세로 1 */
-      object-fit: cover;    /* 비율 유지, 넘치는 부분은 잘림 */
+      aspect-ratio: 2 / 1;
+      object-fit: cover;
       display: block;
     }
-
-    /* 텍스트 영역을 카드 하단에 위치시키기 위해 margin-top: auto; */
     .research-content {
       padding: 1rem;
-      margin-top: auto; /* 카드 하단으로 고정 */
+      margin-top: auto;
     }
-
-    /* 제목: 더 크고 굵게 */
     .research-title {
       font-family: 'Rethink Sans', sans-serif;
-      font-size: 1.6rem; /* 크게 */
-      font-weight: 700;  /* 굵게 */
+      font-size: 1.6rem;
+      font-weight: 700;
       margin-bottom: 0.8rem;
       color: #333;
     }
-
-    /* 설명 텍스트 */
     .research-desc {
       font-size: 1rem;
       line-height: 1.4;
@@ -111,62 +98,65 @@
     .research-desc p {
       margin: 0.4rem 0;
     }
-
     /* 반응형: 모바일에서 1열 */
     @media (max-width: 768px) {
       .grid-container {
         grid-template-columns: 1fr;
       }
       .menu {
-        flex-wrap: wrap; /* 메뉴가 줄바꿈될 수 있도록 (선택사항) */
+        flex-wrap: wrap;
       }
     }
   </style>
 </head>
 <body>
   <div class="wrapper">
-    <!-- 최상단 중앙 메뉴 -->
+    <!-- 최상단 메뉴 -->
     <nav class="menu">
       <a href="index.html">Home</a>
       <a href="members.html">Members</a>
       <a href="publications.html">Publications</a>
       <a href="research.html">Research</a>
       <a href="projects.html">Projects</a>
-      
       <a href="news.html">News</a>
       <a href="contact.html">Contact</a>
     </nav>
-
+    
     <div class="inner">
       <h1>Research</h1>
-
-      <div class="grid-container">
-        <!-- 카드 1 -->
-        <div class="research-card">
-          <img src="assets/research_1.jpg" alt="Distributed Computing">
-          <div class="research-content">
-            <h2 class="research-title">Distributed Computing Systems for Smart IoT Networks</h2>
-            <div class="research-desc">
-              <p>Straggler-resilient distributed computing</p>
-              <p>Privacy-preserving distributed computing</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- 카드 2 -->
-        <div class="research-card">
-          <img src="assets/research_2.jpg" alt="Distributed Learning">
-          <div class="research-content">
-            <h2 class="research-title">Distributed Learning over Wireless Networks</h2>
-            <div class="research-desc">
-              <p>Federated learning</p>
-              <p>Split learning</p>
-              <p>Communication-Computing Convergence for AI</p>
-            </div>
-          </div>
-        </div>
+      <div class="grid-container" id="researchContainer">
+        <!-- 연구 카드들이 동적으로 삽입됩니다. -->
       </div>
     </div>
   </div>
+
+  <script>
+    function loadResearch() {
+      fetch('https://www.nameyee.me/api/research')
+        .then(response => response.json())
+        .then(data => {
+          // 예시로 id 오름차순 정렬 (필요시 날짜 등 다른 기준으로 정렬 가능)
+          data.sort((a, b) => a.id - b.id);
+          const container = document.getElementById('researchContainer');
+          container.innerHTML = '';
+          data.forEach(item => {
+            // description은 줄바꿈(\n) 기준으로 <p> 태그로 변환
+            const paragraphs = item.description ? item.description.split('\n').map(p => `<p>${p.trim()}</p>`).join('') : '';
+            const card = document.createElement('div');
+            card.className = 'research-card';
+            card.innerHTML = `
+              <img src="${item.image}" alt="${item.title}">
+              <div class="research-content">
+                <h2 class="research-title">${item.title}</h2>
+                <div class="research-desc">${paragraphs}</div>
+              </div>
+            `;
+            container.appendChild(card);
+          });
+        })
+        .catch(err => console.error('Error loading research items:', err));
+    }
+    loadResearch();
+  </script>
 </body>
 </html>
