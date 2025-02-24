@@ -21,15 +21,11 @@
     *, *::before, *::after {
       box-sizing: inherit;
     }
-
-    /* 전체 래퍼 */
     .wrapper {
       max-width: 1200px;
       margin: 0 auto;
       padding: 2rem;
     }
-
-    /* 최상단 메뉴: 가로로 중앙 배치 */
     .menu {
       display: flex;
       justify-content: center;
@@ -48,23 +44,20 @@
     .menu a:hover {
       color: #666;
     }
-
-    /* 내부 컨텐츠 */
     .inner {
-      /* 필요하면 상단 여백 추가 가능
-         margin-top: 2rem;
-      */
+      /* 필요시 margin-top 추가 */
     }
-
-    /* 그리드 컨테이너: 열 2개 배치 및 항목 높이 동일 */
+    h1 {
+      text-align: center;
+      margin-bottom: 2rem;
+      color: #002554;
+    }
     .grid-container {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 20px;
-      align-items: stretch; /* 각 그리드 아이템의 높이 동일하게 */
+      align-items: stretch;
     }
-
-    /* 프로젝트 카드 스타일 */
     .project-card {
       display: block;
       text-decoration: none;
@@ -74,16 +67,15 @@
       display: flex;
       flex-direction: column;
       border: 1px solid #ccc;
-      border-radius: 10px; /* 라운드 처리 */
+      border-radius: 10px;
       padding: 1rem;
       background-color: #fafafa;
       transition: box-shadow 0.3s;
-      height: 100%; /* 부모 높이 채우기 */
+      height: 100%;
     }
     .project-card-inner:hover {
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
     }
-
     .project-title {
       font-family: 'Rethink Sans', sans-serif;
       font-size: 1.4rem;
@@ -97,15 +89,12 @@
       margin: 0.5rem 0;
       line-height: 1.4;
     }
-    .project-duration,
-    .project-funding {
+    .project-duration {
       margin-bottom: 0.5rem;
     }
-
-    /* 반응형: 모바일에서는 한 열로 변경 */
     @media (max-width: 768px) {
       .menu {
-        flex-wrap: wrap; /* 메뉴가 좁을 때 줄바꿈 가능 (선택) */
+        flex-wrap: wrap;
         margin-bottom: 1rem;
       }
       .grid-container {
@@ -123,43 +112,45 @@
       <a href="publications.html">Publications</a>
       <a href="research.html">Research</a>
       <a href="projects.html">Projects</a>
-      
       <a href="news.html">News</a>
       <a href="contact.html">Contact</a>
     </nav>
-
+    
     <div class="inner">
       <h1>Projects</h1>
-      <div class="grid-container">
-        <a href="#" class="project-card">
-          <div class="project-card-inner">
-            <h3 class="project-title">A Study on Wireless Distributed Computing and Learning over 6G</h3>
-            <div class="project-info">
-              <div class="project-duration"><strong>Duration:</strong> 2022.03 - 2025.02</div>
-              <div class="project-funding"><strong>Funding:</strong> 우수신진연구, National Research Foundation (NRF)</div>
-            </div>
-          </div>
-        </a>
-        <a href="#" class="project-card">
-          <div class="project-card-inner">
-            <h3 class="project-title">Development of Intelligent Wireless Access Technologies</h3>
-            <div class="project-info">
-              <div class="project-duration"><strong>Duration:</strong> 2022.04 - 2025.12</div>
-              <div class="project-funding"><strong>Funding:</strong> Electronics and Telecommunications Research Institute (ETRI), Institute for Information &amp; Communication Technology Planning &amp; evaluation (IITP)</div>
-            </div>
-          </div>
-        </a>
-        <a href="#" class="project-card">
-          <div class="project-card-inner">
-            <h3 class="project-title">Research on Distributed Computing Techniques Based on Computational Verification</h3>
-            <div class="project-info">
-              <div class="project-duration"><strong>Duration:</strong> 2024.01 - 2024.12</div>
-              <div class="project-funding"><strong>Funding:</strong> 융합보안대학원사업, Institute for Information &amp; Communication Technology Planning &amp; evaluation (IITP)</div>
-            </div>
-          </div>
-        </a>
+      <div class="grid-container" id="projectsContainer">
+        <!-- 프로젝트 카드들이 동적으로 삽입됩니다. -->
       </div>
     </div>
   </div>
+  
+  <script>
+    function loadProjects() {
+      fetch('https://www.nameyee.me/api/projects')
+        .then(response => response.json())
+        .then(data => {
+          const container = document.getElementById('projectsContainer');
+          container.innerHTML = '';
+          data.forEach(item => {
+            const card = document.createElement('a');
+            card.href = "#";  // 필요 시 세부 페이지 링크 지정
+            card.className = 'project-card';
+            card.innerHTML = `
+              <div class="project-card-inner">
+                ${item.image ? `<img src="${item.image}" alt="${item.title}" style="width:100%; height:auto; margin-bottom:1rem;">` : ''}
+                <h3 class="project-title">${item.title}</h3>
+                <div class="project-info">
+                  <div class="project-duration"><strong>Duration:</strong> ${item.start_month} ~ ${item.end_month}</div>
+                  <div class="project-funding"><strong>Funding:</strong> ${item.funding}</div>
+                </div>
+              </div>
+            `;
+            container.appendChild(card);
+          });
+        })
+        .catch(err => console.error('Error loading projects:', err));
+    }
+    loadProjects();
+  </script>
 </body>
 </html>
