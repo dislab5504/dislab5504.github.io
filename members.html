@@ -188,6 +188,15 @@
     .github-contact {
       margin-top: 0.1rem;
     }
+    /* 미디어 쿼리: 화면 폭이 768px 이하일 때 */
+@media (max-width: 768px) {
+  .master-students {
+    grid-template-columns: 1fr; /* 석사 학생은 1열로 */
+  }
+  .undergrad-students {
+    grid-template-columns: repeat(2, 1fr); /* 학부 학생은 2열로 */
+  }
+}
   </style>
 </head>
 <body>
